@@ -37,6 +37,9 @@ func (b *BytesReader) ReadLong() (int64, error) {
 
 func (b *BytesReader) ReadBytes(n int) ([]byte, error) {
 	bs := make([]byte, n)
+	if n == 0 {
+		return bs, nil
+	}
 	_, err := b.Read(bs)
 	if err != nil {
 		return nil, err

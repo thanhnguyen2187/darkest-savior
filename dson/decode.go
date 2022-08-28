@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/pkg/errors"
 
@@ -285,8 +286,8 @@ func DecodeMeta2Blocks(reader *BytesReader, headerDataLength int, numMeta2Entrie
 	}
 	lastBlock := meta2Blocks[numMeta2Entries-1]
 	lastBlock.Inferences.RawDataLength = InferRawDataLength(
-		lastBlock.Offset,
 		headerDataLength,
+		lastBlock.Offset,
 		0,
 	)
 
@@ -300,8 +301,17 @@ func DecodeField(reader *BytesReader, meta2Block Meta2Block) (*Field, error) {
 	field := Field{}
 	err := error(nil)
 	field.Name, err = reader.ReadString(meta2Block.Inferences.FieldNameLength)
+	field.Name = strings.Trim(field.Name, "\u0000")
 	if err != nil {
 		err := errors.Wrap(err, "DecodeField error")
+		return nil, err
+	}
+	hashed := HashString(field.Name)
+	if hashed != int32(meta2Block.NameHash) {
+		err := fmt.Errorf(
+			`DecodeField error: mismatched hash value of field name "%s"; expected "%d", received "%d"`,
+			field.Name, meta2Block.NameHash, hashed,
+		)
 		return nil, err
 	}
 	field.RawData, err = reader.ReadBytes(meta2Block.Inferences.RawDataLength)
