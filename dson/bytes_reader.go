@@ -37,6 +37,9 @@ func (b *BytesReader) ReadLong() (int64, error) {
 
 func (b *BytesReader) ReadBytes(n int) ([]byte, error) {
 	bs := make([]byte, n)
+	// add return early to avoid EOF error
+	// when reader's pointer reach end of file
+	// while the number of next bytes to read is 0
 	if n == 0 {
 		return bs, nil
 	}
