@@ -1,4 +1,4 @@
-package dson
+package lbytes
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ var tests = map[string]struct {
 }{}
 
 func TestBytesReader_ReadInt(t *testing.T) {
-	reader := BytesReader{
+	reader := Reader{
 		Reader: *bytes.NewReader(
 			[]byte{
 				3, 1, 4, 3,

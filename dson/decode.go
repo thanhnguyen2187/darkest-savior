@@ -1,12 +1,11 @@
 package dson
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"strings"
 
 	"darkest-savior/ds"
+	"darkest-savior/dson/dheader"
+	"darkest-savior/dson/lbytes"
 	"github.com/pkg/errors"
 
 	"github.com/samber/lo"
@@ -14,26 +13,10 @@ import (
 
 type (
 	DecodedFile struct {
-		Header      Header       `json:"header"`
-		Meta1Blocks []Meta1Block `json:"meta_1_blocks"`
-		Meta2Blocks []Meta2Block `json:"meta_2_blocks"`
-		Fields      []Field      `json:"fields"`
-	}
-	Header struct {
-		MagicNumber     []byte `json:"magic_number"`
-		Revision        []byte `json:"revision"`
-		HeaderLength    int    `json:"header_length"`
-		Zeroes          []byte `json:"zeroes"`
-		Meta1Size       int    `json:"meta_1_size"`
-		NumMeta1Entries int    `json:"num_meta_1_entries"`
-		Meta1Offset     int    `json:"meta_1_offset"`
-		Zeroes2         []byte `json:"zeroes_2"`
-		Zeroes3         []byte `json:"zeroes_3"`
-		NumMeta2Entries int    `json:"num_meta_2_entries"`
-		Meta2Offset     int    `json:"meta_2_offset"`
-		Zeroes4         []byte `json:"zeroes_4"`
-		DataLength      int    `json:"data_length"`
-		DataOffset      int    `json:"data_offset"`
+		Header      dheader.Header `json:"header"`
+		Meta1Blocks []Meta1Block   `json:"meta_1_blocks"`
+		Meta2Blocks []Meta2Block   `json:"meta_2_blocks"`
+		Fields      []Field        `json:"fields"`
 	}
 	Meta1Block struct {
 		ParentIndex       int `json:"parent_index"`
@@ -70,13 +53,7 @@ type (
 		DataType        string   `json:"data_type"`
 		Data            any      `json:"data"`
 	}
-	ReadingInstruction struct {
-		Key          string
-		ReadFunction func() (any, error)
-	}
 )
-
-var MagicNumberBytes = []byte{0x01, 0xB1, 0x00, 0x00}
 
 func HashString(s string) int32 {
 	return lo.Reduce(
@@ -88,126 +65,16 @@ func HashString(s string) int32 {
 	)
 }
 
-func createMagicNumberReadFunction(reader *BytesReader) func() (any, error) {
-	return func() (any, error) {
-		magicNumberBytes, err := reader.ReadBytes(4)
-		if err != nil {
-			return nil, err
+func DecodeMeta1Block(reader *lbytes.Reader) (*Meta1Block, error) {
+	readInt := lbytes.CreateIntReadFunction(reader)
 
-		}
-		if bytes.Compare(magicNumberBytes, MagicNumberBytes) != 0 {
-			msg := fmt.Sprintf(
-				`invalid magic number: expected "%v", got "%v"`,
-				MagicNumberBytes, magicNumberBytes,
-			)
-			return nil, errors.New(msg)
-		}
-		return magicNumberBytes, nil
-	}
-}
-
-func createNBytesReadFunction(reader *BytesReader, n int) func() (any, error) {
-	return func() (any, error) {
-		return reader.ReadBytes(n)
-	}
-}
-
-func createIntReadFunction(reader *BytesReader) func() (any, error) {
-	return func() (any, error) {
-		return reader.ReadInt()
-	}
-}
-
-func createStringReadFunction(reader *BytesReader, n int) func() (any, error) {
-	return func() (any, error) {
-		result, err := reader.ReadString(n)
-		if err != nil {
-			return "", err
-		}
-		// zero byte trimming is needed since that is how strings are laid out in a DSON file
-		return strings.TrimRight(result, "\u0000"), nil
-	}
-}
-
-// ExecuteInstructions create the final value t with type T by
-//
-// - Reading the instruction into a map, then
-//
-// - Create JSON bytes from the map, and finally
-//
-// - Read the JSON bytes into t
-//
-// In order to lessen the burden of manual mapping.
-func ExecuteInstructions[T any](instructions []ReadingInstruction) (*T, error) {
-	tMap := map[string]any{}
-	for _, instruction := range instructions {
-		value, err := instruction.ReadFunction()
-		if err != nil {
-			err := errors.Wrapf(err, `ExecuteInstructions error reading key "%v"`, instruction.Key)
-			return nil, err
-		}
-		tMap[instruction.Key] = value
-	}
-	tBytes, err := json.Marshal(tMap)
-	if err != nil {
-		err := errors.Wrapf(err, `ExecuteInstructions error marshalling map "%v" to JSON`, tMap)
-		return nil, err
-	}
-
-	var t T
-	if err := json.Unmarshal(tBytes, &t); err != nil {
-		err := errors.Wrapf(
-			err, `ExecuteInstructions error unmarshalling bytes "%s" to type "%T"`,
-			string(tBytes), t,
-		)
-		return nil, err
-	}
-
-	return &t, nil
-}
-
-func DecodeHeader(reader *BytesReader) (*Header, error) {
-
-	readMagicNumber := createMagicNumberReadFunction(reader)
-	read4Bytes := createNBytesReadFunction(reader, 4)
-	read8Bytes := createNBytesReadFunction(reader, 8)
-	readInt := createIntReadFunction(reader)
-
-	headerInstructions := []ReadingInstruction{
-		{"magic_number", readMagicNumber},
-		{"revision", read4Bytes},
-		{"header_length", readInt},
-		{"zeroes", read4Bytes},
-		{"meta_1_size", readInt},
-		{"num_meta_1_entries", readInt},
-		{"meta_1_offset", readInt},
-		{"zeroes_2", read8Bytes},
-		{"zeroes_3", read8Bytes},
-		{"num_meta_2_entries", readInt},
-		{"meta_2_offset", readInt},
-		{"zeroes_4", read4Bytes},
-		{"data_length", readInt},
-		{"data_offset", readInt},
-	}
-
-	header, err := ExecuteInstructions[Header](headerInstructions)
-	if err != nil {
-		return nil, err
-	}
-
-	return header, nil
-}
-
-func DecodeMeta1Block(reader *BytesReader) (*Meta1Block, error) {
-	readInt := createIntReadFunction(reader)
-
-	meta1Instructions := []ReadingInstruction{
+	meta1Instructions := []lbytes.Instruction{
 		{"parent_index", readInt},
 		{"meta_2_entry_index", readInt},
 		{"num_direct_children", readInt},
 		{"num_all_children", readInt},
 	}
-	meta1Block, err := ExecuteInstructions[Meta1Block](meta1Instructions)
+	meta1Block, err := lbytes.ExecuteInstructions[Meta1Block](meta1Instructions)
 	if err != nil {
 		err := errors.Wrap(err, "DecodeMeta1Block error")
 		return nil, err
@@ -216,7 +83,7 @@ func DecodeMeta1Block(reader *BytesReader) (*Meta1Block, error) {
 	return meta1Block, nil
 }
 
-func DecodeMeta1Blocks(reader *BytesReader, numMeta1Entries int) ([]Meta1Block, error) {
+func DecodeMeta1Blocks(reader *lbytes.Reader, numMeta1Entries int) ([]Meta1Block, error) {
 	meta1Blocks := make([]Meta1Block, 0, numMeta1Entries)
 	for i := 0; i < numMeta1Entries; i++ {
 		meta1Block, err := DecodeMeta1Block(reader)
@@ -247,11 +114,7 @@ func InferRawDataLength(secondOffset int, firstOffset int, firstFieldNameLength 
 	return secondOffset - (firstOffset + firstFieldNameLength)
 }
 
-func InferUsingMeta2Block(
-	inferences FieldInferences,
-	rawData []byte,
-	meta2block Meta2Block,
-) FieldInferences {
+func InferUsingMeta2Block(rawData []byte, meta2block Meta2Block) FieldInferences {
 	rawDataOffset := meta2block.Offset + meta2block.Inferences.FieldNameLength
 	rawDataLength := meta2block.Inferences.RawDataLength
 	alignedBytesCount := ds.NearestDivisibleByM(rawDataOffset, 4) - rawDataOffset
@@ -260,11 +123,14 @@ func InferUsingMeta2Block(
 		rawDataStripped = rawData[alignedBytesCount:]
 	}
 
-	inferences.RawDataOffset = rawDataOffset
-	inferences.RawDataLength = rawDataLength
-	inferences.RawDataStripped = rawDataStripped
-
-	return inferences
+	return FieldInferences{
+		IsObject:        meta2block.Inferences.IsObject,
+		ParentIndex:     meta2block.Inferences.ParentIndex,
+		HierarchyPath:   nil,
+		RawDataOffset:   rawDataOffset,
+		RawDataLength:   rawDataLength,
+		RawDataStripped: rawDataStripped,
+	}
 }
 
 func InferNumDirectChildren(meta1Blocks []Meta1Block, meta2Blocks []Meta2Block) ([]Meta2Block, error) {
@@ -405,14 +271,14 @@ func InferRawDataLengths(meta2Blocks []Meta2Block, headerDataLength int) ([]Meta
 	return meta2BlocksCopy, nil
 }
 
-func DecodeMeta2Block(reader *BytesReader) (*Meta2Block, error) {
-	readInt := createIntReadFunction(reader)
-	instructions := []ReadingInstruction{
+func DecodeMeta2Block(reader *lbytes.Reader) (*Meta2Block, error) {
+	readInt := lbytes.CreateIntReadFunction(reader)
+	instructions := []lbytes.Instruction{
 		{"name_hash", readInt},
 		{"offset", readInt},
 		{"field_info", readInt},
 	}
-	meta2Block, err := ExecuteInstructions[Meta2Block](instructions)
+	meta2Block, err := lbytes.ExecuteInstructions[Meta2Block](instructions)
 	if err != nil {
 		err := errors.Wrap(err, "DecodeMeta2Block error")
 		return nil, err
@@ -423,7 +289,7 @@ func DecodeMeta2Block(reader *BytesReader) (*Meta2Block, error) {
 	return meta2Block, nil
 }
 
-func DecodeMeta2Blocks(reader *BytesReader, header Header, meta1Blocks []Meta1Block) ([]Meta2Block, error) {
+func DecodeMeta2Blocks(reader *lbytes.Reader, header dheader.Header, meta1Blocks []Meta1Block) ([]Meta2Block, error) {
 	meta2Blocks := make([]Meta2Block, 0, header.NumMeta2Entries)
 	for i := 0; i < header.NumMeta2Entries; i++ {
 		meta2Block, err := DecodeMeta2Block(reader)
@@ -452,19 +318,12 @@ func DecodeMeta2Blocks(reader *BytesReader, header Header, meta1Blocks []Meta1Bl
 	return meta2Blocks, nil
 }
 
-func DecodeField(reader *BytesReader, meta2Block Meta2Block) (*Field, error) {
+func DecodeField(reader *lbytes.Reader, meta2Block Meta2Block) (*Field, error) {
 	// manual decoding and mapping is needed since turning data into JSON
 	// and parse back does not work for bytes of RawData
-	field := Field{
-		Inferences: FieldInferences{
-			IsObject:      meta2Block.Inferences.IsObject,
-			ParentIndex:   meta2Block.Inferences.ParentIndex,
-			RawDataLength: meta2Block.Inferences.RawDataLength,
-			RawDataOffset: meta2Block.Offset + meta2Block.Inferences.FieldNameLength,
-		},
-	}
+	field := Field{}
 	err := error(nil)
-	readString := createStringReadFunction(reader, meta2Block.Inferences.FieldNameLength)
+	readString := lbytes.CreateStringReadFunction(reader, meta2Block.Inferences.FieldNameLength)
 	ok := false
 
 	fieldName, err := readString()
@@ -492,11 +351,7 @@ func DecodeField(reader *BytesReader, meta2Block Meta2Block) (*Field, error) {
 		return nil, err
 	}
 
-	field.Inferences = InferUsingMeta2Block(
-		field.Inferences,
-		field.RawData,
-		meta2Block,
-	)
+	field.Inferences = InferUsingMeta2Block(field.RawData, meta2Block)
 
 	return &field, nil
 }
@@ -522,7 +377,7 @@ func InferHierarchyPaths(fields []Field) []Field {
 	return fieldsCopy
 }
 
-func DecodeFields(reader *BytesReader, meta2Blocks []Meta2Block) ([]Field, error) {
+func DecodeFields(reader *lbytes.Reader, meta2Blocks []Meta2Block) ([]Field, error) {
 	fields := make([]Field, 0, len(meta2Blocks))
 	for _, meta2Block := range meta2Blocks {
 		field, err := DecodeField(reader, meta2Block)
@@ -538,11 +393,11 @@ func DecodeFields(reader *BytesReader, meta2Blocks []Meta2Block) ([]Field, error
 	return fields, nil
 }
 
-func DecodeDSON(reader *BytesReader) (*DecodedFile, error) {
+func DecodeDSON(reader *lbytes.Reader) (*DecodedFile, error) {
 	file := DecodedFile{}
 	err := error(nil)
 
-	header, err := DecodeHeader(reader)
+	header, err := dheader.DecodeHeader(reader)
 	if err != nil {
 		return nil, err
 	}

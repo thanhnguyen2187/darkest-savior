@@ -1,21 +1,21 @@
-package dson
+package lbytes
 
 import (
 	"bytes"
 	"encoding/binary"
 )
 
-type BytesReader struct {
+type Reader struct {
 	bytes.Reader
 }
 
-func NewBytesReader(bs []byte) BytesReader {
-	return BytesReader{
+func NewBytesReader(bs []byte) Reader {
+	return Reader{
 		Reader: *bytes.NewReader(bs),
 	}
 }
 
-func (b *BytesReader) ReadInt() (int, error) {
+func (b *Reader) ReadInt() (int, error) {
 	bs := make([]byte, 4)
 	_, err := b.Read(bs)
 	if err != nil {
@@ -25,7 +25,7 @@ func (b *BytesReader) ReadInt() (int, error) {
 	return int(int32(result)), nil
 }
 
-func (b *BytesReader) ReadLong() (int64, error) {
+func (b *Reader) ReadLong() (int64, error) {
 	bs := make([]byte, 8)
 	_, err := b.Read(bs)
 	if err != nil {
@@ -35,7 +35,7 @@ func (b *BytesReader) ReadLong() (int64, error) {
 	return int64(result), nil
 }
 
-func (b *BytesReader) ReadBytes(n int) ([]byte, error) {
+func (b *Reader) ReadBytes(n int) ([]byte, error) {
 	bs := make([]byte, n)
 	// add return early to avoid EOF error
 	// when reader's pointer reach end of file
@@ -50,7 +50,7 @@ func (b *BytesReader) ReadBytes(n int) ([]byte, error) {
 	return bs, nil
 }
 
-func (b *BytesReader) ReadString(n int) (string, error) {
+func (b *Reader) ReadString(n int) (string, error) {
 	bs, err := b.ReadBytes(n)
 	if err != nil {
 		return "", err

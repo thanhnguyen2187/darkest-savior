@@ -4,14 +4,16 @@ import (
 	"os"
 
 	"darkest-savior/dson"
+	"darkest-savior/dson/lbytes"
 )
 
 func main() {
+	// ui.Start()
 	bytes, err := os.ReadFile("sample-data/persist.town.json")
 	if err != nil {
 		panic(err)
 	}
-	reader := dson.NewBytesReader(bytes)
+	reader := lbytes.NewBytesReader(bytes)
 	decodedFile, err := dson.DecodeDSON(&reader)
 	if err != nil {
 		panic(err)
