@@ -5,6 +5,7 @@ import (
 
 	"darkest-savior/ds"
 	"darkest-savior/dson/dheader"
+	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/lbytes"
 	"github.com/pkg/errors"
 
@@ -14,15 +15,9 @@ import (
 type (
 	DecodedFile struct {
 		Header      dheader.Header `json:"header"`
-		Meta1Blocks []Meta1Block   `json:"meta_1_blocks"`
+		Meta1Blocks []dmeta1.Block `json:"meta_1_blocks"`
 		Meta2Blocks []Meta2Block   `json:"meta_2_blocks"`
 		Fields      []Field        `json:"fields"`
-	}
-	Meta1Block struct {
-		ParentIndex       int `json:"parent_index"`
-		Meta2EntryIndex   int `json:"meta_2_entry_index"`
-		NumDirectChildren int `json:"num_direct_children"`
-		NumAllChildren    int `json:"num_all_children"`
 	}
 	Meta2Block struct {
 		NameHash   int                  `json:"name_hash"`
@@ -65,41 +60,6 @@ func HashString(s string) int32 {
 	)
 }
 
-func DecodeMeta1Block(reader *lbytes.Reader) (*Meta1Block, error) {
-	readInt := lbytes.CreateIntReadFunction(reader)
-
-	meta1Instructions := []lbytes.Instruction{
-		{"parent_index", readInt},
-		{"meta_2_entry_index", readInt},
-		{"num_direct_children", readInt},
-		{"num_all_children", readInt},
-	}
-	meta1Block, err := lbytes.ExecuteInstructions[Meta1Block](meta1Instructions)
-	if err != nil {
-		err := errors.Wrap(err, "DecodeMeta1Block error")
-		return nil, err
-	}
-
-	return meta1Block, nil
-}
-
-func DecodeMeta1Blocks(reader *lbytes.Reader, numMeta1Entries int) ([]Meta1Block, error) {
-	meta1Blocks := make([]Meta1Block, 0, numMeta1Entries)
-	for i := 0; i < numMeta1Entries; i++ {
-		meta1Block, err := DecodeMeta1Block(reader)
-		if err != nil {
-			err := errors.Wrap(err, "DecodeMeta1Block error")
-			return nil, err
-		}
-		if meta1Block == nil {
-			return nil, errors.New("DecodeMeta1Blocks unreachable code")
-		}
-		meta1Blocks = append(meta1Blocks, *meta1Block)
-	}
-
-	return meta1Blocks, nil
-}
-
 func InferUsingFieldInfo(fieldInfo int) Meta2BlockInferences {
 	inferences := Meta2BlockInferences{
 		IsObject:        (fieldInfo & 0b1) == 1,
@@ -133,7 +93,7 @@ func InferUsingMeta2Block(rawData []byte, meta2block Meta2Block) FieldInferences
 	}
 }
 
-func InferNumDirectChildren(meta1Blocks []Meta1Block, meta2Blocks []Meta2Block) ([]Meta2Block, error) {
+func InferNumDirectChildren(meta1Blocks []dmeta1.Block, meta2Blocks []Meta2Block) ([]Meta2Block, error) {
 	// TODO: improve the function by replacing meta1Blocks with meta2EntryIndexes
 	meta2BlocksCopy := make([]Meta2Block, len(meta2Blocks))
 	copy(meta2BlocksCopy, meta2Blocks)
@@ -289,7 +249,7 @@ func DecodeMeta2Block(reader *lbytes.Reader) (*Meta2Block, error) {
 	return meta2Block, nil
 }
 
-func DecodeMeta2Blocks(reader *lbytes.Reader, header dheader.Header, meta1Blocks []Meta1Block) ([]Meta2Block, error) {
+func DecodeMeta2Blocks(reader *lbytes.Reader, header dheader.Header, meta1Blocks []dmeta1.Block) ([]Meta2Block, error) {
 	meta2Blocks := make([]Meta2Block, 0, header.NumMeta2Entries)
 	for i := 0; i < header.NumMeta2Entries; i++ {
 		meta2Block, err := DecodeMeta2Block(reader)
@@ -402,7 +362,7 @@ func DecodeDSON(reader *lbytes.Reader) (*DecodedFile, error) {
 		return nil, err
 	}
 	file.Header = *header
-	file.Meta1Blocks, err = DecodeMeta1Blocks(reader, header.NumMeta1Entries)
+	file.Meta1Blocks, err = dmeta1.DecodeBlocks(reader, header.NumMeta1Entries)
 	if err != nil {
 		return nil, err
 	}
