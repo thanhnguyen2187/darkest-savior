@@ -47,7 +47,7 @@ func createMagicNumberReadFunction(reader *lbytes.Reader) lbytes.ReadFunction {
 	}
 }
 
-func DecodeHeader(reader *lbytes.Reader) (*Header, error) {
+func Decode(reader *lbytes.Reader) (*Header, error) {
 
 	readMagicNumber := createMagicNumberReadFunction(reader)
 	read4Bytes := lbytes.CreateNBytesReadFunction(reader, 4)

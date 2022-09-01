@@ -357,7 +357,7 @@ func DecodeDSON(reader *lbytes.Reader) (*DecodedFile, error) {
 	file := DecodedFile{}
 	err := error(nil)
 
-	header, err := dheader.DecodeHeader(reader)
+	header, err := dheader.Decode(reader)
 	if err != nil {
 		return nil, err
 	}
