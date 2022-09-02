@@ -7,6 +7,23 @@ import (
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
 	"github.com/pkg/errors"
+	"github.com/samber/lo"
+)
+
+const (
+	DataTypeUnknown      = DataType("unknown")
+	DataTypeInt          = DataType("int")
+	DataTypeString       = DataType("string")
+	DataTypeChar         = DataType("char")
+	DataTypeBool         = DataType("bool")
+	DataTypeFloat        = DataType("float")
+	DataTypeIntVector    = DataType("int_vector")
+	DataTypeFloatVector  = DataType("float_vector")
+	DataTypeStringVector = DataType("string_vector")
+	DataTypeTwoInt       = DataType("two_int")
+	DataTypeTwoBool      = DataType("two_bool")
+	DataTypeFile         = DataType("file")
+	DataTypeObject       = DataType("object")
 )
 
 type (
@@ -16,15 +33,17 @@ type (
 		Inferences Inferences `json:"inferences"`
 	}
 	Inferences struct {
-		IsObject        bool     `json:"is_object"`
-		ParentIndex     int      `json:"parent_index"`
-		HierarchyPath   []string `json:"hierarchy_path"`
-		RawDataOffset   int      `json:"raw_data_offset"`
-		RawDataLength   int      `json:"raw_data_length"`
-		RawDataStripped []byte   `json:"raw_data_stripped"`
-		DataType        string   `json:"data_type"`
-		Data            any      `json:"data"`
+		IsObject          bool     `json:"is_object"`
+		NumDirectChildren int      `json:"num_direct_children"`
+		ParentIndex       int      `json:"parent_index"`
+		HierarchyPath     []string `json:"hierarchy_path"`
+		RawDataOffset     int      `json:"raw_data_offset"`
+		RawDataLength     int      `json:"raw_data_length"`
+		RawDataStripped   []byte   `json:"raw_data_stripped"`
+		DataType          DataType `json:"data_type"`
+		Data              any      `json:"data"`
 	}
+	DataType string
 )
 
 func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Block) (*Field, error) {
@@ -77,6 +96,22 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Block) ([]Field, e
 	}
 
 	fields = InferHierarchyPaths(fields)
+	fields = lo.Map(
+		fields,
+		func(field Field, _ int) Field {
+			field.Inferences.DataType = InferDataType(field)
+			return field
+		},
+	)
+	for i, field := range fields {
+		data, err := InferData(field.Inferences.DataType, field.Inferences.RawDataStripped)
+		if err != nil {
+			err := errors.Wrap(err, "DecodeFields error")
+			return nil, err
+		}
+		field.Inferences.Data = data
+		fields[i] = field
+	}
 
 	return fields, nil
 }
