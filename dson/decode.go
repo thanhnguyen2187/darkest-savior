@@ -3,6 +3,7 @@ package dson
 import (
 	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
+	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
@@ -42,22 +43,43 @@ func DecodeDSON(reader *lbytes.Reader) (*DecodedFile, error) {
 		return nil, err
 	}
 
+	for i := range file.Fields {
+		field := &file.Fields[i]
+		if field.Inferences.DataType == dfield.DataTypeFileRaw {
+			// embedded files have their first 4 bytes denote the total length
+			reader := lbytes.NewBytesReader(field.Inferences.RawDataStripped[4:])
+			embeddedFile, err := DecodeDSON(reader)
+			if err != nil {
+				return nil, err
+			}
+			field.Inferences.Data = *embeddedFile
+			field.Inferences.DataType = dfield.DataTypeFileDecoded
+		}
+		if field.Inferences.DataType == dfield.DataTypeInt {
+			name, ok := dhash.NameByHash[field.Inferences.Data.(int32)]
+			if ok {
+				field.Inferences.Data = name
+				field.Inferences.DataType = dfield.DataTypeHashedInt
+			}
+		}
+	}
 	return &file, nil
 }
 
 func ToLinkedHashMap(fields []dfield.Field) ds.LinkedHashMap[any, any] {
-	lhMapByIndex := map[int]*ds.LinkedHashMap[any, any]{}
-	lhMapByIndex[-1] = ds.NewLinkedHashMap[any, any]()
-	for i, field := range fields {
+	lhmByIndex := make(map[int]*ds.LinkedHashMap[any, any])
+	lhmByIndex[-1] = ds.NewLinkedHashMap[any, any]()
+	for index, field := range fields {
+		lhm := &ds.LinkedHashMap[any, any]{}
 		parentIndex := field.Inferences.ParentIndex
-		lhMapParent := lhMapByIndex[parentIndex]
 		if field.Inferences.IsObject {
-			lhMap := ds.NewLinkedHashMap[any, any]()
-			lhMapByIndex[i] = lhMap
-			lhMapParent.Put(field.Name, lhMap)
+			lhm = ds.NewLinkedHashMap[any, any]()
+			lhmByIndex[index] = lhm
+			lhmByIndex[parentIndex].Put(field.Name, lhm)
 		} else {
-			lhMapParent.Put(field.Name, field.Inferences.Data)
+			lhmByIndex[parentIndex].Put(field.Name, field.Inferences.Data)
 		}
 	}
-	return *lhMapByIndex[-1]
+
+	return *lhmByIndex[-1]
 }
