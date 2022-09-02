@@ -1,6 +1,7 @@
 package dson
 
 import (
+	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
@@ -42,4 +43,21 @@ func DecodeDSON(reader *lbytes.Reader) (*DecodedFile, error) {
 	}
 
 	return &file, nil
+}
+
+func ToLinkedHashMap(fields []dfield.Field) ds.LinkedHashMap[any, any] {
+	lhMapByIndex := map[int]*ds.LinkedHashMap[any, any]{}
+	lhMapByIndex[-1] = ds.NewLinkedHashMap[any, any]()
+	for i, field := range fields {
+		parentIndex := field.Inferences.ParentIndex
+		lhMapParent := lhMapByIndex[parentIndex]
+		if field.Inferences.IsObject {
+			lhMap := ds.NewLinkedHashMap[any, any]()
+			lhMapByIndex[i] = lhMap
+			lhMapParent.Put(field.Name, lhMap)
+		} else {
+			lhMapParent.Put(field.Name, field.Inferences.Data)
+		}
+	}
+	return *lhMapByIndex[-1]
 }

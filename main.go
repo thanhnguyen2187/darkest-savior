@@ -20,4 +20,10 @@ func main() {
 	}
 	println(decodedFile.Header.MagicNumber)
 	println(decodedFile.Meta1Blocks)
+	lhm := dson.ToLinkedHashMap(decodedFile.Fields)
+	lhmBytes, err := lhm.MarshalJSON()
+	if err != nil {
+		panic(err)
+	}
+	println(string(lhmBytes))
 }
