@@ -29,8 +29,9 @@ func (r *LinkedHashMap[K, V]) Keys() []K {
 }
 
 func (r *LinkedHashMap[K, V]) Put(key K, value V) {
-	_, ok := r.hashMap[key]
-	if !ok {
+	_, existed := r.hashMap[key]
+	// TODO: in case the key existed, check if we need to remove it from ordering
+	if !existed {
 		r.ordering.PushBack(key)
 	}
 	r.hashMap[key] = value
