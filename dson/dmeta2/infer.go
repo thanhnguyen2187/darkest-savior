@@ -115,6 +115,9 @@ func InferRawDataLengths(meta2Blocks []Block, headerDataLength int) ([]Block, er
 	//
 	// - The second block's offset, and
 	// - Sum of the first block's offset and the field name length
+	//
+	// A "normal" loop might work in this case,
+	// but at a second glance is not as clear as using `lo.Zip2` to create pairs from the blocks.
 	meta2BlocksCopy := lo.Map(
 		lo.Zip2(
 			meta2Blocks[:n-1],
