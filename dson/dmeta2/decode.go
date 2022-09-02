@@ -15,6 +15,7 @@ type (
 		Inferences Inferences `json:"inferences"`
 	}
 	Inferences struct {
+		Index             int  `json:"index"`
 		IsObject          bool `json:"is_object"`
 		ParentIndex       int  `json:"parent_index"`
 		FieldNameLength   int  `json:"field_name_length"`
@@ -56,6 +57,7 @@ func DecodeBlocks(reader *lbytes.Reader, header dheader.Header, meta1Blocks []dm
 		meta2Blocks = append(meta2Blocks, *meta2Block)
 	}
 
+	meta2Blocks = InferIndex(meta2Blocks)
 	meta2Blocks, err := InferRawDataLengths(meta2Blocks, header.DataLength)
 	if err != nil {
 		err := errors.Wrap(err, "dmeta2.DecodeBlocks error")

@@ -9,6 +9,16 @@ import (
 	"github.com/samber/lo"
 )
 
+func InferIndex(meta2Blocks []Block) []Block {
+	meta2BlocksCopy := make([]Block, len(meta2Blocks))
+	copy(meta2BlocksCopy, meta2Blocks)
+
+	for i := range meta2BlocksCopy {
+		meta2BlocksCopy[i].Inferences.Index = i
+	}
+	return meta2BlocksCopy
+}
+
 func InferUsingFieldInfo(fieldInfo int) Inferences {
 	inferences := Inferences{
 		IsObject:        (fieldInfo & 0b1) == 1,
@@ -24,9 +34,6 @@ func InferRawDataLength(secondOffset int, firstOffset int, firstFieldNameLength 
 }
 
 func InferParentIndex(meta2Blocks []Block) []Block {
-	meta2BlocksCopy := make([]Block, len(meta2Blocks))
-	copy(meta2BlocksCopy, meta2Blocks)
-
 	// As the fields in a DSON file are laid sequentially,
 	// a stack can be used to find out the parent index of each field.
 	//
@@ -45,42 +52,44 @@ func InferParentIndex(meta2Blocks []Block) []Block {
 	//    \--> 2 --> 3
 	//    |     \--> 4
 	//    \--> 5
-	type Tracker struct {
-		Index             int
-		NumDirectChildren int
-	}
-	stack := ds.NewStack[Tracker]()
-	stack.Push(
-		Tracker{
-			Index:             -1,
-			NumDirectChildren: 1,
-		},
-	) // set a "default" first item to reduce the complexity of edge case handling
-	for i := range meta2BlocksCopy {
-		meta2Block := &meta2BlocksCopy[i]
-		last := stack.Peek()
-		meta2Block.Inferences.ParentIndex = last.Index
-		stack.ReplaceLast(
-			func(oldTracker Tracker) Tracker {
-				oldTracker.NumDirectChildren -= 1
-				return oldTracker
-			},
-		)
-		last = stack.Peek()
-		if last.NumDirectChildren == 0 {
-			stack.Pop()
-		}
-		if meta2Block.Inferences.IsObject {
-			stack.Push(
-				Tracker{
-					Index:             i,
-					NumDirectChildren: meta2Block.Inferences.NumDirectChildren,
-				},
-			)
-		}
-	}
 
-	return meta2BlocksCopy
+	meta2Blocks = ds.BuildTree[Block](
+		// init
+		Block{
+			Inferences: Inferences{
+				Index:             -1,
+				IsObject:          true,
+				Meta1EntryIndex:   -1,
+				NumDirectChildren: 1,
+				RawDataLength:     0,
+			},
+		},
+		// ts
+		meta2Blocks,
+		// popPredicate
+		func(block Block) bool {
+			return block.Inferences.NumDirectChildren <= 0
+		},
+		// pushPredicate
+		func(block Block) bool {
+			return block.Inferences.IsObject &&
+				block.Inferences.NumDirectChildren != 0
+		},
+		// replaceFunc
+		func(block Block) Block {
+			block.Inferences.NumDirectChildren -= 1
+			return block
+		},
+		// mappingFunc
+		func(peekedBlock Block, currentBlock Block) Block {
+			currentBlock.Inferences.ParentIndex = peekedBlock.Inferences.Index
+			return currentBlock
+		},
+	)
+	// edge case: set the first block's parent to -1 to terminate
+	// meta2Blocks = treeBuilder.Build(meta2Blocks)
+
+	return meta2Blocks
 }
 
 func InferNumDirectChildren(meta1Blocks []dmeta1.Block, meta2Blocks []Block) ([]Block, error) {
