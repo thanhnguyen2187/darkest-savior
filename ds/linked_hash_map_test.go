@@ -26,12 +26,12 @@ func TestLinkedHashMap_Put(t *testing.T) {
 	assert.Equal(t, lhm.hashMap, map[any]any{"abc": 1})
 }
 
-func TestLinkedHashMap_ToJSON(t *testing.T) {
+func TestLinkedHashMap_MarshalJSON(t *testing.T) {
 	lhm := NewLinkedHashMap[string, any]()
 	lhm.Put("abc", 1)
 	lhm.Put("def", 2)
 
-	bs, err := lhm.ToJSON()
+	bs, err := lhm.MarshalJSON()
 	assert.NoError(t, err)
 
 	assert.Equal(t, bs, []byte(`{"abc":1,"def":2}`))
