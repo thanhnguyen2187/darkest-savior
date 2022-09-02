@@ -35,7 +35,7 @@ func InferUsingMeta2Block(rawData []byte, meta2block dmeta2.Block) Inferences {
 }
 
 func InferHierarchyPath(index int, fields []Field) []string {
-	// TODO: create a cache function later
+	// TODO: create a cache function if there is need for optimization
 	fieldName := fields[index].Name
 	parentIndex := fields[index].Inferences.ParentIndex
 	if parentIndex == -1 {
@@ -98,23 +98,12 @@ func InferDataTypeByFieldName(fieldName string) DataType {
 func InferDataTypeByHierarchyPath(hierarchyPath []string) DataType {
 	_, resultAny := match.Match(hierarchyPath).
 		When(
-			match.OneOf(
-				[]any{"actor", "buff", match.ANY, "amount"},
-				[]any{"chapter", match.ANY, match.ANY, "percent"},
-			),
+			// match.OneOf(
+			// 	[]any{"actor", "buff", match.ANY, "amount"},
+			// 	[]any{"chapter", match.ANY, match.ANY, "percent"},
+			// ),
+			[]any{"actor", "buff", match.ANY, "amount"},
 			DataTypeFloat,
-		).
-		When(
-			match.OneOf(
-				[]any{"mash", "valid_additional_mash_entry_indexes"},
-				[]any{"party", "heroes"},
-				[]any{"curioGroups", match.ANY, "curios"},
-				[]any{"curioGroups", match.ANY, "curio_table_entries"},
-				[]any{"backer_heroes", match.ANY, "combat_skills"},
-				[]any{"backer_heroes", match.ANY, "camping_skills"},
-				[]any{"backer_heroes", match.ANY, "quirks"},
-			),
-			DataTypeIntVector,
 		).
 		When(
 			match.OneOf(
@@ -171,7 +160,7 @@ func InferDataTypeByRawData(rawDataStripped []byte) DataType {
 		}
 	case len(rawDataStripped) >= 8 &&
 		bytes.Equal(rawDataStripped[4:8], dheader.MagicNumberBytes):
-		return DataTypeFile
+		return DataTypeFileRaw
 	case len(rawDataStripped) >= 5:
 		return DataTypeString
 	}
@@ -184,7 +173,8 @@ func InferDataType(field Field) DataType {
 	}
 	dataType := InferDataTypeByFieldName(field.Name)
 	if dataType == DataTypeUnknown {
-		dataType = InferDataTypeByHierarchyPath(field.Inferences.HierarchyPath)
+		hierarchyPathWithoutRoot := field.Inferences.HierarchyPath[1:]
+		dataType = InferDataTypeByHierarchyPath(hierarchyPathWithoutRoot)
 	}
 	if dataType == DataTypeUnknown {
 		dataType = InferDataTypeByRawData(field.Inferences.RawDataStripped)
@@ -192,7 +182,7 @@ func InferDataType(field Field) DataType {
 	return dataType
 }
 
-func InferDataInt(rawDataStripped []byte) (int, error) {
+func InferDataInt(rawDataStripped []byte) (int32, error) {
 	if len(rawDataStripped) != 4 {
 		err := fmt.Errorf(
 			`InferDataInt got invalid input bytes length: expected 4; got "%v" with length %d`,
@@ -200,7 +190,7 @@ func InferDataInt(rawDataStripped []byte) (int, error) {
 		)
 		return 0, err
 	}
-	return int(binary.LittleEndian.Uint32(rawDataStripped)), nil
+	return int32(binary.LittleEndian.Uint32(rawDataStripped)), nil
 }
 
 func InferDataString(rawDataStripped []byte) (string, error) {
@@ -222,12 +212,13 @@ func InferDataString(rawDataStripped []byte) (string, error) {
 		return "", err
 	}
 
-	// TODO: strip the null terminator and change other functions accordingly
 	str := string(rawDataStripped[4:])
-	if len(str) != strLen {
+	trueLen := len(str)
+	str = str[:len(str)-1]
+	if trueLen != int(strLen) {
 		err := fmt.Errorf(
 			`InferDataString found unexpected string length for value "%s": expected %d; got %d`,
-			str, strLen, len(str),
+			str, strLen, trueLen,
 		)
 		return "", err
 	}
@@ -250,7 +241,7 @@ func InferDataFloat(rawDataStripped []byte) (float32, error) {
 	), nil
 }
 
-func InferDataIntVector(rawDataStripped []byte) ([]int, error) {
+func InferDataIntVector(rawDataStripped []byte) ([]int32, error) {
 	rawLen := len(rawDataStripped)
 	if rawLen < 4 &&
 		rawLen%4 != 0 {
@@ -271,7 +262,7 @@ func InferDataIntVector(rawDataStripped []byte) ([]int, error) {
 	}
 
 	intVectorByteChunks := ds.MakeChunks(rawDataStripped[4:], 4)
-	if len(intVectorByteChunks) != intVectorLen {
+	if len(intVectorByteChunks) != int(intVectorLen) {
 		err := fmt.Errorf(
 			`InferDataIntVector got invalid input bytes length: expected %d; got "%v" with length %d`,
 			intVectorLen, rawDataStripped, rawLen,
@@ -279,7 +270,7 @@ func InferDataIntVector(rawDataStripped []byte) ([]int, error) {
 		return nil, err
 	}
 
-	intVector := make([]int, 0, intVectorLen)
+	intVector := make([]int32, 0, intVectorLen)
 	for _, byteChunk := range intVectorByteChunks {
 		value, err := InferDataInt(byteChunk)
 		if err != nil {
@@ -316,7 +307,7 @@ func InferDataFloatVector(rawDataStripped []byte) ([]float32, error) {
 	}
 
 	floatVectorByteChunks := ds.MakeChunks(rawDataStripped[4:], 4)
-	if len(floatVectorByteChunks) != floatVectorLen {
+	if len(floatVectorByteChunks) != int(floatVectorLen) {
 		err := fmt.Errorf(
 			`InferDataFloatVector got invalid input bytes length: expected %d; got "%v" with length %d`,
 			floatVectorLen, rawDataStripped, rawLen,
@@ -368,7 +359,7 @@ func InferDataStringVector(rawDataStripped []byte) ([]string, error) {
 	// - the next n - 1 bytes that make up the actual string, and
 	// - \u0000 as the terminator.
 	cursor := 4
-	for i := 0; i < stringVectorLen; i++ {
+	for i := 0; i < int(stringVectorLen); i++ {
 		str, err := InferDataString(rawDataStripped[cursor:])
 		if err != nil {
 			err := fmt.Errorf(
@@ -377,11 +368,71 @@ func InferDataStringVector(rawDataStripped []byte) ([]string, error) {
 			)
 			return nil, err
 		}
-		cursor += 4 + len(str)
+		cursor += 4 + len(str) + 1
 		stringVector = append(stringVector, str)
 	}
 
 	return stringVector, nil
+}
+
+func InferDataTwoInt(rawDataStripped []byte) ([]int32, error) {
+	rawLen := len(rawDataStripped)
+	if rawLen != 8 {
+		err := fmt.Errorf(
+			`InferDataTwoInt got invalid input bytes length: expected 8; got "%v" with length %d`,
+			rawDataStripped, rawLen,
+		)
+		return nil, err
+	}
+
+	i1, err := InferDataInt(rawDataStripped[:4])
+	if err != nil {
+		err := fmt.Errorf(
+			`InferDataTwoInt first integer unreachable code with input bytes "%v"`,
+			rawDataStripped,
+		)
+		return nil, err
+	}
+	i2, err := InferDataInt(rawDataStripped[4:])
+	if err != nil {
+		err := fmt.Errorf(
+			`InferDataTwoInt second integer unreachable code with input bytes "%v"`,
+			rawDataStripped,
+		)
+		return nil, err
+	}
+
+	return []int32{i1, i2}, nil
+}
+
+func InferDataTwoBool(rawDataStripped []byte) ([]bool, error) {
+	rawLen := len(rawDataStripped)
+	if rawLen != 8 {
+		err := fmt.Errorf(
+			`InferDataTwoBool got invalid input bytes length: expected 8; got "%v" with length %d`,
+			rawDataStripped, rawLen,
+		)
+		return nil, err
+	}
+
+	b1, err := InferDataBool(rawDataStripped[:4])
+	if err != nil {
+		err := fmt.Errorf(
+			`InferDataTwoBool first integer unreachable code with input bytes "%v"`,
+			rawDataStripped,
+		)
+		return nil, err
+	}
+	b2, err := InferDataBool(rawDataStripped[4:])
+	if err != nil {
+		err := fmt.Errorf(
+			`InferDataTwoBool second integer unreachable code with input bytes "%v"`,
+			rawDataStripped,
+		)
+		return nil, err
+	}
+
+	return []bool{b1, b2}, nil
 }
 
 func InferData(dataType DataType, rawDataStripped []byte) (any, error) {
@@ -396,15 +447,11 @@ func InferData(dataType DataType, rawDataStripped []byte) (any, error) {
 		DataTypeIntVector:    func(bs []byte) (any, error) { return InferDataIntVector(bs) },
 		DataTypeFloatVector:  func(bs []byte) (any, error) { return InferDataFloatVector(bs) },
 		DataTypeStringVector: func(bs []byte) (any, error) { return InferDataStringVector(bs) },
-		DataTypeTwoInt:       returnNothing,
-		DataTypeTwoBool:      returnNothing,
-		DataTypeFile:         returnNothing,
+		DataTypeTwoInt:       func(bs []byte) (any, error) { return InferDataTwoInt(bs) },
+		DataTypeTwoBool:      func(bs []byte) (any, error) { return InferDataTwoBool(bs) },
+		DataTypeFileRaw:      returnNothing,
 		DataTypeObject:       returnNothing,
 		DataTypeUnknown:      returnNothing,
-		// DataTypeTwoInt:       func(bs []byte) (any, error) { return InferDataTwoInt(bs) },
-		// DataTypeTwoBool:      func(bs []byte) (any, error) { return InferDataTwoBool(bs) },
-		// DataTypeFile:         func(bs []byte) (any, error) { return InferDataFile(bs) },
-		// DataTypeObject:       func(bs []byte) (any, error) { return InferDataObject(bs) },
 	}
 	inferFunc, ok := dispatchMap[dataType]
 	if !ok {
