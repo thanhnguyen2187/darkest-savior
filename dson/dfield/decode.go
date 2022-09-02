@@ -13,6 +13,7 @@ import (
 const (
 	DataTypeUnknown      = DataType("unknown")
 	DataTypeInt          = DataType("int")
+	DataTypeHashedInt    = DataType("hashed_int")
 	DataTypeString       = DataType("string")
 	DataTypeChar         = DataType("char")
 	DataTypeBool         = DataType("bool")
@@ -22,7 +23,8 @@ const (
 	DataTypeStringVector = DataType("string_vector")
 	DataTypeTwoInt       = DataType("two_int")
 	DataTypeTwoBool      = DataType("two_bool")
-	DataTypeFile         = DataType("file")
+	DataTypeFileRaw      = DataType("file_raw")
+	DataTypeFileDecoded  = DataType("file_decoded")
 	DataTypeObject       = DataType("object")
 )
 
