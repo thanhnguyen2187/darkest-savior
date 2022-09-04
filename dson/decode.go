@@ -1,13 +1,13 @@
 package dson
 
 import (
-	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
 	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
+	"github.com/emirpasic/gods/maps/linkedhashmap"
 )
 
 type (
@@ -85,25 +85,23 @@ func DecodeDSON(bytes []byte) (*DecodedFile, error) {
 	return &file, nil
 }
 
-func ToLinkedHashMap(file DecodedFile) ds.LinkedHashMap[any, any] {
-	lhmByIndex := make(map[int]*ds.LinkedHashMap[any, any])
-	lhmByIndex[-1] = ds.NewLinkedHashMap[any, any]()
+func ToLinkedHashMap(file DecodedFile) *linkedhashmap.Map {
+	lhmByIndex := make(map[int]*linkedhashmap.Map)
+	lhmByIndex[-1] = linkedhashmap.New()
 	lhmByIndex[-1].Put("__revision_dont_touch", file.Header.Revision)
 	for index, field := range file.Fields {
-		lhm := &ds.LinkedHashMap[any, any]{}
 		parentIndex := field.Inferences.ParentIndex
 		if field.Inferences.IsObject {
-			lhm = ds.NewLinkedHashMap[any, any]()
+			lhm := linkedhashmap.New()
 			lhmByIndex[index] = lhm
 			lhmByIndex[parentIndex].Put(field.Name, lhm)
 		} else if field.Inferences.DataType == dfield.DataTypeFileDecoded {
-			lhm2 := ToLinkedHashMap(field.Inferences.Data.(DecodedFile))
-			lhm = &lhm2
+			lhm := ToLinkedHashMap(field.Inferences.Data.(DecodedFile))
 			lhmByIndex[parentIndex].Put(field.Name, lhm)
 		} else {
 			lhmByIndex[parentIndex].Put(field.Name, field.Inferences.Data)
 		}
 	}
 
-	return *lhmByIndex[-1]
+	return lhmByIndex[-1]
 }
