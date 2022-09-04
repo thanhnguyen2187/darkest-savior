@@ -86,8 +86,6 @@ func InferParentIndex(meta2Blocks []Block) []Block {
 			return currentBlock
 		},
 	)
-	// edge case: set the first block's parent to -1 to terminate
-	// meta2Blocks = treeBuilder.Build(meta2Blocks)
 
 	return meta2Blocks
 }
