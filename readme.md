@@ -50,5 +50,6 @@ dsavior --convert --from path/to/result.json --to path/to/persistent.dson.json
 
 - [x] Convert from DSON to JSON
 - [ ] Convert from JSON to DSON
+- [ ] Easier distribution for end user
 - [ ] Interactive Mode
 - [ ] GUI client
