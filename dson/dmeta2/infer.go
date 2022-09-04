@@ -151,7 +151,7 @@ func InferRawDataLengths(meta2Blocks []Block, headerDataLength int) ([]Block, er
 	if found {
 		err := fmt.Errorf(
 			`InferRawDataLength meta 2 block "%s" has negative raw data length`,
-			ds.JSONDumps(meta2Block),
+			ds.DumpJSON(meta2Block),
 		)
 		return nil, err
 	}
