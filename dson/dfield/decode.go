@@ -92,7 +92,7 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Block) ([]Field, e
 	for _, meta2Block := range meta2Blocks {
 		field, err := DecodeField(reader, meta2Block)
 		if err != nil {
-			err := errors.Wrap(err, "DecodeFields error")
+			err := errors.Wrap(err, "dfield.DecodeFields error")
 			return nil, err
 		}
 		fields = append(fields, *field)
@@ -109,12 +109,27 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Block) ([]Field, e
 	for i, field := range fields {
 		data, err := InferData(field.Inferences.DataType, field.Inferences.RawDataStripped)
 		if err != nil {
-			err := errors.Wrap(err, "DecodeFields error")
+			err := errors.Wrap(err, "dfield.DecodeFields error")
 			return nil, err
 		}
 		field.Inferences.Data = data
 		fields[i] = field
 	}
+	fields = lo.Map(
+		fields,
+		func(field Field, _ int) Field {
+			return AttemptUnhashInt(field)
+		},
+	)
+	fields = lo.Map(
+		fields,
+		func(field Field, _ int) Field {
+			return AttemptUnhashIntVector(field)
+		},
+	)
+	// TODO: investigate cases where the final vector includes both hashed and unhashed int.
+	//       For example, `persists.tutorial.json` has all of `dispatched_events` converted,
+	//       except `1972053455`.
 
 	return fields, nil
 }

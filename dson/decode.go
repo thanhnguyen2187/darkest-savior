@@ -2,7 +2,6 @@ package dson
 
 import (
 	"darkest-savior/dson/dfield"
-	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
@@ -46,8 +45,10 @@ func DecodeDSON(bytes []byte) (*DecodedFile, error) {
 
 	for i := range file.Fields {
 		field := &file.Fields[i]
-		switch field.Inferences.DataType {
-		case dfield.DataTypeFileRaw:
+		// handle case there is an embedded file
+		// ideally, the code should be put into `dfield`,
+		// but it would create a circular dependency between the package and `dson`
+		if field.Inferences.DataType == dfield.DataTypeFileRaw {
 			rawDataSkipped := field.Inferences.RawDataStripped[4:]
 			embeddedFile, err := DecodeDSON(rawDataSkipped)
 			if err != nil {
@@ -55,31 +56,6 @@ func DecodeDSON(bytes []byte) (*DecodedFile, error) {
 			}
 			field.Inferences.Data = *embeddedFile
 			field.Inferences.DataType = dfield.DataTypeFileDecoded
-		case dfield.DataTypeInt:
-			name, ok := dhash.NameByHash[field.Inferences.Data.(int32)]
-			if ok {
-				field.Inferences.Data = name
-				field.Inferences.DataType = dfield.DataTypeHashedInt
-			}
-		case dfield.DataTypeIntVector:
-			hashedNames := field.Inferences.Data.([]int32)
-			converted := false
-			names := make([]any, 0, len(hashedNames))
-			for _, hashedName := range hashedNames {
-				if name, ok := dhash.NameByHash[hashedName]; ok {
-					converted = true
-					names = append(names, name)
-				} else {
-					names = append(names, hashedName)
-				}
-			}
-			// TODO: investigate cases where the final vector includes both hashed and unhashed int.
-			//       For example, `persists.tutorial.json` has all of `dispatched_events` converted,
-			//       except `1972053455`.
-			if converted {
-				field.Inferences.Data = names
-				field.Inferences.DataType = dfield.DataTypeHashedIntVector
-			}
 		}
 	}
 	return &file, nil
