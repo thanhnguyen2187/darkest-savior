@@ -42,7 +42,7 @@ func (r *LinkedHashMap[K, V]) Get(key K) (V, bool) {
 	return value, ok
 }
 
-func (r *LinkedHashMap[K, V]) MarshalJSON() ([]byte, error) {
+func (r LinkedHashMap[K, V]) MarshalJSON() ([]byte, error) {
 	bs := make([]byte, 0)
 	buf := bytes.NewBuffer(bs)
 
