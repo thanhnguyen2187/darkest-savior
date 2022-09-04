@@ -65,8 +65,8 @@ func InferDataTypeByFieldName(fieldName string) DataType {
 		return DataTypeFloat
 	case
 		"read_page_indexes",
-		"raid_page_indexes",
-		"raid_unpage_indexes",
+		"raid_read_page_indexes",
+		"raid_unread_page_indexes",
 		"dungeons_unlocked",
 		"played_video_list",
 		"trinket_retention_ids",
@@ -95,49 +95,66 @@ func InferDataTypeByFieldName(fieldName string) DataType {
 	}
 }
 
+func matchOneOfSlices(toBeMatched []any, toMatchSlices [][]any) bool {
+	// `match.OneOf` does not work with slice, hence the workaround
+	// Also see: https://github.com/alexpantyukhin/go-pattern-match/issues/40
+	matcher := match.Match(toBeMatched)
+	for _, toMatchSlice := range toMatchSlices {
+		matcher.When(toMatchSlice, true)
+	}
+	matched, _ := matcher.Result()
+	return matched
+}
+
 func InferDataTypeByHierarchyPath(hierarchyPath []string) DataType {
-	_, resultAny := match.Match(hierarchyPath).
-		When(
-			// match.OneOf(
-			// 	[]any{"actor", "buff", match.ANY, "amount"},
-			// 	[]any{"chapter", match.ANY, match.ANY, "percent"},
-			// ),
-			[]any{"actor", "buff", match.ANY, "amount"},
-			DataTypeFloat,
-		).
-		When(
-			match.OneOf(
-				[]any{"mash", "valid_additional_mash_entry_indexes"},
-				[]any{"party", "heroes"},
-				[]any{"curioGroups", match.ANY, "curios"},
-				[]any{"curioGroups", match.ANY, "curio_table_entries"},
-				[]any{"backer_heroes", match.ANY, "combat_skills"},
-				[]any{"backer_heroes", match.ANY, "camping_skills"},
-				[]any{"backer_heroes", match.ANY, "quirks"},
-			),
-			DataTypeIntVector,
-		).
-		When(
-			match.OneOf(
-				[]any{"roaming_dungeon_2_ids", match.ANY, "s"},
-				[]any{"backgroundGroups", match.ANY, "backgrounds"},
-				[]any{"backgroundGroups", match.ANY, "background_table_entries"},
-			),
-			DataTypeStringVector,
-		).
-		When(
-			match.OneOf(
-				[]any{"map", "bounds"},
-				[]any{"areas", match.ANY, "bounds"},
-				[]any{"areas", match.ANY, "tiles", match.ANY, "mappos"},
-				[]any{"areas", match.ANY, "tiles", match.ANY, "sidepos"},
-			),
-			DataTypeFloatVector,
-		).
-		When(match.ANY, DataTypeUnknown).
-		Result()
-	result := resultAny.(DataType)
-	return result
+	hierarchyPathAny := make([]any, 0, len(hierarchyPath))
+	for _, item := range hierarchyPath {
+		hierarchyPathAny = append(hierarchyPathAny, item)
+	}
+	switch true {
+	case matchOneOfSlices(
+		hierarchyPathAny,
+		[][]any{
+			{"actor", "buff_group", match.ANY, "amount"},
+			{"chapters", match.ANY, match.ANY, "percent"},
+			{"non_rolled_additional_chances", match.ANY, "chance"},
+		},
+	):
+		return DataTypeFloat
+	case matchOneOfSlices(
+		hierarchyPathAny,
+		[][]any{
+			{"mash", "valid_additional_mash_entry_indexes"},
+			{"party", "heroes"},
+			{"curioGroups", match.ANY, "curios"},
+			{"curioGroups", match.ANY, "curio_table_entries"},
+			{"backer_heroes", match.ANY, "combat_skills"},
+			{"backer_heroes", match.ANY, "camping_skills"},
+			{"backer_heroes", match.ANY, "quirks"},
+		},
+	):
+		return DataTypeIntVector
+	case matchOneOfSlices(
+		hierarchyPathAny,
+		[][]any{
+			{"roaming_dungeon_2_ids", match.ANY, "s"},
+			{"backgroundGroups", match.ANY, "backgrounds"},
+			{"backgroundGroups", match.ANY, "background_table_entries"},
+		},
+	):
+		return DataTypeStringVector
+	case matchOneOfSlices(
+		hierarchyPathAny,
+		[][]any{
+			{"map", "bounds"},
+			{"areas", match.ANY, "bounds"},
+			{"areas", match.ANY, "tiles", match.ANY, "mappos"},
+			{"areas", match.ANY, "tiles", match.ANY, "sidepos"},
+		},
+	):
+		return DataTypeFloatVector
+	}
+	return DataTypeUnknown
 }
 
 func InferDataTypeByRawData(rawDataStripped []byte) DataType {
@@ -152,15 +169,27 @@ func InferDataTypeByRawData(rawDataStripped []byte) DataType {
 	case len(rawDataStripped) == 4:
 		return DataTypeInt
 	case len(rawDataStripped) == 8:
-		b1 := rawDataStripped[3]
-		b2 := rawDataStripped[7]
-		oneOrZero := func(b byte) bool { return b == 0 || b == 1 }
-		if oneOrZero(b1) && oneOrZero(b2) {
+		bs1 := rawDataStripped[:4]
+		bs2 := rawDataStripped[4:]
+		oneOrZero := func(bs []byte) bool {
+			return bytes.Equal(bs, []byte{1, 0, 0, 0}) ||
+				bytes.Equal(bs, []byte{0, 0, 0, 0})
+		}
+		if oneOrZero(bs1) && oneOrZero(bs2) {
 			return DataTypeTwoBool
 		}
-	case len(rawDataStripped) >= 8 &&
-		bytes.Equal(rawDataStripped[4:8], dheader.MagicNumberBytes):
-		return DataTypeFileRaw
+		// `fallthrough` is used since there is an edge case where the string
+		// has exactly 8 bytes.
+		//
+		// To be more specific, in the edge case, after the bytes are not matched,
+		// the function "wrongly" thinks that the type is unknown since Golang
+		// does not fall through by default.
+		fallthrough
+	case len(rawDataStripped) >= 8:
+		if dheader.IsValidMagicNumber(rawDataStripped[4:8]) {
+			return DataTypeFileRaw
+		}
+		fallthrough
 	case len(rawDataStripped) >= 5:
 		return DataTypeString
 	}
@@ -226,9 +255,9 @@ func InferDataString(rawDataStripped []byte) (string, error) {
 	return str, nil
 }
 
-func InferDataChar(rawDataStripped []byte) (byte, error) {
+func InferDataChar(rawDataStripped []byte) (string, error) {
 	// TODO: check bytes length of all functions
-	return rawDataStripped[0], nil
+	return string(rawDataStripped), nil
 }
 
 func InferDataBool(rawDataStripped []byte) (bool, error) {
