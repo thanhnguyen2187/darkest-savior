@@ -495,3 +495,45 @@ func InferData(dataType DataType, rawDataStripped []byte) (any, error) {
 	}
 	return value, nil
 }
+
+func AttemptUnhashInt(field Field) Field {
+	if field.Inferences.DataType != DataTypeInt {
+		return field
+	}
+	value := field.Inferences.Data.(int32)
+	if name, ok := dhash.NameByHash[value]; ok {
+		field.Inferences.Data = name
+		field.Inferences.DataType = DataTypeString
+		return field
+	}
+	return field
+}
+
+func AttemptUnhashIntVector(field Field) Field {
+	if field.Inferences.DataType != DataTypeIntVector {
+		return field
+	}
+	hashedValues := field.Inferences.Data.([]int32)
+	values := make([]any, 0, len(hashedValues))
+	convertedCount := 0
+	for _, value := range hashedValues {
+		if name, ok := dhash.NameByHash[value]; ok {
+			values = append(values, name)
+			convertedCount += 1
+		} else {
+			values = append(values, value)
+		}
+	}
+	switch convertedCount {
+	case 0:
+		return field
+	case len(hashedValues):
+		field.Inferences.DataType = DataTypeStringVector
+		field.Inferences.Data = values
+		return field
+	default:
+		field.Inferences.DataType = DataTypeHybridVector
+		field.Inferences.Data = values
+		return field
+	}
+}
