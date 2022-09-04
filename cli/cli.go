@@ -71,6 +71,8 @@ func StartConverting(from string, to string, force bool) {
 	}
 
 	if dheader.IsValidMagicNumber(fileBytes[:4]) {
+		// TODO: Improve the interfaces by letting `cli` knows nothing about what is `DecodedFile`.
+		//       Let the data exchange format between `cli` and `dson` be `[]byte`
 		decodedFile, err := dson.DecodeDSON(fileBytes)
 		if err != nil {
 			println("Error happened decoding DSON to JSON")
@@ -84,7 +86,17 @@ func StartConverting(from string, to string, force bool) {
 		}
 		println("Done converting. Please check your result file at: " + to)
 	} else {
-		println("Not implemented")
+		bs, err := ioutil.ReadFile(from)
+		rbs, err := dson.EncodeDSON(bs)
+		if err != nil {
+			println("Error happened encoding JSON to DSON")
+			return
+		}
+		err = ioutil.WriteFile(to, rbs, 0644)
+		if err != nil {
+			println("Error happened writing output to: " + to)
+			return
+		}
 	}
 }
 
