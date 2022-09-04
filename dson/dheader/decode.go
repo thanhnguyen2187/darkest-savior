@@ -11,7 +11,7 @@ import (
 type (
 	Header struct {
 		MagicNumber     []byte `json:"magic_number"`
-		Revision        []byte `json:"revision"`
+		Revision        int    `json:"revision"`
 		HeaderLength    int    `json:"header_length"`
 		Zeroes          []byte `json:"zeroes"`
 		Meta1Size       int    `json:"meta_1_size"`
@@ -29,21 +29,24 @@ type (
 
 var MagicNumberBytes = []byte{0x01, 0xB1, 0x00, 0x00}
 
+func IsValidMagicNumber(bs []byte) bool {
+	return bytes.Equal(MagicNumberBytes, bs)
+}
+
 func createMagicNumberReadFunction(reader *lbytes.Reader) lbytes.ReadFunction {
 	return func() (any, error) {
-		magicNumberBytes, err := reader.ReadBytes(4)
+		bs, err := reader.ReadBytes(4)
 		if err != nil {
 			return nil, err
-
 		}
-		if bytes.Compare(magicNumberBytes, MagicNumberBytes) != 0 {
+		if !IsValidMagicNumber(bs) {
 			msg := fmt.Sprintf(
 				`invalid magic number: expected "%v", got "%v"`,
-				MagicNumberBytes, magicNumberBytes,
+				MagicNumberBytes, bs,
 			)
 			return nil, errors.New(msg)
 		}
-		return magicNumberBytes, nil
+		return bs, nil
 	}
 }
 
@@ -56,7 +59,7 @@ func Decode(reader *lbytes.Reader) (*Header, error) {
 
 	headerInstructions := []lbytes.Instruction{
 		{"magic_number", readMagicNumber},
-		{"revision", read4Bytes},
+		{"revision", readInt},
 		{"header_length", readInt},
 		{"zeroes", read4Bytes},
 		{"meta_1_size", readInt},
