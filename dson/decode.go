@@ -19,7 +19,8 @@ type (
 	}
 )
 
-func DecodeDSON(reader *lbytes.Reader) (*DecodedFile, error) {
+func DecodeDSON(bytes []byte) (*DecodedFile, error) {
+	reader := lbytes.NewBytesReader(bytes)
 	file := DecodedFile{}
 	err := error(nil)
 
@@ -45,36 +46,59 @@ func DecodeDSON(reader *lbytes.Reader) (*DecodedFile, error) {
 
 	for i := range file.Fields {
 		field := &file.Fields[i]
-		if field.Inferences.DataType == dfield.DataTypeFileRaw {
-			// embedded files have their first 4 bytes denote the total length
-			reader := lbytes.NewBytesReader(field.Inferences.RawDataStripped[4:])
-			embeddedFile, err := DecodeDSON(reader)
+		switch field.Inferences.DataType {
+		case dfield.DataTypeFileRaw:
+			rawDataSkipped := field.Inferences.RawDataStripped[4:]
+			embeddedFile, err := DecodeDSON(rawDataSkipped)
 			if err != nil {
 				return nil, err
 			}
 			field.Inferences.Data = *embeddedFile
 			field.Inferences.DataType = dfield.DataTypeFileDecoded
-		}
-		if field.Inferences.DataType == dfield.DataTypeInt {
+		case dfield.DataTypeInt:
 			name, ok := dhash.NameByHash[field.Inferences.Data.(int32)]
 			if ok {
 				field.Inferences.Data = name
 				field.Inferences.DataType = dfield.DataTypeHashedInt
+			}
+		case dfield.DataTypeIntVector:
+			hashedNames := field.Inferences.Data.([]int32)
+			converted := false
+			names := make([]any, 0, len(hashedNames))
+			for _, hashedName := range hashedNames {
+				if name, ok := dhash.NameByHash[hashedName]; ok {
+					converted = true
+					names = append(names, name)
+				} else {
+					names = append(names, hashedName)
+				}
+			}
+			// TODO: investigate cases where the final vector includes both hashed and unhashed int.
+			//       For example, `persists.tutorial.json` has all of `dispatched_events` converted,
+			//       except `1972053455`.
+			if converted {
+				field.Inferences.Data = names
+				field.Inferences.DataType = dfield.DataTypeHashedIntVector
 			}
 		}
 	}
 	return &file, nil
 }
 
-func ToLinkedHashMap(fields []dfield.Field) ds.LinkedHashMap[any, any] {
+func ToLinkedHashMap(file DecodedFile) ds.LinkedHashMap[any, any] {
 	lhmByIndex := make(map[int]*ds.LinkedHashMap[any, any])
 	lhmByIndex[-1] = ds.NewLinkedHashMap[any, any]()
-	for index, field := range fields {
+	lhmByIndex[-1].Put("__revision_dont_touch", file.Header.Revision)
+	for index, field := range file.Fields {
 		lhm := &ds.LinkedHashMap[any, any]{}
 		parentIndex := field.Inferences.ParentIndex
 		if field.Inferences.IsObject {
 			lhm = ds.NewLinkedHashMap[any, any]()
 			lhmByIndex[index] = lhm
+			lhmByIndex[parentIndex].Put(field.Name, lhm)
+		} else if field.Inferences.DataType == dfield.DataTypeFileDecoded {
+			lhm2 := ToLinkedHashMap(field.Inferences.Data.(DecodedFile))
+			lhm = &lhm2
 			lhmByIndex[parentIndex].Put(field.Name, lhm)
 		} else {
 			lhmByIndex[parentIndex].Put(field.Name, field.Inferences.Data)
