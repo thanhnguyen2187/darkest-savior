@@ -10,45 +10,6 @@ import (
 	"github.com/samber/lo"
 )
 
-const (
-	DataTypeUnknown         = DataType("unknown")
-	DataTypeInt             = DataType("int")
-	DataTypeHashedInt       = DataType("hashed_int")
-	DataTypeString          = DataType("string")
-	DataTypeChar            = DataType("char")
-	DataTypeBool            = DataType("bool")
-	DataTypeFloat           = DataType("float")
-	DataTypeIntVector       = DataType("int_vector")
-	DataTypeHashedIntVector = DataType("int_vector")
-	DataTypeFloatVector     = DataType("float_vector")
-	DataTypeStringVector    = DataType("string_vector")
-	DataTypeTwoInt          = DataType("two_int")
-	DataTypeTwoBool         = DataType("two_bool")
-	DataTypeFileRaw         = DataType("file_raw")
-	DataTypeFileDecoded     = DataType("file_decoded")
-	DataTypeObject          = DataType("object")
-)
-
-type (
-	Field struct {
-		Name       string     `json:"name"`
-		RawData    []byte     `json:"raw_data"`
-		Inferences Inferences `json:"inferences"`
-	}
-	Inferences struct {
-		IsObject          bool     `json:"is_object"`
-		NumDirectChildren int      `json:"num_direct_children"`
-		ParentIndex       int      `json:"parent_index"`
-		HierarchyPath     []string `json:"hierarchy_path"`
-		RawDataOffset     int      `json:"raw_data_offset"`
-		RawDataLength     int      `json:"raw_data_length"`
-		RawDataStripped   []byte   `json:"raw_data_stripped"`
-		DataType          DataType `json:"data_type"`
-		Data              any      `json:"data"`
-	}
-	DataType string
-)
-
 func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Block) (*Field, error) {
 	// manual decoding and mapping is needed since turning data into JSON
 	// and parse back does not work for bytes of RawData

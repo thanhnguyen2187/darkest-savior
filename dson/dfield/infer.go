@@ -7,6 +7,7 @@ import (
 	"math"
 
 	"darkest-savior/ds"
+	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/match"
@@ -211,6 +212,15 @@ func InferDataType(field Field) DataType {
 	return dataType
 }
 
+func InferDataBool(rawDataStripped []byte) (bool, error) {
+	return rawDataStripped[0] == 1, nil
+}
+
+func InferDataChar(rawDataStripped []byte) (string, error) {
+	// TODO: check bytes length of all functions
+	return string(rawDataStripped), nil
+}
+
 func InferDataInt(rawDataStripped []byte) (int32, error) {
 	if len(rawDataStripped) != 4 {
 		err := fmt.Errorf(
@@ -220,6 +230,12 @@ func InferDataInt(rawDataStripped []byte) (int32, error) {
 		return 0, err
 	}
 	return int32(binary.LittleEndian.Uint32(rawDataStripped)), nil
+}
+
+func InferDataFloat(rawDataStripped []byte) (float32, error) {
+	return math.Float32frombits(
+		binary.LittleEndian.Uint32(rawDataStripped),
+	), nil
 }
 
 func InferDataString(rawDataStripped []byte) (string, error) {
@@ -253,21 +269,6 @@ func InferDataString(rawDataStripped []byte) (string, error) {
 	}
 
 	return str, nil
-}
-
-func InferDataChar(rawDataStripped []byte) (string, error) {
-	// TODO: check bytes length of all functions
-	return string(rawDataStripped), nil
-}
-
-func InferDataBool(rawDataStripped []byte) (bool, error) {
-	return rawDataStripped[0] == 1, nil
-}
-
-func InferDataFloat(rawDataStripped []byte) (float32, error) {
-	return math.Float32frombits(
-		binary.LittleEndian.Uint32(rawDataStripped),
-	), nil
 }
 
 func InferDataIntVector(rawDataStripped []byte) ([]int32, error) {
