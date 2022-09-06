@@ -1,7 +1,7 @@
 package dfield
 
 import (
-	"github.com/emirpasic/gods/maps/linkedhashmap"
+	"github.com/iancoleman/orderedmap"
 	"github.com/samber/lo"
 )
 
@@ -27,7 +27,7 @@ func ImplyDataTypeByValue(value any) DataType {
 		return DataTypeFloatVector
 	case []any:
 		return DataTypeHybridVector
-	case linkedhashmap.Map:
+	case orderedmap.OrderedMap:
 		return DataTypeObject
 	}
 	return DataTypeUnknown
@@ -40,36 +40,34 @@ func ImplyDataTypeByFieldName(name string) DataType {
 	return InferDataTypeByFieldName(name)
 }
 
-func AttemptImplyNestedFile(dataType DataType, firstKVPair linkedhashmap.Iterator) DataType {
-	if dataType != DataTypeObject {
-		return dataType
-	}
+// func AttemptImplyNestedFile(dataType DataType, firstKVPair linkedhashmap.Iterator) DataType {
+// 	if dataType != DataTypeObject {
+// 		return dataType
+// 	}
+// 	fieldName := firstKVPair.Key().(string)
+// 	if fieldName == "" {
+// 		return DataTypeFileJSON
+// 	}
+// 	return dataType
+// }
 
-	fieldName := firstKVPair.Key().(string)
-	if fieldName == "" {
-		return DataTypeFileJSON
-	}
-
-	return dataType
-}
-
-func FromLinkedHashMap(lhm linkedhashmap.Map) []Field {
+func FromLinkedHashMap(lhm orderedmap.OrderedMap) []Field {
+	// TODO: Rethink if a Field is really needed in this case.
+	//       What we actually need is some... instruction to write bytes down
+	// TODO: See if unmarshal to float64 is dangerous in the case and find out how to mitigate
 	return lo.Flatten(
-		lo.Map[any, []Field](
+		lo.Map[string, []Field](
 			lhm.Keys(),
-			func(key any, _ int) []Field {
+			func(key string, _ int) []Field {
 				field := Field{}
 
 				value, _ := lhm.Get(key)
-				fieldName := key.(string)
+				fieldName := key
 				field.Name = fieldName
 
 				// TODO: check if same logic for inferring needs to be applied since this implementation purely
 				//       look at value of each field
 				dataType := ImplyDataTypeByValue(value)
-				if dataType == DataTypeUnknown {
-					dataType = ImplyDataTypeByFieldName(fieldName)
-				}
 				data := value
 
 				field.Inferences.DataType = dataType
@@ -77,13 +75,13 @@ func FromLinkedHashMap(lhm linkedhashmap.Map) []Field {
 					field.Inferences.Data = nil
 					return append(
 						[]Field{field},
-						FromLinkedHashMap(data.(linkedhashmap.Map))...,
+						FromLinkedHashMap(data.(orderedmap.OrderedMap))...,
 					)
 				} else if dataType == DataTypeObject {
 					field.Inferences.Data = nil
 					return append(
 						[]Field{field},
-						FromLinkedHashMap(data.(linkedhashmap.Map))...,
+						FromLinkedHashMap(data.(orderedmap.OrderedMap))...,
 					)
 				} else {
 					field.Inferences.Data = data

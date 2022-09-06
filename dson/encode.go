@@ -6,7 +6,7 @@ import (
 
 	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
-	"github.com/emirpasic/gods/maps/linkedhashmap"
+	"github.com/iancoleman/orderedmap"
 )
 
 type (
@@ -28,24 +28,23 @@ func (r KeyCastError) Error() string {
 	)
 }
 
-func FromLinkedHashMap(lhm linkedhashmap.Map) (*DecodedFile, error) {
+func FromLinkedHashMap(lhm orderedmap.OrderedMap) (*DecodedFile, error) {
 	file := DecodedFile{}
 	revisionAny, ok := lhm.Get("__revision_dont_touch")
 	if !ok {
 		return nil, RevisionNotFoundError{}
 	}
 	file.Header.Revision = revisionAny.(int)
-	lhm.Remove("__revision_dont_touch")
+	lhm.Delete("__revision_dont_touch")
 
-	for _, keyAny := range lhm.Keys() {
-		keyStr, ok := keyAny.(string)
+	for _, key := range lhm.Keys() {
 		if !ok {
-			value, _ := lhm.Get(keyAny)
-			return nil, KeyCastError{Key: keyAny, Value: value}
+			value, _ := lhm.Get(key)
+			return nil, KeyCastError{Key: key, Value: value}
 		}
-		value, _ := lhm.Get(keyAny)
+		value, _ := lhm.Get(key)
 		field := dfield.Field{}
-		field.Name = keyStr
+		field.Name = key
 		// field.Inferences.DataType = DecodeValue(value)
 		field.Inferences.Data = value
 	}
@@ -54,7 +53,7 @@ func FromLinkedHashMap(lhm linkedhashmap.Map) (*DecodedFile, error) {
 }
 
 func EncodeDSON(jsonBytes []byte) ([]byte, error) {
-	lhm := linkedhashmap.New()
+	lhm := orderedmap.New()
 	err := json.Unmarshal(jsonBytes, &lhm)
 	if err != nil {
 		return nil, err
@@ -65,6 +64,7 @@ func EncodeDSON(jsonBytes []byte) ([]byte, error) {
 	// 	return nil, err
 	// }
 
+	lhm.Delete("__revision_dont_touch")
 	value := dfield.FromLinkedHashMap(*lhm)
 	print(ds.DumpJSON(value))
 

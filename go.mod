@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/alexflint/go-arg v1.4.3
 	github.com/charmbracelet/bubbletea v0.22.1
-	github.com/emirpasic/gods v1.18.1
+	github.com/iancoleman/orderedmap v0.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/samber/lo v1.27.0
 	github.com/stretchr/testify v1.8.0

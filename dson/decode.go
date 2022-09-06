@@ -6,7 +6,7 @@ import (
 	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
-	"github.com/emirpasic/gods/maps/linkedhashmap"
+	"github.com/iancoleman/orderedmap"
 )
 
 type (
@@ -61,21 +61,22 @@ func DecodeDSON(bytes []byte) (*DecodedFile, error) {
 	return &file, nil
 }
 
-func ToLinkedHashMap(file DecodedFile) *linkedhashmap.Map {
-	lhmByIndex := make(map[int]*linkedhashmap.Map)
-	lhmByIndex[-1] = linkedhashmap.New()
-	lhmByIndex[-1].Put("__revision_dont_touch", file.Header.Revision)
+func ToLinkedHashMap(file DecodedFile) *orderedmap.OrderedMap {
+	// TODO: use an interface for orderedMap
+	lhmByIndex := make(map[int]*orderedmap.OrderedMap)
+	lhmByIndex[-1] = orderedmap.New()
+	lhmByIndex[-1].Set("__revision_dont_touch", file.Header.Revision)
 	for index, field := range file.Fields {
 		parentIndex := field.Inferences.ParentIndex
 		if field.Inferences.IsObject {
-			lhm := linkedhashmap.New()
+			lhm := orderedmap.New()
 			lhmByIndex[index] = lhm
-			lhmByIndex[parentIndex].Put(field.Name, lhm)
+			lhmByIndex[parentIndex].Set(field.Name, lhm)
 		} else if field.Inferences.DataType == dfield.DataTypeFileDecoded {
 			lhm := ToLinkedHashMap(field.Inferences.Data.(DecodedFile))
-			lhmByIndex[parentIndex].Put(field.Name, lhm)
+			lhmByIndex[parentIndex].Set(field.Name, lhm)
 		} else {
-			lhmByIndex[parentIndex].Put(field.Name, field.Inferences.Data)
+			lhmByIndex[parentIndex].Set(field.Name, field.Inferences.Data)
 		}
 	}
 
