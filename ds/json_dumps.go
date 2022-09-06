@@ -6,7 +6,7 @@ import (
 )
 
 func DumpJSON[T any](t T) string {
-	tBytes, err := json.Marshal(t)
+	tBytes, err := json.MarshalIndent(t, "", "  ")
 	if err != nil {
 		return fmt.Errorf("DumpJSON error %w", err).Error()
 	}
