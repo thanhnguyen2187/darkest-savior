@@ -34,19 +34,66 @@ func ImplyDataTypeByValue(value any) DataType {
 }
 
 func ImplyDataTypeByFieldName(name string) DataType {
+	if name == "base_root" {
+		return DataTypeFileJSON
+	}
 	return InferDataTypeByFieldName(name)
 }
 
-func FromLinkedHashMap(lhm linkedhashmap.Map) []Field {
-	return lo.Map[any, Field](
-		lhm.Keys(),
-		func(key any, _ int) Field {
-			value, _ := lhm.Get(key)
-			field := Field{}
-			field.Name = key.(string)
-			field.Inferences.DataType = ImplyDataTypeByValue(value)
+func AttemptImplyNestedFile(dataType DataType, firstKVPair linkedhashmap.Iterator) DataType {
+	if dataType != DataTypeObject {
+		return dataType
+	}
 
-			return field
-		},
+	fieldName := firstKVPair.Key().(string)
+	if fieldName == "" {
+		return DataTypeFileJSON
+	}
+
+	return dataType
+}
+
+func FromLinkedHashMap(lhm linkedhashmap.Map) []Field {
+	return lo.Flatten(
+		lo.Map[any, []Field](
+			lhm.Keys(),
+			func(key any, _ int) []Field {
+				field := Field{}
+
+				value, _ := lhm.Get(key)
+				fieldName := key.(string)
+				field.Name = fieldName
+
+				// TODO: check if same logic for inferring needs to be applied since this implementation purely
+				//       look at value of each field
+				dataType := ImplyDataTypeByValue(value)
+				if dataType == DataTypeUnknown {
+					dataType = ImplyDataTypeByFieldName(fieldName)
+				}
+				data := value
+
+				field.Inferences.DataType = dataType
+				if dataType == DataTypeFileJSON {
+					field.Inferences.Data = nil
+					return append(
+						[]Field{field},
+						FromLinkedHashMap(data.(linkedhashmap.Map))...,
+					)
+				} else if dataType == DataTypeObject {
+					field.Inferences.Data = nil
+					return append(
+						[]Field{field},
+						FromLinkedHashMap(data.(linkedhashmap.Map))...,
+					)
+				} else {
+					field.Inferences.Data = data
+					return []Field{field}
+				}
+			},
+		),
 	)
+}
+
+func FlattenFields([]Field) []Field {
+	return nil
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
 	"github.com/emirpasic/gods/maps/linkedhashmap"
 )
@@ -39,7 +40,8 @@ func FromLinkedHashMap(lhm linkedhashmap.Map) (*DecodedFile, error) {
 	for _, keyAny := range lhm.Keys() {
 		keyStr, ok := keyAny.(string)
 		if !ok {
-			return nil, KeyCastError{Key: keyAny, Value: lhm.Get(keyAny)}
+			value, _ := lhm.Get(keyAny)
+			return nil, KeyCastError{Key: keyAny, Value: value}
 		}
 		value, _ := lhm.Get(keyAny)
 		field := dfield.Field{}
@@ -58,10 +60,13 @@ func EncodeDSON(jsonBytes []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	_, err := FromLinkedHashMap(*lhm)
-	if err != nil {
-		return nil, err
-	}
+	// _, err = FromLinkedHashMap(*lhm)
+	// if err != nil {
+	// 	return nil, err
+	// }
+
+	value := dfield.FromLinkedHashMap(*lhm)
+	print(ds.DumpJSON(value))
 
 	return nil, nil
 }
