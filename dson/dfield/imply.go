@@ -5,6 +5,14 @@ import (
 	"github.com/samber/lo"
 )
 
+func ImplyDataTypeByFieldName(fieldName string) DataType {
+	return InferDataTypeByFieldName(fieldName)
+}
+
+func ImplyDataTypeByHierarchyPath(hierarchyPath []string) DataType {
+	return InferDataTypeByHierarchyPath(hierarchyPath)
+}
+
 func ImplyDataTypeByValue(value any) DataType {
 	switch value.(type) {
 	case bool:
@@ -19,6 +27,8 @@ func ImplyDataTypeByValue(value any) DataType {
 			return DataTypeChar
 		}
 		return DataTypeString
+	case []bool:
+		return DataTypeTwoBool
 	case []int:
 		return DataTypeIntVector
 	case []string:
@@ -28,70 +38,51 @@ func ImplyDataTypeByValue(value any) DataType {
 	case []any:
 		return DataTypeHybridVector
 	case orderedmap.OrderedMap:
+		valueLhm := value.(orderedmap.OrderedMap)
+		if len(valueLhm.Keys()) == 1 && valueLhm.Keys()[0] == "base_root" {
+			return DataTypeFileJSON
+		}
 		return DataTypeObject
 	}
 	return DataTypeUnknown
 }
 
-func ImplyDataTypeByFieldName(name string) DataType {
-	if name == "base_root" {
-		return DataTypeFileJSON
-	}
-	return InferDataTypeByFieldName(name)
-}
-
-// func AttemptImplyNestedFile(dataType DataType, firstKVPair linkedhashmap.Iterator) DataType {
-// 	if dataType != DataTypeObject {
-// 		return dataType
-// 	}
-// 	fieldName := firstKVPair.Key().(string)
-// 	if fieldName == "" {
-// 		return DataTypeFileJSON
-// 	}
-// 	return dataType
-// }
-
-func FromLinkedHashMap(lhm orderedmap.OrderedMap) []Field {
-	// TODO: Rethink if a Field is really needed in this case.
-	//       What we actually need is some... instruction to write bytes down
+func FromLinkedHashMap(lhm orderedmap.OrderedMap) []EncodingField {
 	// TODO: See if unmarshal to float64 is dangerous in the case and find out how to mitigate
 	return lo.Flatten(
-		lo.Map[string, []Field](
+		// TODO: find a way to handle `lo.Map` with potential error more gracefully
+		lo.Map[string, []EncodingField](
 			lhm.Keys(),
-			func(key string, _ int) []Field {
-				field := Field{}
+			func(key string, _ int) []EncodingField {
 
+				field := EncodingField{}
+				field.Key = key
+				field.HierarchyPath = append(field.HierarchyPath, key)
+				field.ValueType = ImplyDataTypeByFieldName(key)
+				if field.ValueType == DataTypeUnknown {
+					// skip first item that always include "base_root"
+					field.ValueType = ImplyDataTypeByHierarchyPath(field.HierarchyPath[1:])
+				}
 				value, _ := lhm.Get(key)
-				fieldName := key
-				field.Name = fieldName
+				if field.ValueType == DataTypeUnknown {
+					field.ValueType = ImplyDataTypeByValue(value)
+				}
 
-				// TODO: check if same logic for inferring needs to be applied since this implementation purely
-				//       look at value of each field
-				dataType := ImplyDataTypeByValue(value)
-				data := value
-
-				field.Inferences.DataType = dataType
-				if dataType == DataTypeFileJSON {
-					field.Inferences.Data = nil
+				switch field.ValueType {
+				case DataTypeFileJSON:
+					fallthrough
+				case DataTypeObject:
+					field.Value = nil
+					valueLhm := value.(orderedmap.OrderedMap)
 					return append(
-						[]Field{field},
-						FromLinkedHashMap(data.(orderedmap.OrderedMap))...,
+						[]EncodingField{field},
+						FromLinkedHashMap(valueLhm)...,
 					)
-				} else if dataType == DataTypeObject {
-					field.Inferences.Data = nil
-					return append(
-						[]Field{field},
-						FromLinkedHashMap(data.(orderedmap.OrderedMap))...,
-					)
-				} else {
-					field.Inferences.Data = data
-					return []Field{field}
+				default:
+					field.Value = value
+					return []EncodingField{field}
 				}
 			},
 		),
 	)
-}
-
-func FlattenFields([]Field) []Field {
-	return nil
 }
