@@ -1,6 +1,8 @@
 package dson
 
 import (
+	"encoding/json"
+
 	"darkest-savior/dson/dfield"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
@@ -18,8 +20,8 @@ type (
 	}
 )
 
-func DecodeDSON(bytes []byte) (*DecodedFile, error) {
-	reader := lbytes.NewBytesReader(bytes)
+func ToStructuredFile(bs []byte) (*DecodedFile, error) {
+	reader := lbytes.NewBytesReader(bs)
 	file := DecodedFile{}
 	err := error(nil)
 
@@ -50,7 +52,7 @@ func DecodeDSON(bytes []byte) (*DecodedFile, error) {
 		// but it would create a circular dependency between the package and `dson`
 		if field.Inferences.DataType == dfield.DataTypeFileRaw {
 			rawDataSkipped := field.Inferences.RawDataStripped[4:]
-			embeddedFile, err := DecodeDSON(rawDataSkipped)
+			embeddedFile, err := ToStructuredFile(rawDataSkipped)
 			if err != nil {
 				return nil, err
 			}
@@ -58,7 +60,25 @@ func DecodeDSON(bytes []byte) (*DecodedFile, error) {
 			field.Inferences.DataType = dfield.DataTypeFileDecoded
 		}
 	}
+
 	return &file, nil
+}
+
+func DecodeDSON(bytes []byte, debug bool) ([]byte, error) {
+	decodedFile, err := ToStructuredFile(bytes)
+	if err != nil {
+		return nil, err
+	}
+
+	if debug {
+		decodedFileBytes := make([]byte, 0)
+		decodedFileBytes, err = json.MarshalIndent(decodedFile, "", "  ")
+		return decodedFileBytes, nil
+	}
+
+	decodedMap := ToLinkedHashMap(*decodedFile)
+	decodedBytes, err := json.MarshalIndent(decodedMap, "", "  ")
+	return decodedBytes, nil
 }
 
 func ToLinkedHashMap(file DecodedFile) *orderedmap.OrderedMap {

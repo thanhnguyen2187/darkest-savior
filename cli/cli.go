@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -26,6 +25,7 @@ type (
 		From  string `arg:"required" help:"path to source file" placeholder:"persist.json"`
 		To    string `arg:"required" help:"path to destination file" placeholder:"file.json"`
 		Force bool   `help:"overwrite the destination file"`
+		Debug bool   `help:"enable debugging on destination file"`
 	}
 )
 
@@ -54,17 +54,17 @@ func CheckExistence(path string) bool {
 	return err == nil
 }
 
-func StartConverting(from string, to string, force bool) {
-	if !CheckExistence(from) {
+func StartConverting(args ConvertCmd) {
+	if !CheckExistence(args.From) {
 		println("Source file does not exist!")
 		return
 	}
-	if CheckExistence(to) && !force {
+	if CheckExistence(args.To) && !args.Force {
 		println("Destination file existed. Please type the command again with --force to allow overwriting!")
 		println("Explicit --force is needed to make sure that you paid attention not to overwriting the actual DSON file in your folder.")
 		return
 	}
-	fileBytes, err := ioutil.ReadFile(from)
+	fileBytes, err := ioutil.ReadFile(args.From)
 	if err != nil {
 		println("Error happened reading file")
 		return
@@ -73,31 +73,29 @@ func StartConverting(from string, to string, force bool) {
 	if dheader.IsValidMagicNumber(fileBytes[:4]) {
 		// TODO: Improve the interfaces by letting `cli` knows nothing about what is `DecodedFile`.
 		//       Let the data exchange format between `cli` and `dson` be `[]byte`
-		decodedFile, err := dson.DecodeDSON(fileBytes)
+		bs, err := dson.DecodeDSON(fileBytes, args.Debug)
 		if err != nil {
 			println("Error happened decoding DSON to JSON")
 			return
 		}
-		decodedMap := dson.ToLinkedHashMap(*decodedFile)
-		decodedBytes, err := json.MarshalIndent(decodedMap, "", "  ")
-		if err := ioutil.WriteFile(to, decodedBytes, 0644); err != nil {
-			println("Error happened writing to file at: " + to)
+		if err := ioutil.WriteFile(args.To, bs, 0644); err != nil {
+			println("Error happened writing to file at: " + args.To)
 			return
 		}
-		println("Done converting. Please check your result file at: " + to)
 	} else {
-		bs, err := ioutil.ReadFile(from)
+		bs, err := ioutil.ReadFile(args.From)
 		rbs, err := dson.EncodeDSON(bs)
 		if err != nil {
 			println("Error happened encoding JSON to DSON")
 			return
 		}
-		err = ioutil.WriteFile(to, rbs, 0644)
+		err = ioutil.WriteFile(args.To, rbs, 0644)
 		if err != nil {
-			println("Error happened writing output to: " + to)
+			println("Error happened writing output to: " + args.To)
 			return
 		}
 	}
+	println("Done converting. Please check your result file at: " + args.To)
 }
 
 func Start() {
@@ -108,10 +106,6 @@ func Start() {
 		args.Interactive != nil {
 		StartInteractive()
 	} else {
-		StartConverting(
-			args.Convert.From,
-			args.Convert.To,
-			args.Convert.Force,
-		)
+		StartConverting(*args.Convert)
 	}
 }
