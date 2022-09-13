@@ -27,6 +27,7 @@ func InferUsingMeta2Block(rawData []byte, meta2block dmeta2.Block) Inferences {
 	return Inferences{
 		IsObject:          meta2block.Inferences.IsObject,
 		NumDirectChildren: meta2block.Inferences.NumDirectChildren,
+		NumAllChildren:    meta2block.Inferences.NumAllChildren,
 		ParentIndex:       meta2block.Inferences.ParentIndex,
 		HierarchyPath:     nil,
 		RawDataOffset:     rawDataOffset,

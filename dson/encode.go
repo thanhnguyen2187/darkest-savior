@@ -28,28 +28,15 @@ func (r KeyCastError) Error() string {
 	)
 }
 
-func FromLinkedHashMap(lhm orderedmap.OrderedMap) (*DecodedFile, error) {
-	file := DecodedFile{}
-	revisionAny, ok := lhm.Get("__revision_dont_touch")
-	if !ok {
-		return nil, RevisionNotFoundError{}
+func FromLinkedHashMap(lhm orderedmap.OrderedMap) ([]dfield.EncodingField, error) {
+	lhm = ds.Deref(&lhm)
+	fields := dfield.FromLinkedHashMap([]string{}, lhm)
+	fields, err := dfield.EncodeValues(fields)
+	if err != nil {
+		print(err.Error())
+		return nil, err
 	}
-	file.Header.Revision = revisionAny.(int)
-	lhm.Delete("__revision_dont_touch")
-
-	for _, key := range lhm.Keys() {
-		if !ok {
-			value, _ := lhm.Get(key)
-			return nil, KeyCastError{Key: key, Value: value}
-		}
-		value, _ := lhm.Get(key)
-		field := dfield.Field{}
-		field.Name = key
-		// field.Inferences.DataType = DecodeValue(value)
-		field.Inferences.Data = value
-	}
-
-	return &file, nil
+	return fields, nil
 }
 
 func EncodeDSON(jsonBytes []byte) ([]byte, error) {
@@ -59,14 +46,15 @@ func EncodeDSON(jsonBytes []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	// _, err = FromLinkedHashMap(*lhm)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	fields, err := FromLinkedHashMap(*lhm)
+	if err != nil {
+		return nil, err
+	}
+	fieldsBytes, err := json.MarshalIndent(fields, "", "  ")
+	if err != nil {
+		return nil, err
+	}
+	// print(ds.DumpJSON(fields))
 
-	lhm.Delete("__revision_dont_touch")
-	value := dfield.FromLinkedHashMap(*lhm)
-	print(ds.DumpJSON(value))
-
-	return nil, nil
+	return fieldsBytes, nil
 }

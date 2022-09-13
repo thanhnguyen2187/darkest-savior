@@ -111,6 +111,7 @@ func InferNumDirectChildren(meta1Blocks []dmeta1.Block, meta2Blocks []Block) ([]
 			return nil, err
 		}
 		meta2Block.Inferences.NumDirectChildren = meta1Block.NumDirectChildren
+		meta2Block.Inferences.NumAllChildren = meta1Block.NumAllChildren
 	}
 
 	return meta2BlocksCopy, nil

@@ -9,6 +9,7 @@ type (
 	Inferences struct {
 		IsObject          bool     `json:"is_object"`
 		NumDirectChildren int      `json:"num_direct_children"`
+		NumAllChildren    int      `json:"num_all_children"`
 		ParentIndex       int      `json:"parent_index"`
 		HierarchyPath     []string `json:"hierarchy_path"`
 		RawDataOffset     int      `json:"raw_data_offset"`
@@ -30,6 +31,7 @@ type (
 
 const (
 	DataTypeUnknown      = DataType("unknown")
+	DataTypeSaveEditor   = DataType("save_editor")
 	DataTypeBool         = DataType("bool")
 	DataTypeChar         = DataType("char")
 	DataTypeInt          = DataType("int")

@@ -21,6 +21,7 @@ type (
 		FieldNameLength   int  `json:"field_name_length"`
 		Meta1EntryIndex   int  `json:"meta_1_entry_index"`
 		NumDirectChildren int  `json:"num_direct_children"`
+		NumAllChildren    int  `json:"num_all_children"`
 		RawDataLength     int  `json:"raw_data_length"`
 	}
 )
