@@ -59,10 +59,8 @@ func TestEndToEnd(t *testing.T) {
 		//
 		// Also see: https://github.com/robojumper/DarkestDungeonSaveEditor/issues/11
 		uniqueFields := dfield.RemoveDuplications(decodedFile.Fields)
-		// uniqueFields := decodedFile.Fields
-		dataFields := uniqueFields
-		dataFields = lo.FlatMap(
-			dataFields,
+		dataFields := lo.FlatMap(
+			uniqueFields,
 			func(field dfield.Field, _ int) []dfield.Field {
 				if field.Inferences.DataType == dfield.DataTypeFileDecoded {
 					decodedFileBytes, err := json.Marshal(field.Inferences.Data)

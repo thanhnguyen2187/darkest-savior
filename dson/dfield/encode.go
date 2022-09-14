@@ -254,6 +254,8 @@ func EncodeValues(fields []EncodingField) ([]EncodingField, error) {
 	return fieldsCopy, nil
 }
 
+func CreateMeta2Block(fields []EncodingField)
+
 func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	firstField := fields[0]
 	if firstField.Key != FieldNameRevision {

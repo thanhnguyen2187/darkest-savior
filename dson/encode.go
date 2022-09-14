@@ -10,16 +10,11 @@ import (
 )
 
 type (
-	RevisionNotFoundError struct{}
-	KeyCastError          struct {
+	KeyCastError struct {
 		Key   any
 		Value any
 	}
 )
-
-func (RevisionNotFoundError) Error() string {
-	return "expected __revision_dont_touch in input JSON file to convert to DSON"
-}
 
 func (r KeyCastError) Error() string {
 	return fmt.Sprintf(
