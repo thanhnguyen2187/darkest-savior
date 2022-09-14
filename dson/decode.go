@@ -14,8 +14,8 @@ import (
 type (
 	DecodedFile struct {
 		Header      dheader.Header `json:"header"`
-		Meta1Blocks []dmeta1.Block `json:"meta_1_blocks"`
-		Meta2Blocks []dmeta2.Block `json:"meta_2_blocks"`
+		Meta1Blocks []dmeta1.Entry `json:"meta_1_blocks"`
+		Meta2Blocks []dmeta2.Entry `json:"meta_2_blocks"`
 		Fields      []dfield.Field `json:"fields"`
 	}
 )
@@ -30,12 +30,12 @@ func ToStructuredFile(bs []byte) (*DecodedFile, error) {
 		return nil, err
 	}
 	file.Header = *header
-	file.Meta1Blocks, err = dmeta1.DecodeBlocks(reader, header.NumMeta1Entries)
+	file.Meta1Blocks, err = dmeta1.DecodeBlock(reader, header.NumMeta1Entries)
 	if err != nil {
 		return nil, err
 	}
 
-	file.Meta2Blocks, err = dmeta2.DecodeBlocks(reader, file.Header, file.Meta1Blocks)
+	file.Meta2Blocks, err = dmeta2.DecodeBlock(reader, file.Header, file.Meta1Blocks)
 	if err != nil {
 		return nil, err
 	}

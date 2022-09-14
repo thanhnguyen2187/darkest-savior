@@ -10,7 +10,7 @@ import (
 	"github.com/samber/lo"
 )
 
-func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Block) (*Field, error) {
+func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Entry) (*Field, error) {
 	// manual decoding and mapping is needed since turning data into JSON
 	// and parse back does not work for bytes of RawData
 	field := Field{}
@@ -48,7 +48,7 @@ func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Block) (*Field, error)
 	return &field, nil
 }
 
-func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Block) ([]Field, error) {
+func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Entry) ([]Field, error) {
 	fields := make([]Field, 0, len(meta2Blocks))
 	for _, meta2Block := range meta2Blocks {
 		field, err := DecodeField(reader, meta2Block)

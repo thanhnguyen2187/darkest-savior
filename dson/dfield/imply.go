@@ -64,8 +64,9 @@ func ImplyDataTypeByValue(value any) DataType {
 			return DataTypeFileJSON
 		}
 		return DataTypeObject
+	default:
+		return DataTypeUnknown
 	}
-	return DataTypeUnknown
 }
 
 func FromLinkedHashMap(

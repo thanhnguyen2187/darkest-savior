@@ -6,7 +6,7 @@ import (
 )
 
 type (
-	Block struct {
+	Entry struct {
 		ParentIndex       int `json:"parent_index"`
 		Meta2EntryIndex   int `json:"meta_2_entry_index"`
 		NumDirectChildren int `json:"num_direct_children"`
@@ -14,7 +14,7 @@ type (
 	}
 )
 
-func DecodeBlock(reader *lbytes.Reader) (*Block, error) {
+func DecodeEntry(reader *lbytes.Reader) (*Entry, error) {
 	readInt := lbytes.CreateIntReadFunction(reader)
 
 	meta1Instructions := []lbytes.Instruction{
@@ -23,28 +23,28 @@ func DecodeBlock(reader *lbytes.Reader) (*Block, error) {
 		{"num_direct_children", readInt},
 		{"num_all_children", readInt},
 	}
-	meta1Block, err := lbytes.ExecuteInstructions[Block](meta1Instructions)
+	meta1Entry, err := lbytes.ExecuteInstructions[Entry](meta1Instructions)
 	if err != nil {
-		err := errors.Wrap(err, "DecodeBlock error")
+		err := errors.Wrap(err, "DecodeEntry error")
 		return nil, err
 	}
 
-	return meta1Block, nil
+	return meta1Entry, nil
 }
 
-func DecodeBlocks(reader *lbytes.Reader, numMeta1Entries int) ([]Block, error) {
-	meta1Blocks := make([]Block, 0, numMeta1Entries)
+func DecodeBlock(reader *lbytes.Reader, numMeta1Entries int) ([]Entry, error) {
+	meta1Entries := make([]Entry, 0, numMeta1Entries)
 	for i := 0; i < numMeta1Entries; i++ {
-		meta1Block, err := DecodeBlock(reader)
+		meta1Entry, err := DecodeEntry(reader)
 		if err != nil {
-			err := errors.Wrap(err, "DecodeBlock error")
+			err := errors.Wrap(err, "DecodeEntry error")
 			return nil, err
 		}
-		if meta1Block == nil {
-			return nil, errors.New("DecodeBlocks unreachable code")
+		if meta1Entry == nil {
+			return nil, errors.New("dmeta1.DecodeBlock unreachable code")
 		}
-		meta1Blocks = append(meta1Blocks, *meta1Block)
+		meta1Entries = append(meta1Entries, *meta1Entry)
 	}
 
-	return meta1Blocks, nil
+	return meta1Entries, nil
 }

@@ -9,8 +9,8 @@ import (
 	"github.com/samber/lo"
 )
 
-func InferIndex(meta2Blocks []Block) []Block {
-	meta2BlocksCopy := make([]Block, len(meta2Blocks))
+func InferIndex(meta2Blocks []Entry) []Entry {
+	meta2BlocksCopy := make([]Entry, len(meta2Blocks))
 	copy(meta2BlocksCopy, meta2Blocks)
 
 	for i := range meta2BlocksCopy {
@@ -33,7 +33,7 @@ func InferRawDataLength(secondOffset int, firstOffset int, firstFieldNameLength 
 	return secondOffset - (firstOffset + firstFieldNameLength)
 }
 
-func InferParentIndex(meta2Blocks []Block) []Block {
+func InferParentIndex(meta2Blocks []Entry) []Entry {
 	// As the fields in a DSON file are laid sequentially,
 	// a stack can be used to find out the parent index of each field.
 	//
@@ -53,9 +53,9 @@ func InferParentIndex(meta2Blocks []Block) []Block {
 	//    |     \--> 4
 	//    \--> 5
 
-	meta2Blocks = ds.BuildTree[Block](
+	meta2Blocks = ds.BuildTree[Entry](
 		// init
-		Block{
+		Entry{
 			Inferences: Inferences{
 				Index:             -1,
 				IsObject:          true,
@@ -67,21 +67,21 @@ func InferParentIndex(meta2Blocks []Block) []Block {
 		// ts
 		meta2Blocks,
 		// popPredicate
-		func(block Block) bool {
+		func(block Entry) bool {
 			return block.Inferences.NumDirectChildren <= 0
 		},
 		// pushPredicate
-		func(block Block) bool {
+		func(block Entry) bool {
 			return block.Inferences.IsObject &&
 				block.Inferences.NumDirectChildren != 0
 		},
 		// replaceFunc
-		func(block Block) Block {
+		func(block Entry) Entry {
 			block.Inferences.NumDirectChildren -= 1
 			return block
 		},
 		// mappingFunc
-		func(peekedBlock Block, currentBlock Block) Block {
+		func(peekedBlock Entry, currentBlock Entry) Entry {
 			currentBlock.Inferences.ParentIndex = peekedBlock.Inferences.Index
 			return currentBlock
 		},
@@ -90,9 +90,9 @@ func InferParentIndex(meta2Blocks []Block) []Block {
 	return meta2Blocks
 }
 
-func InferNumDirectChildren(meta1Blocks []dmeta1.Block, meta2Blocks []Block) ([]Block, error) {
+func InferNumDirectChildren(meta1Blocks []dmeta1.Entry, meta2Blocks []Entry) ([]Entry, error) {
 	// TODO: improve the function by replacing meta1Blocks with meta2EntryIndexes
-	meta2BlocksCopy := make([]Block, len(meta2Blocks))
+	meta2BlocksCopy := make([]Entry, len(meta2Blocks))
 	copy(meta2BlocksCopy, meta2Blocks)
 
 	for i, meta1Block := range meta1Blocks {
@@ -117,7 +117,7 @@ func InferNumDirectChildren(meta1Blocks []dmeta1.Block, meta2Blocks []Block) ([]
 	return meta2BlocksCopy, nil
 }
 
-func InferRawDataLengths(meta2Blocks []Block, headerDataLength int) ([]Block, error) {
+func InferRawDataLengths(meta2Blocks []Entry, headerDataLength int) ([]Entry, error) {
 	n := len(meta2Blocks)
 	// RawDataLength of each meta2Block is inferred by the difference between
 	//
@@ -131,7 +131,7 @@ func InferRawDataLengths(meta2Blocks []Block, headerDataLength int) ([]Block, er
 			meta2Blocks[:n-1],
 			meta2Blocks[1:],
 		),
-		func(t lo.Tuple2[Block, Block], _ int) Block {
+		func(t lo.Tuple2[Entry, Entry], _ int) Entry {
 			rawDataLength := InferRawDataLength(
 				t.B.Offset,
 				t.A.Offset,
@@ -143,7 +143,7 @@ func InferRawDataLengths(meta2Blocks []Block, headerDataLength int) ([]Block, er
 	)
 	meta2Block, found := lo.Find(
 		meta2BlocksCopy,
-		func(meta2Block Block) bool {
+		func(meta2Block Entry) bool {
 			return meta2Block.Inferences.RawDataLength < 0
 		},
 	)

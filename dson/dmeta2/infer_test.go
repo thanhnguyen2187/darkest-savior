@@ -8,8 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func createBlockObject(index int, numDirectChildren int) Block {
-	return Block{
+func createBlockObject(index int, numDirectChildren int) Entry {
+	return Entry{
 		Inferences: Inferences{
 			Index:             index,
 			IsObject:          true,
@@ -18,8 +18,8 @@ func createBlockObject(index int, numDirectChildren int) Block {
 	}
 }
 
-func createBlockPrimitive(index int) Block {
-	return Block{
+func createBlockPrimitive(index int) Entry {
+	return Entry{
 		Inferences: Inferences{
 			Index:    index,
 			IsObject: false,
@@ -28,7 +28,7 @@ func createBlockPrimitive(index int) Block {
 }
 
 func TestInferParentIndex(t *testing.T) {
-	meta2Blocks := []Block{
+	meta2Blocks := []Entry{
 		createBlockObject(0, 3),
 		createBlockPrimitive(1),
 		createBlockObject(2, 2),
@@ -40,7 +40,7 @@ func TestInferParentIndex(t *testing.T) {
 	meta2Blocks = InferParentIndex(meta2Blocks)
 	parentIndexes := lo.Map(
 		meta2Blocks,
-		func(meta2Block Block, _ int) int {
+		func(meta2Block Entry, _ int) int {
 			return meta2Block.Inferences.ParentIndex
 		},
 	)
@@ -48,7 +48,7 @@ func TestInferParentIndex(t *testing.T) {
 }
 
 func TestInferNumDirectChildren(t *testing.T) {
-	meta1Blocks := []dmeta1.Block{
+	meta1Blocks := []dmeta1.Entry{
 		{
 			Meta2EntryIndex:   0,
 			NumDirectChildren: 3,
@@ -58,14 +58,14 @@ func TestInferNumDirectChildren(t *testing.T) {
 			NumDirectChildren: 2,
 		},
 	}
-	meta2Blocks := make([]Block, 6)
-	meta2Blocks[0] = Block{
+	meta2Blocks := make([]Entry, 6)
+	meta2Blocks[0] = Entry{
 		Inferences: Inferences{
 			IsObject:        true,
 			Meta1EntryIndex: 0,
 		},
 	}
-	meta2Blocks[2] = Block{
+	meta2Blocks[2] = Entry{
 		Inferences: Inferences{
 			IsObject:        true,
 			Meta1EntryIndex: 1,
@@ -77,7 +77,7 @@ func TestInferNumDirectChildren(t *testing.T) {
 
 	nums := lo.Map(
 		meta2Blocks,
-		func(meta2Block Block, _ int) int {
+		func(meta2Block Entry, _ int) int {
 			return meta2Block.Inferences.NumDirectChildren
 		},
 	)

@@ -7,8 +7,24 @@ import (
 	"strings"
 
 	"darkest-savior/dson/dhash"
+	"darkest-savior/dson/dheader"
+	"darkest-savior/dson/lbytes"
 	"github.com/samber/lo"
 )
+
+type (
+	RevisionNotFoundError struct {
+		ActualFieldName string
+	}
+)
+
+func (r RevisionNotFoundError) Error() string {
+	msg := fmt.Sprintf(
+		`expected "%s" as the first field; got "%s"`,
+		FieldNameRevision, r.ActualFieldName,
+	)
+	return msg
+}
 
 func EncodeValueBool(value any) []byte {
 	valueBool := value.(bool)
@@ -232,7 +248,38 @@ func EncodeValues(fields []EncodingField) ([]EncodingField, error) {
 		if err != nil {
 			return nil, err
 		}
+		field.IsObject = field.ValueType == DataTypeObject
 		fieldsCopy = append(fieldsCopy, field)
 	}
 	return fieldsCopy, nil
+}
+
+func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
+	firstField := fields[0]
+	if firstField.Key != "__revision_dont_touch" {
+		return nil, RevisionNotFoundError{ActualFieldName: firstField.Key}
+	}
+	meta1Size := lo.CountBy(
+		fields[1:],
+		func(field EncodingField) bool {
+			return field.IsObject
+		},
+	)
+	header := dheader.Header{
+		MagicNumber:     dheader.MagicNumberBytes,
+		Revision:        firstField.Value.(int),
+		HeaderLength:    64,
+		Zeroes:          lbytes.CreateZeroBytes(4),
+		Meta1Size:       0,
+		NumMeta1Entries: meta1Size,
+		Meta1Offset:     0,
+		Zeroes2:         nil,
+		Zeroes3:         nil,
+		NumMeta2Entries: 0,
+		Meta2Offset:     0,
+		Zeroes4:         nil,
+		DataLength:      0,
+		DataOffset:      0,
+	}
+	return header, nil
 }

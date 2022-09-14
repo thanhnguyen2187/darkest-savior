@@ -8,7 +8,7 @@ import (
 )
 
 type (
-	Block struct {
+	Entry struct {
 		NameHash   int        `json:"name_hash"`
 		Offset     int        `json:"offset"`
 		FieldInfo  int        `json:"field_info"`
@@ -26,34 +26,34 @@ type (
 	}
 )
 
-func DecodeBlock(reader *lbytes.Reader) (*Block, error) {
+func DecodeEntry(reader *lbytes.Reader) (*Entry, error) {
 	readInt := lbytes.CreateIntReadFunction(reader)
 	instructions := []lbytes.Instruction{
 		{"name_hash", readInt},
 		{"offset", readInt},
 		{"field_info", readInt},
 	}
-	meta2Block, err := lbytes.ExecuteInstructions[Block](instructions)
+	meta2Entry, err := lbytes.ExecuteInstructions[Entry](instructions)
 	if err != nil {
-		err := errors.Wrap(err, "DecodeBlock error")
+		err := errors.Wrap(err, "DecodeEntry error")
 		return nil, err
 	}
 
-	meta2Block.Inferences = InferUsingFieldInfo(meta2Block.FieldInfo)
+	meta2Entry.Inferences = InferUsingFieldInfo(meta2Entry.FieldInfo)
 
-	return meta2Block, nil
+	return meta2Entry, nil
 }
 
-func DecodeBlocks(reader *lbytes.Reader, header dheader.Header, meta1Blocks []dmeta1.Block) ([]Block, error) {
-	meta2Blocks := make([]Block, 0, header.NumMeta2Entries)
+func DecodeBlock(reader *lbytes.Reader, header dheader.Header, meta1Blocks []dmeta1.Entry) ([]Entry, error) {
+	meta2Blocks := make([]Entry, 0, header.NumMeta2Entries)
 	for i := 0; i < header.NumMeta2Entries; i++ {
-		meta2Block, err := DecodeBlock(reader)
+		meta2Block, err := DecodeEntry(reader)
 		if err != nil {
-			err := errors.Wrap(err, "DecodeBlocks error")
+			err := errors.Wrap(err, "DecodeBlock error")
 			return nil, err
 		}
 		if meta2Block == nil {
-			return nil, errors.New("dmeta2.DecodeBlocks unreachable code")
+			return nil, errors.New("dmeta2.DecodeBlock unreachable code")
 		}
 		meta2Blocks = append(meta2Blocks, *meta2Block)
 	}
@@ -61,12 +61,12 @@ func DecodeBlocks(reader *lbytes.Reader, header dheader.Header, meta1Blocks []dm
 	meta2Blocks = InferIndex(meta2Blocks)
 	meta2Blocks, err := InferRawDataLengths(meta2Blocks, header.DataLength)
 	if err != nil {
-		err := errors.Wrap(err, "dmeta2.DecodeBlocks error")
+		err := errors.Wrap(err, "dmeta2.DecodeBlock error")
 		return nil, err
 	}
 	meta2Blocks, err = InferNumDirectChildren(meta1Blocks, meta2Blocks)
 	if err != nil {
-		err := errors.Wrap(err, "dmeta2.DecodeBlocks error")
+		err := errors.Wrap(err, "dmeta2.DecodeBlock error")
 		return nil, err
 	}
 	meta2Blocks = InferParentIndex(meta2Blocks)

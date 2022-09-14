@@ -15,7 +15,7 @@ import (
 	"github.com/samber/lo"
 )
 
-func InferUsingMeta2Block(rawData []byte, meta2block dmeta2.Block) Inferences {
+func InferUsingMeta2Block(rawData []byte, meta2block dmeta2.Entry) Inferences {
 	rawDataOffset := meta2block.Offset + meta2block.Inferences.FieldNameLength
 	rawDataLength := meta2block.Inferences.RawDataLength
 	alignedBytesCount := ds.NearestDivisibleByM(rawDataOffset, 4) - rawDataOffset
