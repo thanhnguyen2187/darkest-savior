@@ -14,22 +14,22 @@ import (
 
 func TestEndToEnd(t *testing.T) {
 	fileNames := []string{
-		// "../sample_data/novelty_tracker.json",
+		"../sample_data/novelty_tracker.json",
 		"../sample_data/persist.campaign_log.json",
-		// "../sample_data/persist.campaign_mash.json",
-		// "../sample_data/persist.curio_tracker.json",
-		// "../sample_data/persist.estate.json",
-		// "../sample_data/persist.game.json",
-		// "../sample_data/persist.game_knowledge.json",
-		// "../sample_data/persist.journal.json",
-		// "../sample_data/persist.narration.json",
-		// "../sample_data/persist.progression.json",
-		// "../sample_data/persist.quest.json",
-		// "../sample_data/persist.roster.json",
-		// "../sample_data/persist.town_event.json",
-		// "../sample_data/persist.town.json",
-		// "../sample_data/persist.tutorial.json",
-		// "../sample_data/persist.upgrades.json",
+		"../sample_data/persist.campaign_mash.json",
+		"../sample_data/persist.curio_tracker.json",
+		"../sample_data/persist.estate.json",
+		"../sample_data/persist.game.json",
+		"../sample_data/persist.game_knowledge.json",
+		"../sample_data/persist.journal.json",
+		"../sample_data/persist.narration.json",
+		"../sample_data/persist.progression.json",
+		"../sample_data/persist.quest.json",
+		"../sample_data/persist.roster.json",
+		"../sample_data/persist.town_event.json",
+		"../sample_data/persist.town.json",
+		"../sample_data/persist.tutorial.json",
+		"../sample_data/persist.upgrades.json",
 	}
 	for _, fileName := range fileNames {
 
@@ -88,23 +88,6 @@ func TestEndToEnd(t *testing.T) {
 				return field.Key != "__revision_dont_touch"
 			},
 		)
-
-		{
-			data1 := lo.Map(
-				dataFields,
-				func(field dfield.Field, _ int) []string {
-					return field.Inferences.HierarchyPath
-				},
-			)
-			data2 := lo.Map(
-				encodingFields,
-				func(field dfield.EncodingField, _ int) []string {
-					return field.HierarchyPath
-				},
-			)
-			_ = ioutil.WriteFile("/tmp/1.txt", []byte(ds.DumpJSON(data1)), 0644)
-			_ = ioutil.WriteFile("/tmp/2.txt", []byte(ds.DumpJSON(data2)), 0644)
-		}
 
 		require.Equal(t, len(dataFields), len(encodingFields))
 		for i, pair := range lo.Zip2(dataFields, encodingFields) {

@@ -3,7 +3,6 @@ package dfield
 import (
 	"fmt"
 
-	"darkest-savior/ds"
 	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
@@ -97,56 +96,24 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Block) ([]Field, e
 }
 
 func RemoveDuplications(fields []Field) []Field {
-	type Tracker struct {
-		NumRemainChildren int
-		NumAllChildren    int
-		EncounteredNames  map[string]struct{}
+	existedFieldsByIndex := map[int]map[string]struct{}{
+		-1: {},
+		// -1 is initialized for the "super" root object
 	}
-	stack := ds.NewStack[Tracker]()
-	stack.Push(
-		Tracker{
-			NumRemainChildren: 1,
-			NumAllChildren:    1,
-			EncounteredNames:  map[string]struct{}{},
-		},
-	)
-
+	toBeRemoved := map[int]struct{}{}
 	uniqueFields := make([]Field, 0, len(fields))
-	skipping := 0
-	for _, field := range fields {
-		if skipping > 0 {
-			skipping -= 1
-			continue
-		}
-		stack.ReplaceLast(
-			func(tr Tracker) Tracker {
-				tr.NumRemainChildren -= 1
-				return tr
-			},
-		)
-		last := stack.Peek()
-
-		_, ok := last.EncounteredNames[field.Name]
-		if !ok {
+	for index, field := range fields {
+		_, ok := existedFieldsByIndex[field.Inferences.ParentIndex][field.Name]
+		_, ok2 := toBeRemoved[field.Inferences.ParentIndex]
+		if !ok && !ok2 {
+			existedFieldsByIndex[field.Inferences.ParentIndex][field.Name] = struct{}{}
 			uniqueFields = append(uniqueFields, field)
 		} else {
-			skipping += field.Inferences.NumAllChildren
-			// continue
-		}
-		last.EncounteredNames[field.Name] = struct{}{}
-
-		if last.NumRemainChildren == 0 {
-			stack.Pop()
+			toBeRemoved[index] = struct{}{}
 		}
 		if field.Inferences.IsObject {
-			stack.Push(
-				Tracker{
-					NumRemainChildren: field.Inferences.NumDirectChildren,
-					EncounteredNames:  map[string]struct{}{},
-				},
-			)
+			existedFieldsByIndex[index] = map[string]struct{}{}
 		}
 	}
-
 	return uniqueFields
 }
