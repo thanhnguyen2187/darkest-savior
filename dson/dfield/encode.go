@@ -256,7 +256,7 @@ func EncodeValues(fields []EncodingField) ([]EncodingField, error) {
 
 func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	firstField := fields[0]
-	if firstField.Key != "__revision_dont_touch" {
+	if firstField.Key != FieldNameRevision {
 		return nil, RevisionNotFoundError{ActualFieldName: firstField.Key}
 	}
 	meta1Size := lo.CountBy(

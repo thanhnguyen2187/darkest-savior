@@ -85,7 +85,7 @@ func TestEndToEnd(t *testing.T) {
 		encodingFields = lo.Filter(
 			encodingFields,
 			func(field dfield.EncodingField, _ int) bool {
-				return field.Key != "__revision_dont_touch"
+				return field.Key != dfield.FieldNameRevision
 			},
 		)
 

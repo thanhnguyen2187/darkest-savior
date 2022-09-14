@@ -59,8 +59,8 @@ func ImplyDataTypeByValue(value any) DataType {
 	case orderedmap.OrderedMap:
 		valueLhm := value.(orderedmap.OrderedMap)
 		if len(valueLhm.Keys()) == 2 &&
-			valueLhm.Keys()[0] == "__revision_dont_touch" &&
-			valueLhm.Keys()[1] == "base_root" {
+			valueLhm.Keys()[0] == FieldNameRevision &&
+			valueLhm.Keys()[1] == FieldNameRoot {
 			return DataTypeFileJSON
 		}
 		return DataTypeObject
@@ -84,8 +84,8 @@ func FromLinkedHashMap(
 				// split to a "special case" and a "normal case" since `base_root` is the...
 				// root of a DSON file, and also the root of an embedded file; testing is
 				// wrong in the embedded file case without this fix
-				if key == "base_root" {
-					field.HierarchyPath = []string{"base_root"}
+				if key == FieldNameRoot {
+					field.HierarchyPath = []string{FieldNameRoot}
 				} else {
 					// shallow copy is needed here since a lot of FromLinkedHashMap
 					// invocation with the same slice leads to strange errors

@@ -85,7 +85,7 @@ func ToLinkedHashMap(file DecodedFile) *orderedmap.OrderedMap {
 	// TODO: use an interface for orderedMap
 	lhmByIndex := make(map[int]*orderedmap.OrderedMap)
 	lhmByIndex[-1] = orderedmap.New()
-	lhmByIndex[-1].Set("__revision_dont_touch", file.Header.Revision)
+	lhmByIndex[-1].Set(dfield.FieldNameRevision, file.Header.Revision)
 	for index, field := range file.Fields {
 		parentIndex := field.Inferences.ParentIndex
 		if field.Inferences.IsObject {

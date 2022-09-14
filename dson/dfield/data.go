@@ -50,4 +50,7 @@ const (
 	DataTypeFileDecoded  = DataType("file_decoded")
 	DataTypeFileJSON     = DataType("file_json")
 	DataTypeObject       = DataType("object")
+
+	FieldNameRevision = "__revision_dont_touch"
+	FieldNameRoot     = "base_root"
 )
