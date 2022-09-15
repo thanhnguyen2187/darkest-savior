@@ -8,6 +8,7 @@ import (
 
 	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
+	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
 	"github.com/samber/lo"
 )
@@ -254,7 +255,28 @@ func EncodeValues(fields []EncodingField) ([]EncodingField, error) {
 	return fieldsCopy, nil
 }
 
-func CreateMeta2Block(fields []EncodingField)
+func CreateMeta2Entry(
+	currentOffset int,
+	currentNumObject int,
+	field EncodingField,
+) dmeta2.Entry {
+	fieldInfo := 0
+	if field.IsObject {
+		fieldInfo ^= 1
+	}
+	fieldNameLength := len(field.Key) + 1
+	fieldInfo ^= fieldNameLength << 2
+	fieldInfo ^= currentNumObject << 11
+	return dmeta2.Entry{
+		NameHash:  int(dhash.HashString(field.Key + "\u0000")),
+		Offset:    currentOffset,
+		FieldInfo: fieldInfo,
+	}
+}
+
+func CreateMeta2Block(fields []EncodingField) []dmeta2.Entry {
+	return nil
+}
 
 func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	firstField := fields[0]
