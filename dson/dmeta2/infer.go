@@ -9,14 +9,14 @@ import (
 	"github.com/samber/lo"
 )
 
-func InferIndex(meta2Blocks []Entry) []Entry {
-	meta2BlocksCopy := make([]Entry, len(meta2Blocks))
-	copy(meta2BlocksCopy, meta2Blocks)
+func InferIndex(meta2Entries []Entry) []Entry {
+	meta2EntriesCopy := make([]Entry, len(meta2Entries))
+	copy(meta2EntriesCopy, meta2Entries)
 
-	for i := range meta2BlocksCopy {
-		meta2BlocksCopy[i].Inferences.Index = i
+	for i := range meta2EntriesCopy {
+		meta2EntriesCopy[i].Inferences.Index = i
 	}
-	return meta2BlocksCopy
+	return meta2EntriesCopy
 }
 
 func InferUsingFieldInfo(fieldInfo int) Inferences {
@@ -33,7 +33,7 @@ func InferRawDataLength(secondOffset int, firstOffset int, firstFieldNameLength 
 	return secondOffset - (firstOffset + firstFieldNameLength)
 }
 
-func InferParentIndex(meta2Blocks []Entry) []Entry {
+func InferParentIndex(meta2Entries []Entry) []Entry {
 	// As the fields in a DSON file are laid sequentially,
 	// a stack can be used to find out the parent index of each field.
 	//
@@ -53,7 +53,7 @@ func InferParentIndex(meta2Blocks []Entry) []Entry {
 	//    |     \--> 4
 	//    \--> 5
 
-	meta2Blocks = ds.BuildTree[Entry](
+	meta2Entries = ds.BuildTree[Entry](
 		// init
 		Entry{
 			Inferences: Inferences{
@@ -65,39 +65,39 @@ func InferParentIndex(meta2Blocks []Entry) []Entry {
 			},
 		},
 		// ts
-		meta2Blocks,
+		meta2Entries,
 		// popPredicate
-		func(block Entry) bool {
-			return block.Inferences.NumDirectChildren <= 0
+		func(entry Entry) bool {
+			return entry.Inferences.NumDirectChildren <= 0
 		},
 		// pushPredicate
-		func(block Entry) bool {
-			return block.Inferences.IsObject &&
-				block.Inferences.NumDirectChildren != 0
+		func(entry Entry) bool {
+			return entry.Inferences.IsObject &&
+				entry.Inferences.NumDirectChildren != 0
 		},
 		// replaceFunc
-		func(block Entry) Entry {
-			block.Inferences.NumDirectChildren -= 1
-			return block
+		func(entry Entry) Entry {
+			entry.Inferences.NumDirectChildren -= 1
+			return entry
 		},
 		// mappingFunc
-		func(peekedBlock Entry, currentBlock Entry) Entry {
-			currentBlock.Inferences.ParentIndex = peekedBlock.Inferences.Index
-			return currentBlock
+		func(lastEntry Entry, currentEntry Entry) Entry {
+			currentEntry.Inferences.ParentIndex = lastEntry.Inferences.Index
+			return currentEntry
 		},
 	)
 
-	return meta2Blocks
+	return meta2Entries
 }
 
-func InferNumDirectChildren(meta1Blocks []dmeta1.Entry, meta2Blocks []Entry) ([]Entry, error) {
-	// TODO: improve the function by replacing meta1Blocks with meta2EntryIndexes
-	meta2BlocksCopy := make([]Entry, len(meta2Blocks))
-	copy(meta2BlocksCopy, meta2Blocks)
+func InferNumDirectChildren(meta1Entries []dmeta1.Entry, meta2Entries []Entry) ([]Entry, error) {
+	// TODO: improve the function by replacing meta1Entries with meta2EntryIndexes
+	meta2EntriesCopy := make([]Entry, len(meta2Entries))
+	copy(meta2EntriesCopy, meta2Entries)
 
-	for i, meta1Block := range meta1Blocks {
-		meta2EntryIndex := meta1Block.Meta2EntryIndex
-		meta2Block := &meta2BlocksCopy[meta2EntryIndex]
+	for i, meta1Entry := range meta1Entries {
+		meta2EntryIndex := meta1Entry.Meta2EntryIndex
+		meta2Block := &meta2EntriesCopy[meta2EntryIndex]
 		meta1EntryIndex := meta2Block.Inferences.Meta1EntryIndex
 		if !meta2Block.Inferences.IsObject {
 			err := fmt.Errorf("InferParentIndex metaBlock2 %d is not an object", meta2EntryIndex)
@@ -110,26 +110,26 @@ func InferNumDirectChildren(meta1Blocks []dmeta1.Entry, meta2Blocks []Entry) ([]
 			)
 			return nil, err
 		}
-		meta2Block.Inferences.NumDirectChildren = meta1Block.NumDirectChildren
-		meta2Block.Inferences.NumAllChildren = meta1Block.NumAllChildren
+		meta2Block.Inferences.NumDirectChildren = meta1Entry.NumDirectChildren
+		meta2Block.Inferences.NumAllChildren = meta1Entry.NumAllChildren
 	}
 
-	return meta2BlocksCopy, nil
+	return meta2EntriesCopy, nil
 }
 
-func InferRawDataLengths(meta2Blocks []Entry, headerDataLength int) ([]Entry, error) {
-	n := len(meta2Blocks)
-	// RawDataLength of each meta2Block is inferred by the difference between
+func InferRawDataLengths(meta2Entries []Entry, headerDataLength int) ([]Entry, error) {
+	n := len(meta2Entries)
+	// RawDataLength of each meta2Entry is inferred by the difference between
 	//
 	// - The second block's offset, and
 	// - Sum of the first block's offset and the field name length
 	//
 	// A "normal" loop might work in this case,
 	// but at a second glance is not as clear as using `lo.Zip2` to create pairs from the blocks.
-	meta2BlocksCopy := lo.Map(
+	meta2EntriesCopy := lo.Map(
 		lo.Zip2(
-			meta2Blocks[:n-1],
-			meta2Blocks[1:],
+			meta2Entries[:n-1],
+			meta2Entries[1:],
 		),
 		func(t lo.Tuple2[Entry, Entry], _ int) Entry {
 			rawDataLength := InferRawDataLength(
@@ -141,8 +141,8 @@ func InferRawDataLengths(meta2Blocks []Entry, headerDataLength int) ([]Entry, er
 			return t.A
 		},
 	)
-	meta2Block, found := lo.Find(
-		meta2BlocksCopy,
+	meta2Entry, found := lo.Find(
+		meta2EntriesCopy,
 		func(meta2Block Entry) bool {
 			return meta2Block.Inferences.RawDataLength < 0
 		},
@@ -150,24 +150,24 @@ func InferRawDataLengths(meta2Blocks []Entry, headerDataLength int) ([]Entry, er
 	if found {
 		err := fmt.Errorf(
 			`InferRawDataLength meta 2 block "%s" has negative raw data length`,
-			ds.DumpJSON(meta2Block),
+			ds.DumpJSON(meta2Entry),
 		)
 		return nil, err
 	}
 
-	// lastBlock is an edge case, where within calculation,
-	// it is the first block itself; data length of header serves as the second block's offset
-	lastBlock, err := lo.Last(meta2Blocks)
+	// lastEntry is an edge case, where within calculation,
+	// it is the first entry itself; data length of header serves as the second block's offset
+	lastEntry, err := lo.Last(meta2Entries)
 	if err != nil {
 		msg := fmt.Sprintf("InferRawDataLengths unreachable code where there is no meta 2 block")
 		return nil, errors.New(msg)
 	}
-	lastBlock.Inferences.RawDataLength = InferRawDataLength(
+	lastEntry.Inferences.RawDataLength = InferRawDataLength(
 		headerDataLength,
-		lastBlock.Offset,
-		lastBlock.Inferences.FieldNameLength,
+		lastEntry.Offset,
+		lastEntry.Inferences.FieldNameLength,
 	)
-	meta2BlocksCopy = append(meta2BlocksCopy, lastBlock)
+	meta2EntriesCopy = append(meta2EntriesCopy, lastEntry)
 
-	return meta2BlocksCopy, nil
+	return meta2EntriesCopy, nil
 }

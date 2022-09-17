@@ -73,7 +73,6 @@ func FromLinkedHashMap(
 	currentPath []string,
 	lhm orderedmap.OrderedMap,
 ) []EncodingField {
-	// TODO: See if unmarshal to float64 is dangerous in the case and find out how to mitigate
 	return lo.Flatten(
 		// TODO: find a way to handle `lo.Map` with potential error more gracefully
 		lo.Map[string, []EncodingField](

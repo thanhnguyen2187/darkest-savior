@@ -43,7 +43,7 @@ func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Entry) (*Field, error)
 		return nil, err
 	}
 
-	field.Inferences = InferUsingMeta2Block(field.RawData, meta2Block)
+	field.Inferences = InferUsingMeta2Entry(field.RawData, meta2Block)
 
 	return &field, nil
 }

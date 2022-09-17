@@ -45,31 +45,31 @@ func DecodeEntry(reader *lbytes.Reader) (*Entry, error) {
 }
 
 func DecodeBlock(reader *lbytes.Reader, header dheader.Header, meta1Blocks []dmeta1.Entry) ([]Entry, error) {
-	meta2Blocks := make([]Entry, 0, header.NumMeta2Entries)
+	meta2Entries := make([]Entry, 0, header.NumMeta2Entries)
 	for i := 0; i < header.NumMeta2Entries; i++ {
-		meta2Block, err := DecodeEntry(reader)
+		meta2Entry, err := DecodeEntry(reader)
 		if err != nil {
 			err := errors.Wrap(err, "DecodeBlock error")
 			return nil, err
 		}
-		if meta2Block == nil {
+		if meta2Entry == nil {
 			return nil, errors.New("dmeta2.DecodeBlock unreachable code")
 		}
-		meta2Blocks = append(meta2Blocks, *meta2Block)
+		meta2Entries = append(meta2Entries, *meta2Entry)
 	}
 
-	meta2Blocks = InferIndex(meta2Blocks)
-	meta2Blocks, err := InferRawDataLengths(meta2Blocks, header.DataLength)
+	meta2Entries = InferIndex(meta2Entries)
+	meta2Entries, err := InferRawDataLengths(meta2Entries, header.DataLength)
 	if err != nil {
 		err := errors.Wrap(err, "dmeta2.DecodeBlock error")
 		return nil, err
 	}
-	meta2Blocks, err = InferNumDirectChildren(meta1Blocks, meta2Blocks)
+	meta2Entries, err = InferNumDirectChildren(meta1Blocks, meta2Entries)
 	if err != nil {
 		err := errors.Wrap(err, "dmeta2.DecodeBlock error")
 		return nil, err
 	}
-	meta2Blocks = InferParentIndex(meta2Blocks)
+	meta2Entries = InferParentIndex(meta2Entries)
 
-	return meta2Blocks, nil
+	return meta2Entries, nil
 }

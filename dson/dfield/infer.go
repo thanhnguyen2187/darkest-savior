@@ -15,9 +15,9 @@ import (
 	"github.com/samber/lo"
 )
 
-func InferUsingMeta2Block(rawData []byte, meta2block dmeta2.Entry) Inferences {
-	rawDataOffset := meta2block.Offset + meta2block.Inferences.FieldNameLength
-	rawDataLength := meta2block.Inferences.RawDataLength
+func InferUsingMeta2Entry(rawData []byte, meta2Entry dmeta2.Entry) Inferences {
+	rawDataOffset := meta2Entry.Offset + meta2Entry.Inferences.FieldNameLength
+	rawDataLength := meta2Entry.Inferences.RawDataLength
 	alignedBytesCount := ds.NearestDivisibleByM(rawDataOffset, 4) - rawDataOffset
 	rawDataStripped := rawData
 	if rawDataLength > alignedBytesCount {
@@ -25,10 +25,10 @@ func InferUsingMeta2Block(rawData []byte, meta2block dmeta2.Entry) Inferences {
 	}
 
 	return Inferences{
-		IsObject:          meta2block.Inferences.IsObject,
-		NumDirectChildren: meta2block.Inferences.NumDirectChildren,
-		NumAllChildren:    meta2block.Inferences.NumAllChildren,
-		ParentIndex:       meta2block.Inferences.ParentIndex,
+		IsObject:          meta2Entry.Inferences.IsObject,
+		NumDirectChildren: meta2Entry.Inferences.NumDirectChildren,
+		NumAllChildren:    meta2Entry.Inferences.NumAllChildren,
+		ParentIndex:       meta2Entry.Inferences.ParentIndex,
 		HierarchyPath:     nil,
 		RawDataOffset:     rawDataOffset,
 		RawDataLength:     rawDataLength,
@@ -59,7 +59,8 @@ func InferHierarchyPaths(fields []Field) []Field {
 
 func InferDataTypeByFieldName(fieldName string) DataType {
 	switch fieldName {
-	case "requirement_code":
+	case
+		"requirement_code":
 		return DataTypeChar
 	case
 		"current_hp",
@@ -90,7 +91,8 @@ func InferDataTypeByFieldName(fieldName string) DataType {
 		"quirk_groups",
 		"backgroundNames":
 		return DataTypeStringVector
-	case "killRange":
+	case
+		"killRange":
 		return DataTypeTwoInt
 	default:
 		return DataTypeUnknown

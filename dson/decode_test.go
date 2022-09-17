@@ -2,18 +2,32 @@ package dson
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"testing"
 
-	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
+	"darkest-savior/dson/dmeta2"
 	"github.com/iancoleman/orderedmap"
 	"github.com/samber/lo"
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestEndToEnd(t *testing.T) {
-	fileNames := []string{
+type EndToEndTestSuite struct {
+	suite.Suite
+	FilePaths                  []string
+	FileByteSlices             [][]byte
+	DecodedFiles               []DecodedFile
+	DecodedJSONsFromFile       []orderedmap.OrderedMap
+	DecodedFieldSlices         [][]dfield.Field
+	DecodedFieldSlicesUnique   [][]dfield.Field
+	DecodedFieldSlicesExpanded [][]dfield.Field
+	EncodingFieldSlices        [][]dfield.EncodingField
+}
+
+func (suite *EndToEndTestSuite) SetupSuite() {
+	suiteR := suite.Require()
+	suite.FilePaths = []string{
 		"../sample_data/novelty_tracker.json",
 		"../sample_data/persist.campaign_log.json",
 		"../sample_data/persist.campaign_mash.json",
@@ -31,70 +45,139 @@ func TestEndToEnd(t *testing.T) {
 		"../sample_data/persist.tutorial.json",
 		"../sample_data/persist.upgrades.json",
 	}
-	for _, fileName := range fileNames {
+	suite.FileByteSlices = lo.Map(
+		suite.FilePaths,
+		func(path string, _ int) []byte {
+			bs, err := ioutil.ReadFile(path)
+			suiteR.NoError(err)
+			return bs
+		},
+	)
+	suite.DecodedFiles = lo.Map(
+		suite.FileByteSlices,
+		func(bs []byte, _ int) DecodedFile {
+			decodedFile, err := ToStructuredFile(bs)
+			suiteR.NoError(err)
+			return *decodedFile
+		},
+	)
+	suite.DecodedFieldSlices = lo.Map(
+		suite.DecodedFiles,
+		func(decodedFile DecodedFile, _ int) []dfield.Field {
+			return decodedFile.Fields
+		},
+	)
+	suite.DecodedFieldSlicesUnique = lo.Map(
+		suite.DecodedFieldSlices,
+		func(fields []dfield.Field, _ int) []dfield.Field {
+			return dfield.RemoveDuplications(fields)
+		},
+	)
+	suite.DecodedFieldSlicesExpanded = lo.Map(
+		suite.DecodedFieldSlicesUnique,
+		func(fields []dfield.Field, _ int) []dfield.Field {
+			expandedFields, err := ExpandEmbeddedFiles(fields)
+			suiteR.NoError(err)
+			return expandedFields
+		},
+	)
+	suite.DecodedJSONsFromFile = lo.Map(
+		suite.FileByteSlices,
+		func(bs []byte, _ int) orderedmap.OrderedMap {
+			// A better way to do this is:
+			//
+			//    lhm := ToLinkedHashMap(decodedFile)
+			//
+			// But the current encoding code operates on the assumption that
+			// the input linked hash map is something comes from `json.Marshal`
+			// with some special data type quirks (everything is float64, etc.)
+			// and some corresponding handling.
+			outputBytes, err := DecodeDSON(bs, false)
+			suiteR.NoError(err)
+			lhm := orderedmap.New()
+			err = json.Unmarshal(outputBytes, lhm)
+			suiteR.NoError(err)
+			return *lhm
+		},
+	)
+	suite.EncodingFieldSlices = lo.Map(
+		suite.DecodedJSONsFromFile,
+		func(lhm orderedmap.OrderedMap, _ int) []dfield.EncodingField {
+			encodingFields, err := FromLinkedHashMap(lhm)
+			suiteR.NoError(err)
+			return encodingFields
+		},
+	)
+	suiteR.Equal(len(suite.FilePaths), len(suite.FileByteSlices))
+	suiteR.Equal(len(suite.FileByteSlices), len(suite.DecodedFiles))
+	suiteR.Equal(len(suite.DecodedFiles), len(suite.DecodedJSONsFromFile))
+}
 
-		inputBytes, err := ioutil.ReadFile(fileName)
-		require.NoError(t, err)
+func (suite *EndToEndTestSuite) TestDecodeDSON_Header_Meta2Block() {
+	suiteR := suite.Require()
+	lo.ForEach(
+		suite.DecodedFiles,
+		func(decodedFile DecodedFile, _ int) {
+			suiteR.Equal(
+				decodedFile.Header.DataLength,
+				lo.SumBy(
+					decodedFile.Meta2Block,
+					func(meta2Entry dmeta2.Entry) int {
+						return meta2Entry.Inferences.FieldNameLength + meta2Entry.Inferences.RawDataLength
+					},
+				),
+			)
+		},
+	)
+}
 
-		decodedFile := DecodedFile{}
-		{
-			outputBytes, err := DecodeDSON(inputBytes, true)
-			require.NoError(t, err)
-			err = json.Unmarshal(outputBytes, &decodedFile)
-			require.NoError(t, err)
-		}
-		lhm := orderedmap.New()
-		{
-			outputBytes, err := DecodeDSON(inputBytes, false)
-			require.NoError(t, err)
-			err = json.Unmarshal(outputBytes, &lhm)
-			require.NoError(t, err)
-		}
+func (suite *EndToEndTestSuite) TestDecodeEncodeFields() {
+	suiteR := suite.Require()
+	lo.ForEach(
+		lo.Zip2(suite.DecodedFieldSlicesExpanded, suite.EncodingFieldSlices),
+		func(pair lo.Tuple2[[]dfield.Field, []dfield.EncodingField], _ int) {
+			decodedFields := pair.A
+			encodingFields := pair.B
+			encodingFields = dfield.RemoveRevisionField(encodingFields)
 
-		// `uniqueFields` is needed since decodedFile.Fields has duplicating names sometimes
-		// and the underlying data structure (linked hash map) just kind of... swallow that up.
-		// One quite "cool" theory is that the underlying data structure of Darkest Dungeon's developers
-		// is something similar to a linked hash map that has the hash map itself good,
-		// but the self implemented linked list does not work as expected.
-		//
-		// Also see: https://github.com/robojumper/DarkestDungeonSaveEditor/issues/11
-		uniqueFields := dfield.RemoveDuplications(decodedFile.Fields)
-		dataFields := lo.FlatMap(
-			uniqueFields,
-			func(field dfield.Field, _ int) []dfield.Field {
-				if field.Inferences.DataType == dfield.DataTypeFileDecoded {
-					decodedFileBytes, err := json.Marshal(field.Inferences.Data)
-					require.NoError(t, err)
+			suiteR.Equal(len(decodedFields), len(encodingFields))
+			lo.ForEach(
+				lo.Zip2(decodedFields, encodingFields),
+				func(pair lo.Tuple2[dfield.Field, dfield.EncodingField], _ int) {
+					decodedField := pair.A
+					encodingField := pair.B
+					suiteR.Equal(decodedField.Name, encodingField.Key)
+					suiteR.Equal(decodedField.Inferences.HierarchyPath, encodingField.HierarchyPath)
+					if decodedField.Inferences.RawDataStripped != nil && encodingField.Bytes != nil {
+						suiteR.Equal(decodedField.Inferences.RawDataStripped, encodingField.Bytes)
+					}
+				},
+			)
+		},
+	)
+}
 
-					decodedFile := DecodedFile{}
-					err = json.Unmarshal(decodedFileBytes, &decodedFile)
-					require.NoError(t, err)
-
-					return append(
-						[]dfield.Field{field},
-						decodedFile.Fields...,
-					)
-				}
-				return []dfield.Field{field}
-			},
-		)
-		encodingFields, err := FromLinkedHashMap(*lhm)
-		require.NoError(t, err)
-		encodingFields = lo.Filter(
-			encodingFields,
-			func(field dfield.EncodingField, _ int) bool {
-				return field.Key != dfield.FieldNameRevision
-			},
-		)
-
-		require.Equal(t, len(dataFields), len(encodingFields))
-		for i, pair := range lo.Zip2(dataFields, encodingFields) {
-			require.Equalf(t, pair.A.Name, pair.B.Key, "%d %s", i, ds.DumpJSON(pair))
-			require.Equalf(t, pair.A.Inferences.HierarchyPath, pair.B.HierarchyPath, "%d %s", i, ds.DumpJSON(pair))
-			if pair.A.Inferences.RawDataStripped != nil && pair.B.Bytes != nil {
-				require.Equalf(t, pair.A.Inferences.RawDataStripped, pair.B.Bytes, "%d %s", i, ds.DumpJSON(pair))
+func (suite *EndToEndTestSuite) TestDecodeEncodeHeader() {
+	suiteR := suite.Require()
+	lo.ForEach(
+		lo.Zip3(suite.FilePaths, suite.DecodedFiles, suite.EncodingFieldSlices),
+		func(triplet lo.Tuple3[string, DecodedFile, []dfield.EncodingField], _ int) {
+			filePath := triplet.A
+			decodedFile := triplet.B
+			encodingFields := triplet.C
+			if len(decodedFile.Meta2Block) > len(encodingFields) {
+				// skip the test since there are duplicated fields within the original decoded file
+				return
 			}
-		}
 
-	}
+			encodingHeader, err := dfield.CreateHeader(encodingFields)
+			suiteR.NoError(err)
+			msg := fmt.Sprintf(`Failed at file "%s"`, filePath)
+			suiteR.Equalf(decodedFile.Header, *encodingHeader, msg)
+		},
+	)
+}
+
+func TestEndToEnd2(t *testing.T) {
+	suite.Run(t, new(EndToEndTestSuite))
 }

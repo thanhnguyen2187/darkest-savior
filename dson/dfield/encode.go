@@ -6,6 +6,7 @@ import (
 	"math"
 	"strings"
 
+	"darkest-savior/ds"
 	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta2"
@@ -278,32 +279,80 @@ func CreateMeta2Block(fields []EncodingField) []dmeta2.Entry {
 	return nil
 }
 
+func CalculateSizePadded(field EncodingField) int {
+	fieldNameLength := len(field.Key) + 1
+	fieldDataLength := len(field.Bytes)
+	if fieldDataLength >= 4 {
+		return ds.NearestDivisibleByM(
+			fieldDataLength+fieldNameLength,
+			4,
+		)
+	}
+	return fieldNameLength + fieldDataLength
+}
+
 func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	firstField := fields[0]
 	if firstField.Key != FieldNameRevision {
 		return nil, RevisionNotFoundError{ActualFieldName: firstField.Key}
 	}
-	meta1Size := lo.CountBy(
-		fields[1:],
+	fieldsWithoutRevision := RemoveRevisionField(fields)
+
+	revision := int(firstField.Value.(float64))
+	headerLength := 64
+	numMeta1Entries := lo.CountBy(
+		fieldsWithoutRevision,
 		func(field EncodingField) bool {
 			return field.IsObject
 		},
 	)
+	meta1Size := numMeta1Entries << 4
+	meta1Offset := headerLength
+
+	numMeta2Entries := len(fieldsWithoutRevision)
+	meta2Offset := meta1Size + meta1Offset
+	meta2Size := 12 * numMeta2Entries
+
+	// dataLength := lo.SumBy(
+	// 	fieldsWithoutRevision,
+	// 	CalculateSizePadded,
+	// )
+	dataLength := lo.Reduce(
+		fieldsWithoutRevision,
+		func(r int, t EncodingField, _ int) int {
+			if len(t.Bytes) >= 4 {
+				return ds.NearestDivisibleByM(r+len(t.Key)+1, 4) + len(t.Bytes)
+			}
+			return r + len(t.Key) + 1 + len(t.Bytes)
+		},
+		0,
+	)
+	dataOffset := headerLength + meta1Size + meta2Size
+
 	header := dheader.Header{
 		MagicNumber:     dheader.MagicNumberBytes,
-		Revision:        firstField.Value.(int),
-		HeaderLength:    64,
+		Revision:        revision,
+		HeaderLength:    headerLength,
 		Zeroes:          lbytes.CreateZeroBytes(4),
-		Meta1Size:       0,
-		NumMeta1Entries: meta1Size,
-		Meta1Offset:     0,
-		Zeroes2:         nil,
-		Zeroes3:         nil,
-		NumMeta2Entries: 0,
-		Meta2Offset:     0,
-		Zeroes4:         nil,
-		DataLength:      0,
-		DataOffset:      0,
+		Meta1Size:       meta1Size,
+		NumMeta1Entries: numMeta1Entries,
+		Meta1Offset:     meta1Offset,
+		Zeroes2:         lbytes.CreateZeroBytes(8),
+		Zeroes3:         lbytes.CreateZeroBytes(8),
+		NumMeta2Entries: numMeta2Entries,
+		Meta2Offset:     meta2Offset,
+		Zeroes4:         lbytes.CreateZeroBytes(4),
+		DataLength:      dataLength,
+		DataOffset:      dataOffset,
 	}
-	return header, nil
+	return &header, nil
+}
+
+func RemoveRevisionField(fields []EncodingField) []EncodingField {
+	return lo.Filter(
+		fields,
+		func(field EncodingField, _ int) bool {
+			return field.Key != FieldNameRevision
+		},
+	)
 }

@@ -9,14 +9,15 @@ import (
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
 	"github.com/iancoleman/orderedmap"
+	"github.com/samber/lo"
 )
 
 type (
 	DecodedFile struct {
-		Header      dheader.Header `json:"header"`
-		Meta1Blocks []dmeta1.Entry `json:"meta_1_blocks"`
-		Meta2Blocks []dmeta2.Entry `json:"meta_2_blocks"`
-		Fields      []dfield.Field `json:"fields"`
+		Header     dheader.Header `json:"header"`
+		Meta1Block []dmeta1.Entry `json:"meta_1_block"`
+		Meta2Block []dmeta2.Entry `json:"meta_2_block"`
+		Fields     []dfield.Field `json:"fields"`
 	}
 )
 
@@ -30,20 +31,21 @@ func ToStructuredFile(bs []byte) (*DecodedFile, error) {
 		return nil, err
 	}
 	file.Header = *header
-	file.Meta1Blocks, err = dmeta1.DecodeBlock(reader, header.NumMeta1Entries)
+	file.Meta1Block, err = dmeta1.DecodeBlock(reader, header.NumMeta1Entries)
 	if err != nil {
 		return nil, err
 	}
 
-	file.Meta2Blocks, err = dmeta2.DecodeBlock(reader, file.Header, file.Meta1Blocks)
+	file.Meta2Block, err = dmeta2.DecodeBlock(reader, file.Header, file.Meta1Block)
 	if err != nil {
 		return nil, err
 	}
 
-	file.Fields, err = dfield.DecodeFields(reader, file.Meta2Blocks)
+	file.Fields, err = dfield.DecodeFields(reader, file.Meta2Block)
 	if err != nil {
 		return nil, err
 	}
+	// file.Fields = dfield.RemoveDuplications(file.Fields)
 
 	for i := range file.Fields {
 		field := &file.Fields[i]
@@ -101,4 +103,24 @@ func ToLinkedHashMap(file DecodedFile) *orderedmap.OrderedMap {
 	}
 
 	return lhmByIndex[-1]
+}
+
+func ExpandEmbeddedFiles(fields []dfield.Field) ([]dfield.Field, error) {
+	mappedFields := make([][]dfield.Field, 0)
+	for _, field := range fields {
+		mappedFields = append(mappedFields, []dfield.Field{field})
+		if field.Inferences.DataType == dfield.DataTypeFileDecoded {
+			decodedFileBytes, err := json.Marshal(field.Inferences.Data)
+			if err != nil {
+				return nil, err
+			}
+			decodedFile := DecodedFile{}
+			err = json.Unmarshal(decodedFileBytes, &decodedFile)
+			if err != nil {
+				return nil, err
+			}
+			mappedFields = append(mappedFields, decodedFile.Fields)
+		}
+	}
+	return lo.Flatten(mappedFields), nil
 }
