@@ -34,6 +34,11 @@ func FromLinkedHashMap(lhm orderedmap.OrderedMap) ([]dfield.EncodingField, error
 	return fields, nil
 }
 
+func CompactEmbeddedFiles(fields []dfield.EncodingField) []dfield.EncodingField {
+	for _, field := range fields {
+	}
+}
+
 func EncodeDSON(jsonBytes []byte) ([]byte, error) {
 	lhm := orderedmap.New()
 	err := json.Unmarshal(jsonBytes, &lhm)

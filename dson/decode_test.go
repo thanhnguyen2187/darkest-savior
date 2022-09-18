@@ -131,7 +131,7 @@ func (suite *EndToEndTestSuite) TestDecodeDSON_Header_Meta2Block() {
 	)
 }
 
-func (suite *EndToEndTestSuite) TestDecodeEncodeFields() {
+func (suite *EndToEndTestSuite) TestDecodeEncode_Fields() {
 	suiteR := suite.Require()
 	lo.ForEach(
 		lo.Zip2(suite.DecodedFieldSlicesExpanded, suite.EncodingFieldSlices),
@@ -157,7 +157,7 @@ func (suite *EndToEndTestSuite) TestDecodeEncodeFields() {
 	)
 }
 
-func (suite *EndToEndTestSuite) TestDecodeEncodeHeader() {
+func (suite *EndToEndTestSuite) TestDecodeEncode_Header() {
 	suiteR := suite.Require()
 	lo.ForEach(
 		lo.Zip3(suite.FilePaths, suite.DecodedFiles, suite.EncodingFieldSlices),
