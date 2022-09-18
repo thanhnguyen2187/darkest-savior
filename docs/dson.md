@@ -6,7 +6,17 @@ Terminology and high level implementation were mostly based on documentation by 
 [DarkestDungeonSaveEditor](https://github.com/robojumper/DarkestDungeonSaveEditor/blob/master/docs/dson.md).
 
 Decoding DSON code is a port from an
-[unfinished implementation in Janet](https://github.com/thanhnguyen2187/darkest-savior/blob/master/darkest-savior/dson.janet).
+[unfinished implementation in Janet](https://github.com/thanhnguyen2187/darkest-savior/blob/master/darkest-savior/dson.janet)
+.
+
+## Motivation
+
+The original implementation was in Java and in Rust, which... worked well enough, but I wanted to do something more for
+a few reasons, in no particular order:
+
+- Scratch my own itch on having a corrupted save file
+- Using Go, which is kind of my "second" professional language. I wanted to improve my skills and see how it goes.
+- An attempt at working in a lower level than my usual jobs, as I mostly worked in backend, gluing libraries together.
 
 ## Terminology
 
@@ -33,6 +43,51 @@ A DSON file generally consists of four parts:
 More information can be found from the
 [original documentation](https://github.com/robojumper/DarkestDungeonSaveEditor/blob/master/docs/dson.md)
 of robojumper.
+
+In my own words, a JSON file like this:
+
+```json
+{
+  "1": "2",
+  "3": {
+    "4": 5,
+    "6": "seven"
+  }
+}
+```
+
+Is DSON-structured like this, in the simplest sense (I am skipping the binary parts for simplicity's sake):
+
+```json
+{
+  "header": {},
+  "meta_1_block": [
+    {
+      "field_name": "3"
+    }
+  ],
+  "meta_2_block": [
+    {
+      "field_name": "1",
+      "field_value": "2"
+    },
+    {
+      "field_name": "3",
+      "field_value": null
+    },
+    {
+      "field_name": "4",
+      "field_value": 5
+    },
+    {
+      "field_name": "6",
+      "field_value": "seven"
+    }
+  ]
+}
+```
+
+There are more quirks to learn in details, but I think it is enough for now.
 
 ## Decoding and Encoding DSON
 
