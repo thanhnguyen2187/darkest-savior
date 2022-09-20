@@ -276,12 +276,49 @@ func CreateMeta2Entry(
 	}
 }
 
-func CreateMeta2Block(fields []EncodingField) ([]dmeta2.Entry, error) {
-	return nil, nil
+func CreateMeta2Inferences(field EncodingField) dmeta2.Inferences {
+	return dmeta2.Inferences{
+		Index:             field.Index,
+		IsObject:          field.IsObject,
+		ParentIndex:       field.ParentIndex,
+		FieldNameLength:   len(field.Key) + 1,
+		Meta1EntryIndex:   field.ParentIndex,
+		NumDirectChildren: field.NumDirectChildren,
+		NumAllChildren:    field.NumAllChildren,
+		RawDataLength:     len(field.Bytes),
+	}
 }
 
-func CreateMeta1Block(fields []EncodingField) ([]dmeta1.Entry, error) {
-	return nil, nil
+func CreateMeta2Block(fields []EncodingField) []dmeta2.Entry {
+	// return lo.Map(
+	// 	fields,
+	// 	func(field EncodingField, _ int) dmeta2.Entry {
+	// 	},
+	// )
+	return nil
+}
+
+func CreateMeta1Entry(field EncodingField) dmeta1.Entry {
+	return dmeta1.Entry{
+		ParentIndex:       field.ParentIndex,
+		Meta2EntryIndex:   field.Index,
+		NumDirectChildren: field.NumDirectChildren,
+		NumAllChildren:    field.NumAllChildren,
+	}
+}
+
+func CreateMeta1Block(fields []EncodingField) []dmeta1.Entry {
+	return lo.FilterMap(
+		fields,
+		func(field EncodingField, _ int) (dmeta1.Entry, bool) {
+			entry := dmeta1.Entry{}
+			if !field.IsObject {
+				return entry, false
+			}
+			entry = CreateMeta1Entry(field)
+			return entry, true
+		},
+	)
 }
 
 func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
@@ -367,6 +404,28 @@ func SetNumAllChildren(fields []EncodingField, numsAllChildren []int) []Encoding
 			field := t.A
 			numAllChildren := t.B
 			field.NumAllChildren = numAllChildren
+			return field
+		},
+	)
+}
+
+func SetParentIndexes(fields []EncodingField, parentIndexes []int) []EncodingField {
+	return lo.Map(
+		lo.Zip2(fields, parentIndexes),
+		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+			field := t.A
+			parentIndex := t.B
+			field.ParentIndex = parentIndex
+			return field
+		},
+	)
+}
+
+func SetIndexes(fields []EncodingField) []EncodingField {
+	return lo.Map(
+		fields,
+		func(field EncodingField, index int) EncodingField {
+			field.Index = index
 			return field
 		},
 	)

@@ -69,10 +69,8 @@ func ImplyDataTypeByValue(value any) DataType {
 	}
 }
 
-func FromLinkedHashMap(
-	currentPath []string,
-	lhm orderedmap.OrderedMap,
-) []EncodingField {
+func FromLinkedHashMap(currentPath []string, lhm orderedmap.OrderedMap) []EncodingField {
+	// TODO: find a way to simplify the function
 	return lo.Flatten(
 		// TODO: find a way to handle `lo.Map` with potential error more gracefully
 		lo.Map[string, []EncodingField](
@@ -163,4 +161,14 @@ func CalculateNumAllChildren(
 			return []int{0}
 		},
 	)
+}
+
+func CalculateParentIndexes(
+	numsAllChildren []int,
+) []int {
+	parentIndexes := ds.Repeat(len(numsAllChildren), -1)
+	for index, numAllChild := range numsAllChildren {
+		copy(parentIndexes[index+1:], ds.Repeat(numAllChild, index))
+	}
+	return parentIndexes
 }

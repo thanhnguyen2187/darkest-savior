@@ -31,6 +31,9 @@ func FromLinkedHashMap(lhm orderedmap.OrderedMap) ([]dfield.EncodingField, error
 	fields = dfield.SetNumDirectChildren(fields, numsDirectChildren)
 	numsAllChildren := dfield.CalculateNumAllChildren(lhm)
 	fields = dfield.SetNumAllChildren(fields, numsAllChildren)
+	parentIndexes := dfield.CalculateParentIndexes(numsAllChildren)
+	fields = dfield.SetParentIndexes(fields, parentIndexes)
+	fields = dfield.SetIndexes(fields)
 	if err != nil {
 		print(err.Error())
 		return nil, err
@@ -40,20 +43,20 @@ func FromLinkedHashMap(lhm orderedmap.OrderedMap) ([]dfield.EncodingField, error
 
 func CompactEmbeddedFiles(fields []dfield.EncodingField) []dfield.EncodingField {
 	skipping := 0
-	for index, field := range fields {
+	for _, field := range fields {
 		if skipping > 0 {
 			skipping -= 1
 			continue
 		}
 		if field.ValueType == dfield.DataTypeFileJSON {
-			startIndex := index + 1
-			endIndex := startIndex + field.NumAllChildren
-			skipping += field.NumAllChildren
-			embeddedFileFields := fields[startIndex:endIndex]
+			// startIndex := index + 1
+			// endIndex := startIndex + field.NumAllChildren
+			// skipping += field.NumAllChildren
+			// embeddedFileFields := fields[startIndex:endIndex]
 
-			header, err := dfield.CreateHeader(embeddedFileFields)
-			meta1Block, err := dfield.CreateMeta1Block(embeddedFileFields)
-			meta2Block, err := dfield.CreateMeta2Block(embeddedFileFields)
+			// header, err := dfield.CreateHeader(embeddedFileFields)
+			// meta1Block, err := dfield.CreateMeta1Block(embeddedFileFields)
+			// meta2Block, err := dfield.CreateMeta2Block(embeddedFileFields)
 		}
 	}
 	return nil

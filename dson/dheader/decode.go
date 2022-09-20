@@ -27,6 +27,8 @@ type (
 	}
 )
 
+const DefaultHeaderLength = 64
+
 var MagicNumberBytes = []byte{0x01, 0xB1, 0x00, 0x00}
 
 func IsValidMagicNumber(bs []byte) bool {

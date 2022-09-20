@@ -20,11 +20,14 @@ type (
 	}
 	DataType      string
 	EncodingField struct {
+		Index             int      `json:"index"`
 		Key               string   `json:"key"`
 		ValueType         DataType `json:"value_type"`
 		Value             any      `json:"value"`
 		Bytes             []byte   `json:"bytes"`
 		IsObject          bool     `json:"is_object"`
+		IsObjectIndex     int      `json:"is_object_index"`
+		ParentIndex       int      `json:"parent_index"`
 		NumDirectChildren int      `json:"num_direct_children"`
 		NumAllChildren    int      `json:"num_all_children"`
 		HierarchyPath     []string `json:"hierarchy_path"`

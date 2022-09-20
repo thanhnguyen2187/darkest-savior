@@ -9,8 +9,18 @@ import (
 
 type (
 	Entry struct {
-		NameHash   int        `json:"name_hash"`
-		Offset     int        `json:"offset"`
+		NameHash int `json:"name_hash"`
+		Offset   int `json:"offset"`
+		// FieldInfo is a 32-bit integer that compact additional information
+		//
+		//   00 | 0000 0000 0000 0000 0000 | 0 0000 0000 | 01
+		//                  ^                   ^           ^
+		//                  |                   |           |
+		//                  |                   |    last bit is set if is an object
+		//                  |                   |
+		//                  |            field name length including \0
+		//                  |
+		//      meta 1 entry index if is an object
 		FieldInfo  int        `json:"field_info"`
 		Inferences Inferences `json:"inferences"`
 	}

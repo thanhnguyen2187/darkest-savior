@@ -42,3 +42,10 @@ func TestCalculateNumChildren(t *testing.T) {
 		require.Equal(t, expected, numAllChildren)
 	}
 }
+
+func TestCalculateParentIndexes(t *testing.T) {
+	numsAllChildren := []int{1, 2, 0, 5, 0, 2, 0, 0, 1, 0}
+	parentIndexes := CalculateParentIndexes(numsAllChildren)
+	expected := []int{-1, 0, 1, 1, 3, 3, 5, 5, 3, 8}
+	require.Equal(t, expected, parentIndexes)
+}

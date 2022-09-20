@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"darkest-savior/dson/dfield"
+	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta2"
 	"github.com/iancoleman/orderedmap"
 	"github.com/samber/lo"
@@ -16,15 +17,16 @@ import (
 // EndToEndTestSuite includes all the needed data to perform the best "real-world" simulation.
 type EndToEndTestSuite struct {
 	suite.Suite
-	FilePaths                  []string
-	FileByteSlices             [][]byte
-	DecodedFiles               []DecodedFile
-	DecodedJSONsFromFile       []orderedmap.OrderedMap
-	DecodedFieldSlices         [][]dfield.Field
-	DecodedFieldSlicesUnique   [][]dfield.Field
-	DecodedFieldSlicesExpanded [][]dfield.Field
-	EncodingFieldSlices        [][]dfield.EncodingField
-	EncodingFieldPacked        [][]dfield.EncodingField
+	FilePaths                     []string
+	FileByteSlices                [][]byte
+	DecodedFiles                  []DecodedFile
+	DecodedJSONsFromFile          []orderedmap.OrderedMap
+	DecodedFieldSlices            [][]dfield.Field
+	DecodedFieldSlicesUnique      [][]dfield.Field
+	DecodedFieldSlicesExpanded    [][]dfield.Field
+	EncodingFieldSlices           [][]dfield.EncodingField
+	EncodingFieldSlicesNoRevision [][]dfield.EncodingField
+	EncodingFieldPacked           [][]dfield.EncodingField
 }
 
 func (suite *EndToEndTestSuite) SetupSuite() {
@@ -110,9 +112,37 @@ func (suite *EndToEndTestSuite) SetupSuite() {
 			return encodingFields
 		},
 	)
+	suite.EncodingFieldSlices = lo.Map(
+		suite.DecodedJSONsFromFile,
+		func(lhm orderedmap.OrderedMap, _ int) []dfield.EncodingField {
+			lhmCopy := lhm
+			(&lhmCopy).Delete(dfield.FieldNameRevision)
+			encodingFields, err := FromLinkedHashMap(lhmCopy)
+			suiteR.NoError(err)
+			return encodingFields
+		},
+	)
 	suiteR.Equal(len(suite.FilePaths), len(suite.FileByteSlices))
 	suiteR.Equal(len(suite.FileByteSlices), len(suite.DecodedFiles))
 	suiteR.Equal(len(suite.DecodedFiles), len(suite.DecodedJSONsFromFile))
+}
+
+func (suite *EndToEndTestSuite) TestEncodeHeader() {
+	suiteR := suite.Require()
+	lo.ForEach(
+		lo.Zip3(suite.DecodedFiles, suite.FileByteSlices, suite.FilePaths),
+		func(tuple3 lo.Tuple3[DecodedFile, []byte, string], _ int) {
+			decodedFile := tuple3.A
+			header := decodedFile.Header
+			bytes1 := tuple3.B
+			filePath := tuple3.C
+
+			bytes2 := dheader.Encode(header)
+
+			suiteR.Equal(dheader.DefaultHeaderLength, len(bytes2), filePath)
+			suiteR.Equal(bytes1[:dheader.DefaultHeaderLength], bytes2, filePath)
+		},
+	)
 }
 
 func (suite *EndToEndTestSuite) TestDecodeDSON_Header_Meta2Block() {
@@ -178,6 +208,27 @@ func (suite *EndToEndTestSuite) TestDecodeEncode_Header() {
 			suiteR.NoError(err)
 			msg := fmt.Sprintf(`Failed at file "%s"`, filePath)
 			suiteR.Equalf(decodedFile.Header, *encodingHeader, msg)
+		},
+	)
+}
+
+func (suite *EndToEndTestSuite) TestEncode_Meta1Block() {
+	suiteR := suite.Require()
+	lo.ForEach(
+		lo.Zip3(suite.FilePaths, suite.DecodedFiles, suite.EncodingFieldSlicesNoRevision),
+		func(triplet lo.Tuple3[string, DecodedFile, []dfield.EncodingField], _ int) {
+			filePath := triplet.A
+			decodedFile := triplet.B
+			encodingFields := triplet.C
+			if len(decodedFile.Meta2Block) != len(encodingFields) {
+				// skip the test since there are duplicated fields within the original decoded file
+				// or there is an embedded DSON within encoding fields
+				return
+			}
+
+			meta1Block := dfield.CreateMeta1Block(encodingFields)
+			msg := fmt.Sprintf(`Failed at file "%s"`, filePath)
+			suiteR.Equalf(decodedFile.Meta1Block, meta1Block, msg)
 		},
 	)
 }
