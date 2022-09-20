@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestCalculateNumDirectChildren(t *testing.T) {
+func TestCalculateNumChildren(t *testing.T) {
 	lhm := orderedmap.New()
 	jsonStr := `
 {
@@ -31,7 +31,14 @@ func TestCalculateNumDirectChildren(t *testing.T) {
 	require.NoError(t, err)
 	ds.Deref(lhm)
 
-	numsDirectChildren := CalculateNumDirectChildren(*lhm)
-	expected := []int{0, 0, 0, 3, 0, 2, 0, 0, 0, 0}
-	require.Equal(t, expected, numsDirectChildren)
+	{
+		numsDirectChildren := CalculateNumDirectChildren(*lhm)
+		expected := []int{0, 0, 0, 3, 0, 2, 0, 0, 0, 0}
+		require.Equal(t, expected, numsDirectChildren)
+	}
+	{
+		numAllChildren := CalculateNumAllChildren(*lhm)
+		expected := []int{0, 0, 0, 5, 0, 2, 0, 0, 0, 0}
+		require.Equal(t, expected, numAllChildren)
+	}
 }

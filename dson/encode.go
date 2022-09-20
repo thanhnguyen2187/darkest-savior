@@ -27,6 +27,10 @@ func FromLinkedHashMap(lhm orderedmap.OrderedMap) ([]dfield.EncodingField, error
 	lhm = ds.Deref(&lhm)
 	fields := dfield.FromLinkedHashMap([]string{}, lhm)
 	fields, err := dfield.EncodeValues(fields)
+	numsDirectChildren := dfield.CalculateNumDirectChildren(lhm)
+	fields = dfield.SetNumDirectChildren(fields, numsDirectChildren)
+	numsAllChildren := dfield.CalculateNumAllChildren(lhm)
+	fields = dfield.SetNumAllChildren(fields, numsAllChildren)
 	if err != nil {
 		print(err.Error())
 		return nil, err
@@ -35,8 +39,24 @@ func FromLinkedHashMap(lhm orderedmap.OrderedMap) ([]dfield.EncodingField, error
 }
 
 func CompactEmbeddedFiles(fields []dfield.EncodingField) []dfield.EncodingField {
-	for _, field := range fields {
+	skipping := 0
+	for index, field := range fields {
+		if skipping > 0 {
+			skipping -= 1
+			continue
+		}
+		if field.ValueType == dfield.DataTypeFileJSON {
+			startIndex := index + 1
+			endIndex := startIndex + field.NumAllChildren
+			skipping += field.NumAllChildren
+			embeddedFileFields := fields[startIndex:endIndex]
+
+			header, err := dfield.CreateHeader(embeddedFileFields)
+			meta1Block, err := dfield.CreateMeta1Block(embeddedFileFields)
+			meta2Block, err := dfield.CreateMeta2Block(embeddedFileFields)
+		}
 	}
+	return nil
 }
 
 func EncodeDSON(jsonBytes []byte) ([]byte, error) {

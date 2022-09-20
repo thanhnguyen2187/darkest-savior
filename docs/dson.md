@@ -16,7 +16,8 @@ a few reasons, in no particular order:
 
 - Scratch my own itch on having a corrupted save file
 - Using Go, which is kind of my "second" professional language. I wanted to improve my skills and see how it goes.
-- An attempt at working in a lower level than my usual jobs, as I mostly worked in backend, gluing libraries together.
+- An attempt at working in a lower level than my usual jobs (I mostly worked in backend, a.k.a. making data
+  transformations and gluing 3rd-party libraries together to create JSON responses).
 
 ## Terminology
 
@@ -38,7 +39,7 @@ A DSON file generally consists of four parts:
 - `Header`: magic number and other stuff
 - `Meta1Block`: metadata of `Field`s that are objects
 - `Meta2Block`: metadata of each `Field`
-- `Fields`: the actual data
+- `DataFields`: the actual data
 
 More information can be found from the
 [original documentation](https://github.com/robojumper/DarkestDungeonSaveEditor/blob/master/docs/dson.md)
@@ -91,13 +92,65 @@ There are more quirks to learn in details, but I think it is enough for now.
 
 ## Decoding and Encoding DSON
 
-Or we can think of that as converting from DSON to JSON and vice versa.
+We can think of the processes as converting from DSON to JSON and vice versa.
+
+```mermaid
+stateDiagram-v2
+direction LR
+
+dson: DSON File
+json: JSON File
+
+dson --> json: 1. decoding
+json --> dson: 2. encoding
 
 ```
-DSON -(1)-> JSON -(2)-> DSON
 
-1: decoding
-2: encoding
+In more details:
+
+```mermaid
+stateDiagram-v2
+direction LR
+
+in_mem: In Memory
+on_disk: On Disk
+on_disk_2: On Disk
+
+state on_disk {
+  dson_file: DSON File
+  dson_bytes: DSON Bytes
+
+  dson_file --> dson_bytes: 1.1
+  dson_bytes --> dson_file: 2.6
+}
+
+state in_mem {
+  dson_struct: DSON Struct
+  dson_struct: - Header
+  dson_struct: - Meta 1 Block
+  dson_struct: - Meta 2 Block
+  dson_struct: - Data Fields
+  linked_hash_map: Linked Hash Map
+  linked_hash_map: A map that retains
+  linked_hash_map: insertion order
+  encoding_fields: Encoding Fields
+  json_bytes: JSON Bytes
+
+  dson_bytes --> dson_struct: 1.2
+  dson_struct --> linked_hash_map: 1.3
+  linked_hash_map --> json_bytes: 1.4
+  json_bytes --> json_file: 1.5
+  
+  json_file --> json_bytes: 2.1
+  json_bytes --> linked_hash_map: 2.2
+  linked_hash_map --> encoding_fields: 2.3
+  encoding_fields --> dson_struct: 2.4
+  dson_struct --> dson_bytes: 2.5
+}
+
+state on_disk_2 {
+  json_file: JSON File
+}
 ```
 
 With decoding, nothing too fancy is implemented. `Decode` functions expect a `BytesReader`, which is a wrapper around

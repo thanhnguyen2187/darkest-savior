@@ -13,6 +13,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+// EndToEndTestSuite includes all the needed data to perform the best "real-world" simulation.
 type EndToEndTestSuite struct {
 	suite.Suite
 	FilePaths                  []string
@@ -23,6 +24,7 @@ type EndToEndTestSuite struct {
 	DecodedFieldSlicesUnique   [][]dfield.Field
 	DecodedFieldSlicesExpanded [][]dfield.Field
 	EncodingFieldSlices        [][]dfield.EncodingField
+	EncodingFieldPacked        [][]dfield.EncodingField
 }
 
 func (suite *EndToEndTestSuite) SetupSuite() {
@@ -131,25 +133,26 @@ func (suite *EndToEndTestSuite) TestDecodeDSON_Header_Meta2Block() {
 	)
 }
 
-func (suite *EndToEndTestSuite) TestDecodeEncode_Fields() {
+func (suite *EndToEndTestSuite) TestDecodeEncode_Bytes() {
 	suiteR := suite.Require()
 	lo.ForEach(
-		lo.Zip2(suite.DecodedFieldSlicesExpanded, suite.EncodingFieldSlices),
-		func(pair lo.Tuple2[[]dfield.Field, []dfield.EncodingField], _ int) {
-			decodedFields := pair.A
-			encodingFields := pair.B
+		lo.Zip3(suite.FilePaths, suite.DecodedFieldSlicesExpanded, suite.EncodingFieldSlices),
+		func(triplet lo.Tuple3[string, []dfield.Field, []dfield.EncodingField], _ int) {
+			filePath := triplet.A
+			decodedFields := triplet.B
+			encodingFields := triplet.C
 			encodingFields = dfield.RemoveRevisionField(encodingFields)
 
-			suiteR.Equal(len(decodedFields), len(encodingFields))
+			suiteR.Equal(len(decodedFields), len(encodingFields), filePath)
 			lo.ForEach(
 				lo.Zip2(decodedFields, encodingFields),
 				func(pair lo.Tuple2[dfield.Field, dfield.EncodingField], _ int) {
 					decodedField := pair.A
 					encodingField := pair.B
-					suiteR.Equal(decodedField.Name, encodingField.Key)
-					suiteR.Equal(decodedField.Inferences.HierarchyPath, encodingField.HierarchyPath)
+					suiteR.Equal(decodedField.Name, encodingField.Key, filePath)
+					suiteR.Equal(decodedField.Inferences.HierarchyPath, encodingField.HierarchyPath, filePath)
 					if decodedField.Inferences.RawDataStripped != nil && encodingField.Bytes != nil {
-						suiteR.Equal(decodedField.Inferences.RawDataStripped, encodingField.Bytes)
+						suiteR.Equal(decodedField.Inferences.RawDataStripped, encodingField.Bytes, filePath)
 					}
 				},
 			)
@@ -165,8 +168,9 @@ func (suite *EndToEndTestSuite) TestDecodeEncode_Header() {
 			filePath := triplet.A
 			decodedFile := triplet.B
 			encodingFields := triplet.C
-			if len(decodedFile.Meta2Block) > len(encodingFields) {
+			if len(decodedFile.Meta2Block) != len(encodingFields)-1 {
 				// skip the test since there are duplicated fields within the original decoded file
+				// or there is an embedded DSON within encoding fields
 				return
 			}
 

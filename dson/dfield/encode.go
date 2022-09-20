@@ -9,6 +9,7 @@ import (
 	"darkest-savior/ds"
 	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
+	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
 	"github.com/samber/lo"
@@ -275,20 +276,12 @@ func CreateMeta2Entry(
 	}
 }
 
-func CreateMeta2Block(fields []EncodingField) []dmeta2.Entry {
-	return nil
+func CreateMeta2Block(fields []EncodingField) ([]dmeta2.Entry, error) {
+	return nil, nil
 }
 
-func CalculateSizePadded(field EncodingField) int {
-	fieldNameLength := len(field.Key) + 1
-	fieldDataLength := len(field.Bytes)
-	if fieldDataLength >= 4 {
-		return ds.NearestDivisibleByM(
-			fieldDataLength+fieldNameLength,
-			4,
-		)
-	}
-	return fieldNameLength + fieldDataLength
+func CreateMeta1Block(fields []EncodingField) ([]dmeta1.Entry, error) {
+	return nil, nil
 }
 
 func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
@@ -313,13 +306,11 @@ func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	meta2Offset := meta1Size + meta1Offset
 	meta2Size := 12 * numMeta2Entries
 
-	// dataLength := lo.SumBy(
-	// 	fieldsWithoutRevision,
-	// 	CalculateSizePadded,
-	// )
 	dataLength := lo.Reduce(
 		fieldsWithoutRevision,
 		func(r int, t EncodingField, _ int) int {
+			// Fields that have their bytes lengths longer than 4
+			// are going to have some padding, depends on the names' length.
 			if len(t.Bytes) >= 4 {
 				return ds.NearestDivisibleByM(r+len(t.Key)+1, 4) + len(t.Bytes)
 			}
@@ -353,6 +344,30 @@ func RemoveRevisionField(fields []EncodingField) []EncodingField {
 		fields,
 		func(field EncodingField, _ int) bool {
 			return field.Key != FieldNameRevision
+		},
+	)
+}
+
+func SetNumDirectChildren(fields []EncodingField, numsDirectChildren []int) []EncodingField {
+	return lo.Map(
+		lo.Zip2(fields, numsDirectChildren),
+		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+			field := t.A
+			numDirectChildren := t.B
+			field.NumDirectChildren = numDirectChildren
+			return field
+		},
+	)
+}
+
+func SetNumAllChildren(fields []EncodingField, numsAllChildren []int) []EncodingField {
+	return lo.Map(
+		lo.Zip2(fields, numsAllChildren),
+		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+			field := t.A
+			numAllChildren := t.B
+			field.NumAllChildren = numAllChildren
+			return field
 		},
 	)
 }

@@ -125,24 +125,42 @@ func FromLinkedHashMap(
 func CalculateNumDirectChildren(
 	lhm orderedmap.OrderedMap,
 ) []int {
-	// var calculate func(lhm orderedmap.OrderedMap, key string) int
-	calculate := func(lhm orderedmap.OrderedMap, key string) int {
-		value, _ := lhm.Get(key)
-		valueLhm, ok := value.(orderedmap.OrderedMap)
-		if ok {
-			return len(valueLhm.Keys())
-		}
-		return 0
-	}
-	return lo.Map(
+	return lo.FlatMap(
 		lhm.Keys(),
-		func(key string, _ int) int {
-			result := []int{calculate(key, lhm)}
+		func(key string, _ int) []int {
 			value, _ := lhm.Get(key)
 			valueLhm, ok := value.(orderedmap.OrderedMap)
 			if ok {
-				return len(valueLhm.Keys())
+				return append(
+					[]int{
+						len(valueLhm.Keys()),
+					},
+					CalculateNumDirectChildren(valueLhm)...,
+				)
 			}
+			return []int{0}
+		},
+	)
+}
+
+func CalculateNumAllChildren(
+	lhm orderedmap.OrderedMap,
+) []int {
+	return lo.FlatMap(
+		lhm.Keys(),
+		func(key string, _ int) []int {
+			value, _ := lhm.Get(key)
+			valueLhm, ok := value.(orderedmap.OrderedMap)
+			if ok {
+				childrenNums := CalculateNumAllChildren(valueLhm)
+				return append(
+					[]int{
+						len(childrenNums),
+					},
+					childrenNums...,
+				)
+			}
+			return []int{0}
 		},
 	)
 }
