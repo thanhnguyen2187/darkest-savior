@@ -6,7 +6,6 @@ import (
 	"math"
 	"strings"
 
-	"darkest-savior/ds"
 	"darkest-savior/dson/dhash"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
@@ -290,17 +289,16 @@ func CreateMeta2Inferences(field EncodingField) dmeta2.Inferences {
 }
 
 func CreateMeta2Block(fields []EncodingField) []dmeta2.Entry {
-	// return lo.Map(
-	// 	fields,
-	// 	func(field EncodingField, _ int) dmeta2.Entry {
-	// 	},
-	// )
-	return nil
+	currentOffsets := lo.Reduce(
+		fields,
+		func(r int, t T, i int) int {
+		},
+	)
 }
 
 func CreateMeta1Entry(field EncodingField) dmeta1.Entry {
 	return dmeta1.Entry{
-		ParentIndex:       field.ParentIndex,
+		ParentIndex:       field.Meta1ParentIndex,
 		Meta2EntryIndex:   field.Index,
 		NumDirectChildren: field.NumDirectChildren,
 		NumAllChildren:    field.NumAllChildren,
@@ -343,18 +341,19 @@ func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	meta2Offset := meta1Size + meta1Offset
 	meta2Size := 12 * numMeta2Entries
 
-	dataLength := lo.Reduce(
-		fieldsWithoutRevision,
-		func(r int, t EncodingField, _ int) int {
-			// Fields that have their bytes lengths longer than 4
-			// are going to have some padding, depends on the names' length.
-			if len(t.Bytes) >= 4 {
-				return ds.NearestDivisibleByM(r+len(t.Key)+1, 4) + len(t.Bytes)
-			}
-			return r + len(t.Key) + 1 + len(t.Bytes)
-		},
-		0,
-	)
+	// dataLength := lo.Reduce(
+	// 	fieldsWithoutRevision,
+	// 	func(r int, t EncodingField, _ int) int {
+	// 		// Fields that have their bytes lengths longer than 4
+	// 		// are going to have some padding, depends on the names' length.
+	// 		if len(t.Bytes) >= 4 {
+	// 			return ds.NearestDivisibleByM(r+len(t.Key)+1, 4) + len(t.Bytes)
+	// 		}
+	// 		return r + len(t.Key) + 1 + len(t.Bytes)
+	// 	},
+	// 	0,
+	// )
+	dataLength := CalculateMeta2Offsets(fieldsWithoutRevision)
 	dataOffset := headerLength + meta1Size + meta2Size
 
 	header := dheader.Header{
@@ -426,6 +425,32 @@ func SetIndexes(fields []EncodingField) []EncodingField {
 		fields,
 		func(field EncodingField, index int) EncodingField {
 			field.Index = index
+			return field
+		},
+	)
+}
+
+func SetMeta1ParentIndexes(fields []EncodingField) []EncodingField {
+	fieldsCopy := lo.Map(
+		fields,
+		func(field EncodingField, index int) EncodingField {
+			if field.ParentIndex != -1 {
+				field.Meta1ParentIndex = fields[field.ParentIndex].Meta1EntryIndex
+			}
+			return field
+		},
+	)
+	fieldsCopy[0].Meta1ParentIndex = -1
+	return fieldsCopy
+}
+
+func SetMeta1EntryIndexes(fields []EncodingField, meta1EntryIndexes []int) []EncodingField {
+	return lo.Map(
+		lo.Zip2(fields, meta1EntryIndexes),
+		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+			field := t.A
+			entryIndex := t.B
+			field.Meta1EntryIndex = entryIndex
 			return field
 		},
 	)

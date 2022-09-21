@@ -27,13 +27,16 @@ func FromLinkedHashMap(lhm orderedmap.OrderedMap) ([]dfield.EncodingField, error
 	lhm = ds.Deref(&lhm)
 	fields := dfield.FromLinkedHashMap([]string{}, lhm)
 	fields, err := dfield.EncodeValues(fields)
+	fields = dfield.SetIndexes(fields)
 	numsDirectChildren := dfield.CalculateNumDirectChildren(lhm)
 	fields = dfield.SetNumDirectChildren(fields, numsDirectChildren)
 	numsAllChildren := dfield.CalculateNumAllChildren(lhm)
 	fields = dfield.SetNumAllChildren(fields, numsAllChildren)
 	parentIndexes := dfield.CalculateParentIndexes(numsAllChildren)
 	fields = dfield.SetParentIndexes(fields, parentIndexes)
-	fields = dfield.SetIndexes(fields)
+	meta1EntryIndexes := dfield.CalculateMeta1EntryIndexes(fields)
+	fields = dfield.SetMeta1EntryIndexes(fields, meta1EntryIndexes)
+	fields = dfield.SetMeta1ParentIndexes(fields)
 	if err != nil {
 		print(err.Error())
 		return nil, err

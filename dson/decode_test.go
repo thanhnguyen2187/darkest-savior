@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta2"
@@ -112,7 +113,7 @@ func (suite *EndToEndTestSuite) SetupSuite() {
 			return encodingFields
 		},
 	)
-	suite.EncodingFieldSlices = lo.Map(
+	suite.EncodingFieldSlicesNoRevision = lo.Map(
 		suite.DecodedJSONsFromFile,
 		func(lhm orderedmap.OrderedMap, _ int) []dfield.EncodingField {
 			lhmCopy := lhm
@@ -227,11 +228,34 @@ func (suite *EndToEndTestSuite) TestEncode_Meta1Block() {
 			}
 
 			meta1Block := dfield.CreateMeta1Block(encodingFields)
-			msg := fmt.Sprintf(`Failed at file "%s"`, filePath)
+			msg := fmt.Sprintf(
+				`Failed at file "%s"\n%s\n%s`, filePath,
+				ds.DumpJSON(decodedFile.Meta1Block), ds.DumpJSON(meta1Block),
+			)
 			suiteR.Equalf(decodedFile.Meta1Block, meta1Block, msg)
 		},
 	)
 }
+
+// func (suite *EndToEndTestSuite) TestEncode_Meta2Block() {
+// 	suiteR := suite.Require()
+// 	lo.ForEach(
+// 		lo.Zip3(suite.FilePaths, suite.DecodedFiles, suite.EncodingFieldSlicesNoRevision),
+// 		func(triplet lo.Tuple3[string, DecodedFile, []dfield.EncodingField], _ int) {
+// 			filePath := triplet.A
+// 			decodedFile := triplet.B
+// 			encodingFields := triplet.C
+// 			if len(decodedFile.Meta2Block) != len(encodingFields) {
+// 				// skip the test since there are duplicated fields within the original decoded file
+// 				// or there is an embedded DSON within encoding fields
+// 				return
+// 			}
+// 			meta2Block := dfield.CreateMeta2Block(encodingFields)
+// 			msg := fmt.Sprintf(`Failed at file "%s"`, filePath)
+// 			suiteR.Equalf(decodedFile.Meta2Block, meta2Block, msg)
+// 		},
+// 	)
+// }
 
 func TestEndToEnd2(t *testing.T) {
 	suite.Run(t, new(EndToEndTestSuite))

@@ -28,6 +28,8 @@ type (
 		IsObject          bool     `json:"is_object"`
 		IsObjectIndex     int      `json:"is_object_index"`
 		ParentIndex       int      `json:"parent_index"`
+		Meta1ParentIndex  int      `json:"meta_1_parent_index"`
+		Meta1EntryIndex   int      `json:"meta_1_entry_index"`
 		NumDirectChildren int      `json:"num_direct_children"`
 		NumAllChildren    int      `json:"num_all_children"`
 		HierarchyPath     []string `json:"hierarchy_path"`

@@ -172,3 +172,40 @@ func CalculateParentIndexes(
 	}
 	return parentIndexes
 }
+
+func CalculateMeta1EntryIndexes(
+	fields []EncodingField,
+) []int {
+	indexes := lo.Reduce(
+		fields,
+		func(result []int, t EncodingField, _ int) []int {
+			last := result[len(result)-1]
+			if t.IsObject {
+				return append(result, last+1)
+			} else {
+				return append(result, last)
+			}
+		},
+		[]int{-1},
+	)
+	return indexes[1:]
+}
+
+func CalculateMeta2Offsets(
+	fields []EncodingField,
+) []int {
+	return lo.Reduce(
+		fields,
+		func(r []int, t EncodingField, _ int) []int {
+			last := r[len(r)-1]
+			fieldNameLength := len(t.Key) + 1
+			rawDataLength := len(t.Bytes)
+			if len(t.Bytes) >= 4 {
+				return append(r, ds.NearestDivisibleByM(last+fieldNameLength, 4)+rawDataLength)
+			} else {
+				return append(r, fieldNameLength+rawDataLength)
+			}
+		},
+		[]int{0},
+	)
+}
