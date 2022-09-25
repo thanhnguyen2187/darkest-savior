@@ -133,7 +133,6 @@ state in_mem {
   linked_hash_map: Linked Hash Map
   linked_hash_map: A map that retains
   linked_hash_map: insertion order
-  encoding_fields: Encoding Fields
   json_bytes: JSON Bytes
 
   dson_bytes --> dson_struct: 1.2
@@ -143,8 +142,7 @@ state in_mem {
   
   json_file --> json_bytes: 2.1
   json_bytes --> linked_hash_map: 2.2
-  linked_hash_map --> encoding_fields: 2.3
-  encoding_fields --> dson_struct: 2.4
+  linked_hash_map --> dson_struct: 2.3
   dson_struct --> dson_bytes: 2.5
 }
 
@@ -152,6 +150,48 @@ state on_disk_2 {
   json_file: JSON File
 }
 ```
+
+There is not a lot to say about `1.1`, `2.6`, `1.5`, and `2.1`, since bytes reading and writing are built into Golang.
+Interesting stories of other processes are to be told, however.
+
+`1.2` seems straight forward, but actually is not that simple, when it comes to `DataFields`. The reason is a
+`DataField` consists of two parts:
+
+- `FieldName`: its length are took from the corresponding `Meta2Entry`.
+- `RawData`: it is zeroes-padded at the start, depends on its offset on disk. The rule is: if the actual raw data has
+  its length less than 4, then nothing is padded. Equal or more than four means it is 4-bytes padded by the offset, and
+  the field name's length.
+
+Being unable to figure out the step `1.3`, and the `LinkedHashMap` usage, is the reason why I scraped my first
+implementation with Janet. Finding a "good" `LinkedHashMap` also was interesting. At first, I used `emirpasic/gods`'s
+`LinkedHashMap`, but only in step `2.2` that I realized that the `json.Unmarshal` implementation was not good enough for
+me: it tries to sort the keys by it appearance in the map. It means this data:
+
+```json
+{
+  "one": "1",
+  "two": {
+    "three": "3",
+    "one": "1"
+  }
+}
+```
+
+Is going to become this in memory:
+
+```json
+{
+  "one": "1",
+  "two": {
+    "one": "2",
+    "three": "3"
+  }
+}
+```
+
+Since `"one"` is the first key of the whole object, even if it appears after `"three"` within `"two"`.
+
+TODO: write the rest
 
 With decoding, nothing too fancy is implemented. `Decode` functions expect a `BytesReader`, which is a wrapper around
 `bytes.Reader` with some additional utilities like converting the read bytes to integer, or to a string.
