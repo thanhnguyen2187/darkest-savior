@@ -23,26 +23,6 @@ func (r KeyCastError) Error() string {
 	)
 }
 
-func PickBytesHeader(fileBytes []byte) []byte {
-	return fileBytes[:dheader.DefaultHeaderSize]
-}
-
-func PickBytesMeta1Block(numMeta1Entries int, fileBytes []byte) []byte {
-	// change PickBytes to use more data from Header
-	start := dheader.DefaultHeaderSize
-	blockLength := dmeta1.CalculateBlockLength(numMeta1Entries)
-	end := start + blockLength
-	return fileBytes[start:end]
-}
-
-func PickBytesMeta2Block(numMeta1Entries int, numMeta2Entries int, fileBytes []byte) []byte {
-	meta1Offset := dheader.DefaultHeaderSize
-	meta2Offset := meta1Offset + dmeta1.CalculateBlockLength(numMeta1Entries)
-	meta2Length := meta2Offset + numMeta2Entries*dmeta2.DefaultEntrySize
-
-	return fileBytes[meta2Offset:meta2Length]
-}
-
 func EncodeStruct(file Struct) []byte {
 	headerSize := dheader.DefaultHeaderSize
 	meta1Size := int(file.Header.Meta1Size)
