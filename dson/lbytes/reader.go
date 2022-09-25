@@ -15,14 +15,14 @@ func NewBytesReader(bs []byte) *Reader {
 	}
 }
 
-func (b *Reader) ReadInt() (int, error) {
+func (b *Reader) ReadInt() (int32, error) {
 	bs := make([]byte, 4)
 	_, err := b.Read(bs)
 	if err != nil {
 		return 0, err
 	}
 	result := binary.LittleEndian.Uint32(bs)
-	return int(int32(result)), nil
+	return int32(result), nil
 }
 
 func (b *Reader) ReadLong() (int64, error) {

@@ -7,8 +7,8 @@ import (
 )
 
 func TestInferHierarchyPath(t *testing.T) {
-	createField := func(name string, parentIndex int) Field {
-		return Field{
+	createField := func(name string, parentIndex int) DataField {
+		return DataField{
 			Name:    name,
 			RawData: nil,
 			Inferences: Inferences{
@@ -16,7 +16,7 @@ func TestInferHierarchyPath(t *testing.T) {
 			},
 		}
 	}
-	fields := []Field{
+	fields := []DataField{
 		createField("0", -1),
 		createField("1", 0),
 		createField("2", 0),

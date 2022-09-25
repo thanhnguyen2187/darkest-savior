@@ -5,15 +5,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-type (
-	Entry struct {
-		ParentIndex       int `json:"parent_index"`
-		Meta2EntryIndex   int `json:"meta_2_entry_index"`
-		NumDirectChildren int `json:"num_direct_children"`
-		NumAllChildren    int `json:"num_all_children"`
-	}
-)
-
 func DecodeEntry(reader *lbytes.Reader) (*Entry, error) {
 	readInt := lbytes.CreateIntReadFunction(reader)
 

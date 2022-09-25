@@ -8,29 +8,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-type (
-	Header struct {
-		MagicNumber     []byte `json:"magic_number"`
-		Revision        int    `json:"revision"`
-		HeaderLength    int    `json:"header_length"`
-		Zeroes          []byte `json:"zeroes"`
-		Meta1Size       int    `json:"meta_1_size"`
-		NumMeta1Entries int    `json:"num_meta_1_entries"`
-		Meta1Offset     int    `json:"meta_1_offset"`
-		Zeroes2         []byte `json:"zeroes_2"`
-		Zeroes3         []byte `json:"zeroes_3"`
-		NumMeta2Entries int    `json:"num_meta_2_entries"`
-		Meta2Offset     int    `json:"meta_2_offset"`
-		Zeroes4         []byte `json:"zeroes_4"`
-		DataLength      int    `json:"data_length"`
-		DataOffset      int    `json:"data_offset"`
-	}
-)
-
-const DefaultHeaderLength = 64
-
-var MagicNumberBytes = []byte{0x01, 0xB1, 0x00, 0x00}
-
 func IsValidMagicNumber(bs []byte) bool {
 	return bytes.Equal(MagicNumberBytes, bs)
 }

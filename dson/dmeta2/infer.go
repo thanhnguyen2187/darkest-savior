@@ -14,12 +14,12 @@ func InferIndex(meta2Entries []Entry) []Entry {
 	copy(meta2EntriesCopy, meta2Entries)
 
 	for i := range meta2EntriesCopy {
-		meta2EntriesCopy[i].Inferences.Index = i
+		meta2EntriesCopy[i].Inferences.Index = int32(i)
 	}
 	return meta2EntriesCopy
 }
 
-func InferUsingFieldInfo(fieldInfo int) Inferences {
+func InferUsingFieldInfo(fieldInfo int32) Inferences {
 	inferences := Inferences{
 		IsObject:        (fieldInfo & 0b1) == 1,
 		FieldNameLength: (fieldInfo & 0b11111111100) >> 2,
@@ -29,7 +29,7 @@ func InferUsingFieldInfo(fieldInfo int) Inferences {
 	return inferences
 }
 
-func InferRawDataLength(secondOffset int, firstOffset int, firstFieldNameLength int) int {
+func InferRawDataLength(secondOffset int32, firstOffset int32, firstFieldNameLength int32) int32 {
 	return secondOffset - (firstOffset + firstFieldNameLength)
 }
 
@@ -103,7 +103,7 @@ func InferNumDirectChildren(meta1Entries []dmeta1.Entry, meta2Entries []Entry) (
 			err := fmt.Errorf("InferParentIndex metaBlock2 %d is not an object", meta2EntryIndex)
 			return nil, err
 		}
-		if meta1EntryIndex != i {
+		if meta1EntryIndex != int32(i) {
 			err := fmt.Errorf(
 				"InferParentIndex invalid meta1EntryIndex of meta2Block %d: expected %d; got %d",
 				meta2EntryIndex, i, meta1EntryIndex,
@@ -117,7 +117,7 @@ func InferNumDirectChildren(meta1Entries []dmeta1.Entry, meta2Entries []Entry) (
 	return meta2EntriesCopy, nil
 }
 
-func InferRawDataLengths(meta2Entries []Entry, headerDataLength int) ([]Entry, error) {
+func InferRawDataLengths(meta2Entries []Entry, headerDataLength int32) ([]Entry, error) {
 	n := len(meta2Entries)
 	// RawDataLength of each meta2Entry is inferred by the difference between
 	//

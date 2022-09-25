@@ -257,19 +257,18 @@ func EncodeValues(fields []EncodingField) ([]EncodingField, error) {
 }
 
 func CreateMeta2Entry(
-	currentOffset int,
-	currentNumObject int,
+	currentOffset int32,
 	field EncodingField,
 ) dmeta2.Entry {
-	fieldInfo := 0
+	fieldInfo := int32(0)
 	if field.IsObject {
-		fieldInfo ^= 1
+		fieldInfo ^= int32(1)
 	}
 	fieldNameLength := len(field.Key) + 1
-	fieldInfo ^= fieldNameLength << 2
-	fieldInfo ^= currentNumObject << 11
+	fieldInfo ^= int32(fieldNameLength << 2)
+	fieldInfo ^= field.Meta1EntryIndex << 11
 	return dmeta2.Entry{
-		NameHash:  int(dhash.HashString(field.Key + "\u0000")),
+		NameHash:  dhash.HashString(field.Key),
 		Offset:    currentOffset,
 		FieldInfo: fieldInfo,
 	}
@@ -280,20 +279,32 @@ func CreateMeta2Inferences(field EncodingField) dmeta2.Inferences {
 		Index:             field.Index,
 		IsObject:          field.IsObject,
 		ParentIndex:       field.ParentIndex,
-		FieldNameLength:   len(field.Key) + 1,
-		Meta1EntryIndex:   field.ParentIndex,
+		FieldNameLength:   int32(len(field.Key) + 1),
+		Meta1EntryIndex:   field.Meta1EntryIndex,
 		NumDirectChildren: field.NumDirectChildren,
 		NumAllChildren:    field.NumAllChildren,
-		RawDataLength:     len(field.Bytes),
+		RawDataLength:     int32(len(field.Bytes)) + field.PaddedBytesCount,
 	}
 }
 
 func CreateMeta2Block(fields []EncodingField) []dmeta2.Entry {
-	currentOffsets := lo.Reduce(
-		fields,
-		func(r int, t T, i int) int {
+	currentOffsets := CalculateMeta2Offsets(fields)
+	meta2Block := lo.Map(
+		lo.Zip2(
+			fields,
+			// skip the last offset since it denotes data offset,
+			// not an actual meta2 offset
+			lo.DropRight(currentOffsets, 1),
+		),
+		func(t lo.Tuple2[EncodingField, int32], _ int) dmeta2.Entry {
+			field := t.A
+			currentOffset := t.B
+			entry := CreateMeta2Entry(currentOffset, field)
+			entry.Inferences = CreateMeta2Inferences(field)
+			return entry
 		},
 	)
+	return meta2Block
 }
 
 func CreateMeta1Entry(field EncodingField) dmeta1.Entry {
@@ -319,6 +330,26 @@ func CreateMeta1Block(fields []EncodingField) []dmeta1.Entry {
 	)
 }
 
+func CreateDataField(encodingField EncodingField) DataField {
+	dataField := DataField{
+		Name: encodingField.Key,
+		RawData: append(
+			lbytes.CreateZeroBytes(int(encodingField.PaddedBytesCount)),
+			encodingField.Bytes...,
+		),
+	}
+	return dataField
+}
+
+func CreateDataFields(fields []EncodingField) []DataField {
+	return lo.Map(
+		fields,
+		func(encodingField EncodingField, _ int) DataField {
+			return CreateDataField(encodingField)
+		},
+	)
+}
+
 func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	firstField := fields[0]
 	if firstField.Key != FieldNameRevision {
@@ -326,8 +357,8 @@ func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	}
 	fieldsWithoutRevision := RemoveRevisionField(fields)
 
-	revision := int(firstField.Value.(float64))
-	headerLength := 64
+	revision := int32(firstField.Value.(float64))
+	headerLength := dheader.DefaultHeaderSize
 	numMeta1Entries := lo.CountBy(
 		fieldsWithoutRevision,
 		func(field EncodingField) bool {
@@ -341,36 +372,24 @@ func CreateHeader(fields []EncodingField) (*dheader.Header, error) {
 	meta2Offset := meta1Size + meta1Offset
 	meta2Size := 12 * numMeta2Entries
 
-	// dataLength := lo.Reduce(
-	// 	fieldsWithoutRevision,
-	// 	func(r int, t EncodingField, _ int) int {
-	// 		// Fields that have their bytes lengths longer than 4
-	// 		// are going to have some padding, depends on the names' length.
-	// 		if len(t.Bytes) >= 4 {
-	// 			return ds.NearestDivisibleByM(r+len(t.Key)+1, 4) + len(t.Bytes)
-	// 		}
-	// 		return r + len(t.Key) + 1 + len(t.Bytes)
-	// 	},
-	// 	0,
-	// )
-	dataLength := CalculateMeta2Offsets(fieldsWithoutRevision)
+	dataLength, _ := lo.Last(CalculateMeta2Offsets(fieldsWithoutRevision))
 	dataOffset := headerLength + meta1Size + meta2Size
 
 	header := dheader.Header{
 		MagicNumber:     dheader.MagicNumberBytes,
 		Revision:        revision,
-		HeaderLength:    headerLength,
+		HeaderLength:    int32(headerLength),
 		Zeroes:          lbytes.CreateZeroBytes(4),
-		Meta1Size:       meta1Size,
-		NumMeta1Entries: numMeta1Entries,
-		Meta1Offset:     meta1Offset,
+		Meta1Size:       int32(meta1Size),
+		NumMeta1Entries: int32(numMeta1Entries),
+		Meta1Offset:     int32(meta1Offset),
 		Zeroes2:         lbytes.CreateZeroBytes(8),
 		Zeroes3:         lbytes.CreateZeroBytes(8),
-		NumMeta2Entries: numMeta2Entries,
-		Meta2Offset:     meta2Offset,
+		NumMeta2Entries: int32(numMeta2Entries),
+		Meta2Offset:     int32(meta2Offset),
 		Zeroes4:         lbytes.CreateZeroBytes(4),
-		DataLength:      dataLength,
-		DataOffset:      dataOffset,
+		DataLength:      int32(dataLength),
+		DataOffset:      int32(dataOffset),
 	}
 	return &header, nil
 }
@@ -384,10 +403,10 @@ func RemoveRevisionField(fields []EncodingField) []EncodingField {
 	)
 }
 
-func SetNumDirectChildren(fields []EncodingField, numsDirectChildren []int) []EncodingField {
+func SetNumDirectChildren(fields []EncodingField, numsDirectChildren []int32) []EncodingField {
 	return lo.Map(
 		lo.Zip2(fields, numsDirectChildren),
-		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+		func(t lo.Tuple2[EncodingField, int32], _ int) EncodingField {
 			field := t.A
 			numDirectChildren := t.B
 			field.NumDirectChildren = numDirectChildren
@@ -396,10 +415,10 @@ func SetNumDirectChildren(fields []EncodingField, numsDirectChildren []int) []En
 	)
 }
 
-func SetNumAllChildren(fields []EncodingField, numsAllChildren []int) []EncodingField {
+func SetNumAllChildren(fields []EncodingField, numsAllChildren []int32) []EncodingField {
 	return lo.Map(
 		lo.Zip2(fields, numsAllChildren),
-		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+		func(t lo.Tuple2[EncodingField, int32], _ int) EncodingField {
 			field := t.A
 			numAllChildren := t.B
 			field.NumAllChildren = numAllChildren
@@ -408,10 +427,10 @@ func SetNumAllChildren(fields []EncodingField, numsAllChildren []int) []Encoding
 	)
 }
 
-func SetParentIndexes(fields []EncodingField, parentIndexes []int) []EncodingField {
+func SetParentIndexes(fields []EncodingField, parentIndexes []int32) []EncodingField {
 	return lo.Map(
 		lo.Zip2(fields, parentIndexes),
-		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+		func(t lo.Tuple2[EncodingField, int32], _ int) EncodingField {
 			field := t.A
 			parentIndex := t.B
 			field.ParentIndex = parentIndex
@@ -424,7 +443,7 @@ func SetIndexes(fields []EncodingField) []EncodingField {
 	return lo.Map(
 		fields,
 		func(field EncodingField, index int) EncodingField {
-			field.Index = index
+			field.Index = int32(index)
 			return field
 		},
 	)
@@ -444,14 +463,52 @@ func SetMeta1ParentIndexes(fields []EncodingField) []EncodingField {
 	return fieldsCopy
 }
 
-func SetMeta1EntryIndexes(fields []EncodingField, meta1EntryIndexes []int) []EncodingField {
+func SetMeta1EntryIndexes(fields []EncodingField, meta1EntryIndexes []int32) []EncodingField {
 	return lo.Map(
 		lo.Zip2(fields, meta1EntryIndexes),
-		func(t lo.Tuple2[EncodingField, int], _ int) EncodingField {
+		func(t lo.Tuple2[EncodingField, int32], _ int) EncodingField {
 			field := t.A
 			entryIndex := t.B
-			field.Meta1EntryIndex = entryIndex
+			if field.IsObject {
+				field.Meta1EntryIndex = entryIndex
+			}
 			return field
+		},
+	)
+}
+
+func SetMeta2Offsets(fields []EncodingField, meta2Offsets []int32) []EncodingField {
+	return lo.Map(
+		lo.Zip2(fields, meta2Offsets),
+		func(pair lo.Tuple2[EncodingField, int32], _ int) EncodingField {
+			field := pair.A
+			meta2Offset := pair.B
+			field.Meta2Offset = meta2Offset
+			return field
+		},
+	)
+}
+
+func SetPaddedBytesCounts(fields []EncodingField, paddedBytesCounts []int32) []EncodingField {
+	return lo.Map(
+		lo.Zip2(fields, paddedBytesCounts),
+		func(t lo.Tuple2[EncodingField, int32], _ int) EncodingField {
+			field := t.A
+			paddedBytesCount := t.B
+			field.PaddedBytesCount = paddedBytesCount
+			return field
+		},
+	)
+}
+
+func EncodeDataFields(fields []DataField) []byte {
+	return lo.FlatMap(
+		fields,
+		func(field DataField, _ int) []byte {
+			return append(
+				[]byte(field.Name+"\u0000"),
+				field.RawData...,
+			)
 		},
 	)
 }

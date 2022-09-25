@@ -18,7 +18,7 @@ import (
 func InferUsingMeta2Entry(rawData []byte, meta2Entry dmeta2.Entry) Inferences {
 	rawDataOffset := meta2Entry.Offset + meta2Entry.Inferences.FieldNameLength
 	rawDataLength := meta2Entry.Inferences.RawDataLength
-	alignedBytesCount := ds.NearestDivisibleByM(rawDataOffset, 4) - rawDataOffset
+	alignedBytesCount := int32(ds.NearestDivisibleByM(int(rawDataOffset), 4)) - rawDataOffset
 	rawDataStripped := rawData
 	if rawDataLength > alignedBytesCount {
 		rawDataStripped = rawData[alignedBytesCount:]
@@ -36,7 +36,7 @@ func InferUsingMeta2Entry(rawData []byte, meta2Entry dmeta2.Entry) Inferences {
 	}
 }
 
-func InferHierarchyPath(index int, fields []Field) []string {
+func InferHierarchyPath(index int32, fields []DataField) []string {
 	// TODO: create a cache function if there is need for optimization
 	fieldName := fields[index].Name
 	parentIndex := fields[index].Inferences.ParentIndex
@@ -46,11 +46,11 @@ func InferHierarchyPath(index int, fields []Field) []string {
 	return append(InferHierarchyPath(parentIndex, fields), fieldName)
 }
 
-func InferHierarchyPaths(fields []Field) []Field {
+func InferHierarchyPaths(fields []DataField) []DataField {
 	fieldsCopy := lo.Map(
 		fields,
-		func(t Field, i int) Field {
-			t.Inferences.HierarchyPath = InferHierarchyPath(i, fields)
+		func(t DataField, i int) DataField {
+			t.Inferences.HierarchyPath = InferHierarchyPath(int32(i), fields)
 			return t
 		},
 	)
@@ -200,7 +200,7 @@ func InferDataTypeByRawData(rawDataStripped []byte) DataType {
 	return DataTypeUnknown
 }
 
-func InferDataType(field Field) DataType {
+func InferDataType(field DataField) DataType {
 	if field.Inferences.IsObject {
 		return DataTypeObject
 	}
@@ -499,7 +499,7 @@ func InferData(dataType DataType, rawDataStripped []byte) (any, error) {
 	return value, nil
 }
 
-func AttemptUnhashInt(field Field) Field {
+func AttemptUnhashInt(field DataField) DataField {
 	if field.Inferences.DataType != DataTypeInt {
 		return field
 	}
@@ -512,7 +512,7 @@ func AttemptUnhashInt(field Field) Field {
 	return field
 }
 
-func AttemptUnhashIntVector(field Field) Field {
+func AttemptUnhashIntVector(field DataField) DataField {
 	if field.Inferences.DataType != DataTypeIntVector {
 		return field
 	}

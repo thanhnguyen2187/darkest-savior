@@ -13,17 +13,17 @@ import (
 )
 
 type (
-	DecodedFile struct {
-		Header     dheader.Header `json:"header"`
-		Meta1Block []dmeta1.Entry `json:"meta_1_block"`
-		Meta2Block []dmeta2.Entry `json:"meta_2_block"`
-		Fields     []dfield.Field `json:"fields"`
+	Struct struct {
+		Header     dheader.Header     `json:"header"`
+		Meta1Block []dmeta1.Entry     `json:"meta_1_block"`
+		Meta2Block []dmeta2.Entry     `json:"meta_2_block"`
+		Fields     []dfield.DataField `json:"fields"`
 	}
 )
 
-func ToStructuredFile(bs []byte) (*DecodedFile, error) {
+func ToStructuredFile(bs []byte) (*Struct, error) {
 	reader := lbytes.NewBytesReader(bs)
-	file := DecodedFile{}
+	file := Struct{}
 	err := error(nil)
 
 	header, err := dheader.Decode(reader)
@@ -31,7 +31,7 @@ func ToStructuredFile(bs []byte) (*DecodedFile, error) {
 		return nil, err
 	}
 	file.Header = *header
-	file.Meta1Block, err = dmeta1.DecodeBlock(reader, header.NumMeta1Entries)
+	file.Meta1Block, err = dmeta1.DecodeBlock(reader, int(header.NumMeta1Entries))
 	if err != nil {
 		return nil, err
 	}
@@ -83,19 +83,19 @@ func DecodeDSON(bytes []byte, debug bool) ([]byte, error) {
 	return decodedBytes, nil
 }
 
-func ToLinkedHashMap(file DecodedFile) *orderedmap.OrderedMap {
+func ToLinkedHashMap(file Struct) *orderedmap.OrderedMap {
 	// TODO: use an interface for orderedMap
-	lhmByIndex := make(map[int]*orderedmap.OrderedMap)
+	lhmByIndex := make(map[int32]*orderedmap.OrderedMap)
 	lhmByIndex[-1] = orderedmap.New()
 	lhmByIndex[-1].Set(dfield.FieldNameRevision, file.Header.Revision)
 	for index, field := range file.Fields {
 		parentIndex := field.Inferences.ParentIndex
 		if field.Inferences.IsObject {
 			lhm := orderedmap.New()
-			lhmByIndex[index] = lhm
+			lhmByIndex[int32(index)] = lhm
 			lhmByIndex[parentIndex].Set(field.Name, lhm)
 		} else if field.Inferences.DataType == dfield.DataTypeFileDecoded {
-			lhm := ToLinkedHashMap(field.Inferences.Data.(DecodedFile))
+			lhm := ToLinkedHashMap(field.Inferences.Data.(Struct))
 			lhmByIndex[parentIndex].Set(field.Name, lhm)
 		} else {
 			lhmByIndex[parentIndex].Set(field.Name, field.Inferences.Data)
@@ -105,16 +105,16 @@ func ToLinkedHashMap(file DecodedFile) *orderedmap.OrderedMap {
 	return lhmByIndex[-1]
 }
 
-func ExpandEmbeddedFiles(fields []dfield.Field) ([]dfield.Field, error) {
-	mappedFields := make([][]dfield.Field, 0)
+func ExpandEmbeddedFiles(fields []dfield.DataField) ([]dfield.DataField, error) {
+	mappedFields := make([][]dfield.DataField, 0)
 	for _, field := range fields {
-		mappedFields = append(mappedFields, []dfield.Field{field})
+		mappedFields = append(mappedFields, []dfield.DataField{field})
 		if field.Inferences.DataType == dfield.DataTypeFileDecoded {
 			decodedFileBytes, err := json.Marshal(field.Inferences.Data)
 			if err != nil {
 				return nil, err
 			}
-			decodedFile := DecodedFile{}
+			decodedFile := Struct{}
 			err = json.Unmarshal(decodedFileBytes, &decodedFile)
 			if err != nil {
 				return nil, err

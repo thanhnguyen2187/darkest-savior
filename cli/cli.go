@@ -71,7 +71,7 @@ func StartConverting(args ConvertCmd) {
 	}
 
 	if dheader.IsValidMagicNumber(fileBytes[:4]) {
-		// TODO: Improve the interfaces by letting `cli` knows nothing about what is `DecodedFile`.
+		// TODO: Improve the interfaces by letting `cli` knows nothing about what is `Struct`.
 		//       Let the data exchange format between `cli` and `dson` be `[]byte`
 		bs, err := dson.DecodeDSON(fileBytes, args.Debug)
 		if err != nil {

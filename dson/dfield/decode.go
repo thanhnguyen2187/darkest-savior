@@ -10,12 +10,12 @@ import (
 	"github.com/samber/lo"
 )
 
-func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Entry) (*Field, error) {
+func DecodeField(reader *lbytes.Reader, meta2Entry dmeta2.Entry) (*DataField, error) {
 	// manual decoding and mapping is needed since turning data into JSON
 	// and parse back does not work for bytes of RawData
-	field := Field{}
+	field := DataField{}
 	err := error(nil)
-	readString := lbytes.CreateStringReadFunction(reader, meta2Block.Inferences.FieldNameLength)
+	readString := lbytes.CreateStringReadFunction(reader, int(meta2Entry.Inferences.FieldNameLength))
 	ok := false
 
 	fieldName, err := readString()
@@ -29,27 +29,27 @@ func DecodeField(reader *lbytes.Reader, meta2Block dmeta2.Entry) (*Field, error)
 		return nil, err
 	}
 	hashed := dhash.HashString(field.Name)
-	if hashed != int32(meta2Block.NameHash) {
+	if hashed != meta2Entry.NameHash {
 		err := fmt.Errorf(
 			`DecodeField error: mismatched hash value of field name "%s"; expected "%d", received "%d"`,
-			field.Name, meta2Block.NameHash, hashed,
+			field.Name, meta2Entry.NameHash, hashed,
 		)
 		return nil, err
 	}
 
-	field.RawData, err = reader.ReadBytes(meta2Block.Inferences.RawDataLength)
+	field.RawData, err = reader.ReadBytes(int(meta2Entry.Inferences.RawDataLength))
 	if err != nil {
 		err := errors.Wrap(err, "DecodeField error: read field.RawData")
 		return nil, err
 	}
 
-	field.Inferences = InferUsingMeta2Entry(field.RawData, meta2Block)
+	field.Inferences = InferUsingMeta2Entry(field.RawData, meta2Entry)
 
 	return &field, nil
 }
 
-func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Entry) ([]Field, error) {
-	fields := make([]Field, 0, len(meta2Blocks))
+func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Entry) ([]DataField, error) {
+	fields := make([]DataField, 0, len(meta2Blocks))
 	for _, meta2Block := range meta2Blocks {
 		field, err := DecodeField(reader, meta2Block)
 		if err != nil {
@@ -62,7 +62,7 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Entry) ([]Field, e
 	fields = InferHierarchyPaths(fields)
 	fields = lo.Map(
 		fields,
-		func(field Field, _ int) Field {
+		func(field DataField, _ int) DataField {
 			field.Inferences.DataType = InferDataType(field)
 			return field
 		},
@@ -78,13 +78,13 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Entry) ([]Field, e
 	}
 	fields = lo.Map(
 		fields,
-		func(field Field, _ int) Field {
+		func(field DataField, _ int) DataField {
 			return AttemptUnhashInt(field)
 		},
 	)
 	fields = lo.Map(
 		fields,
-		func(field Field, _ int) Field {
+		func(field DataField, _ int) DataField {
 			return AttemptUnhashIntVector(field)
 		},
 	)
@@ -95,13 +95,13 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Entry) ([]Field, e
 	return fields, nil
 }
 
-func RemoveDuplications(fields []Field) []Field {
-	existedFieldsByIndex := map[int]map[string]struct{}{
+func RemoveDuplications(fields []DataField) []DataField {
+	existedFieldsByIndex := map[int32]map[string]struct{}{
 		-1: {},
 		// -1 is initialized for the "super" root object
 	}
-	toBeRemoved := map[int]struct{}{}
-	uniqueFields := make([]Field, 0, len(fields))
+	toBeRemoved := map[int32]struct{}{}
+	uniqueFields := make([]DataField, 0, len(fields))
 	for index, field := range fields {
 		_, ok := existedFieldsByIndex[field.Inferences.ParentIndex][field.Name]
 		_, ok2 := toBeRemoved[field.Inferences.ParentIndex]
@@ -109,10 +109,10 @@ func RemoveDuplications(fields []Field) []Field {
 			existedFieldsByIndex[field.Inferences.ParentIndex][field.Name] = struct{}{}
 			uniqueFields = append(uniqueFields, field)
 		} else {
-			toBeRemoved[index] = struct{}{}
+			toBeRemoved[int32(index)] = struct{}{}
 		}
 		if field.Inferences.IsObject {
-			existedFieldsByIndex[index] = map[string]struct{}{}
+			existedFieldsByIndex[int32(index)] = map[string]struct{}{}
 		}
 	}
 	return uniqueFields
