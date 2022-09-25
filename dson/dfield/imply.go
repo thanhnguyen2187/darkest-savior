@@ -84,57 +84,6 @@ func ImplyDataType(fieldName string, hierarchyPath []string, value any) DataType
 	return dataType
 }
 
-func FromLinkedHashMap(currentPath []string, lhm orderedmap.OrderedMap) []EncodingField {
-	// TODO: find a way to simplify the function
-	return lo.Flatten(
-		// TODO: find a way to handle `lo.Map` with potential error more gracefully
-		lo.Map[string, []EncodingField](
-			lhm.Keys(),
-			func(key string, _ int) []EncodingField {
-				field := EncodingField{}
-				field.Key = key
-				// split to a "special case" and a "normal case" since `base_root` is the...
-				// root of a DSON file, and also the root of an embedded file; testing is
-				// wrong in the embedded file case without this fix
-				if key == FieldNameRoot {
-					field.HierarchyPath = []string{FieldNameRoot}
-				} else {
-					// shallow copy is needed here since a lot of FromLinkedHashMap
-					// invocation with the same slice leads to strange errors
-					field.HierarchyPath = append(
-						ds.ShallowCopy(currentPath),
-						key,
-					)
-				}
-				field.ValueType = ImplyDataTypeByFieldName(key)
-				if field.ValueType == DataTypeUnknown {
-					// skip first item that always include "base_root"
-					field.ValueType = ImplyDataTypeByHierarchyPath(field.HierarchyPath[1:])
-				}
-				value, _ := lhm.Get(key)
-				if field.ValueType == DataTypeUnknown {
-					field.ValueType = ImplyDataTypeByValue(value)
-				}
-
-				switch field.ValueType {
-				case DataTypeFileJSON:
-					fallthrough
-				case DataTypeObject:
-					field.Value = nil
-					valueLhm := value.(orderedmap.OrderedMap)
-					return append(
-						[]EncodingField{field},
-						FromLinkedHashMap(field.HierarchyPath, valueLhm)...,
-					)
-				default:
-					field.Value = value
-					return []EncodingField{field}
-				}
-			},
-		),
-	)
-}
-
 func CalculateNumDirectChildren(
 	lhm orderedmap.OrderedMap,
 ) []int32 {
@@ -201,24 +150,6 @@ func CalculateParentIndexes(
 	return parentIndexes
 }
 
-func CalculateMeta1EntryIndexes(
-	fields []EncodingField,
-) []int32 {
-	indexes := lo.Reduce(
-		fields,
-		func(result []int32, t EncodingField, _ int) []int32 {
-			last := result[len(result)-1]
-			if t.IsObject {
-				return append(result, last+1)
-			} else {
-				return append(result, last)
-			}
-		},
-		[]int32{-1},
-	)
-	return indexes[1:]
-}
-
 func CalculateMeta1EntryIndexesV2(
 	isObjectSlice []bool,
 ) []int32 {
@@ -249,25 +180,6 @@ func CalculateMeta1EntryIndexesV2(
 	return indexes
 }
 
-func CalculateMeta2Offsets(
-	fields []EncodingField,
-) []int32 {
-	return lo.Reduce(
-		fields,
-		func(r []int32, t EncodingField, _ int) []int32 {
-			last := r[len(r)-1]
-			fieldNameLength := int32(len(t.Key) + 1)
-			rawDataLength := int32(len(t.Bytes))
-			if len(t.Bytes) >= 4 {
-				return append(r, int32(ds.NearestDivisibleByM(int(last+fieldNameLength), 4))+rawDataLength)
-			} else {
-				return append(r, last+fieldNameLength+rawDataLength)
-			}
-		},
-		[]int32{0},
-	)
-}
-
 func CalculateMeta2OffsetsV2(
 	fieldNameLengths []int,
 	rawDataStrippedLengths []int,
@@ -285,25 +197,6 @@ func CalculateMeta2OffsetsV2(
 			}
 		},
 		[]int32{0},
-	)
-}
-
-func CalculatePaddedBytesCounts(
-	fields []EncodingField,
-) []int32 {
-	return lo.Map(
-		fields,
-		func(field EncodingField, _ int) int32 {
-			paddedLength := 0
-			fieldNameLength := len(field.Key) + 1
-			offset := int(field.Meta2Offset)
-			if len(field.Bytes) >= 4 {
-				paddedLength = ds.NearestDivisibleByM(offset+fieldNameLength, 4)
-			} else {
-				paddedLength = offset + fieldNameLength
-			}
-			return int32(paddedLength - (offset + fieldNameLength))
-		},
 	)
 }
 
@@ -328,15 +221,4 @@ func CalculatePaddedBytesCountsV2(
 			return paddedLength - (int(meta2Offset) + fieldNameLength)
 		},
 	)
-}
-
-func ExtractRevision(
-	fields []EncodingField,
-) (int32, error) {
-	firstField := fields[0]
-	if firstField.Key != FieldNameRevision {
-		return 0, RevisionNotFoundError{ActualFieldName: firstField.Key}
-	}
-	revision := int32(firstField.Value.(float64))
-	return revision, nil
 }

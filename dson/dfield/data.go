@@ -18,27 +18,7 @@ type (
 		DataType          DataType `json:"data_type"`
 		Data              any      `json:"data"`
 	}
-	DataType      string
-	EncodingField struct {
-		Index             int32    `json:"index"`
-		Key               string   `json:"key"`
-		ValueType         DataType `json:"value_type"`
-		Value             any      `json:"value"`
-		Bytes             []byte   `json:"bytes"`
-		PaddedBytesCount  int32    `json:"padded_zeroes"`
-		IsObject          bool     `json:"is_object"`
-		ParentIndex       int32    `json:"parent_index"`
-		Meta1ParentIndex  int32    `json:"meta1_parent_index"`
-		Meta1EntryIndex   int32    `json:"meta1_entry_index"`
-		Meta2Offset       int32    `json:"meta2_offset"`
-		NumDirectChildren int32    `json:"num_direct_children"`
-		NumAllChildren    int32    `json:"num_all_children"`
-		HierarchyPath     []string `json:"hierarchy_path"`
-	}
-	EncodingFieldsWithRevision struct {
-		Revision int32           `json:"revision"`
-		Fields   []EncodingField `json:"fields"`
-	}
+	DataType string
 )
 
 const (

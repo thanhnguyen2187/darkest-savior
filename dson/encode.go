@@ -1,17 +1,12 @@
 package dson
 
 import (
-	"encoding/json"
 	"fmt"
 
-	"darkest-savior/ds"
 	"darkest-savior/dson/dfield"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
-	"darkest-savior/dson/lbytes"
-	"github.com/iancoleman/orderedmap"
-	"github.com/samber/lo"
 )
 
 type (
@@ -26,122 +21,6 @@ func (r KeyCastError) Error() string {
 		`unable to cast key "%v" of value "%v" to string`,
 		r.Key, r.Value,
 	)
-}
-
-func FromLinkedHashMap(lhm orderedmap.OrderedMap) (*dfield.EncodingFieldsWithRevision, error) {
-	lhm = ds.Deref(&lhm)
-	fields := dfield.FromLinkedHashMap([]string{}, lhm)
-	revision, err := dfield.ExtractRevision(fields)
-	if err != nil {
-		return nil, err
-	}
-	fields = dfield.RemoveRevisionField(fields)
-	lhm.Delete(dfield.FieldNameRevision)
-	{
-		fields, err = dfield.EncodeValues(fields)
-		if err != nil {
-			return nil, err
-		}
-		fields = dfield.SetIndexes(fields)
-	}
-	{
-		numsDirectChildren := dfield.CalculateNumDirectChildren(lhm)
-		fields = dfield.SetNumDirectChildren(fields, numsDirectChildren)
-	}
-	{
-		numsAllChildren := dfield.CalculateNumAllChildren(lhm)
-		fields = dfield.SetNumAllChildren(fields, numsAllChildren)
-		parentIndexes := dfield.CalculateParentIndexes(numsAllChildren)
-		fields = dfield.SetParentIndexes(fields, parentIndexes)
-	}
-	{
-		meta1EntryIndexes := dfield.CalculateMeta1EntryIndexes(fields)
-		fields = dfield.SetMeta1EntryIndexes(fields, meta1EntryIndexes)
-	}
-	{
-		meta2Offsets := dfield.CalculateMeta2Offsets(fields)
-		fields = dfield.SetMeta2Offsets(fields, lo.DropRight(meta2Offsets, 1))
-	}
-	{
-		paddedBytesCounts := dfield.CalculatePaddedBytesCounts(fields)
-		fields = dfield.SetPaddedBytesCounts(fields, paddedBytesCounts)
-	}
-	{
-		fields = dfield.SetMeta1ParentIndexes(fields)
-	}
-	fieldsWithRevision := dfield.EncodingFieldsWithRevision{
-		Revision: revision,
-		Fields:   fields,
-	}
-	return &fieldsWithRevision, nil
-}
-
-func CompactEmbeddedFiles(fields []dfield.EncodingField) ([]dfield.EncodingField, error) {
-	resultFields := make([]dfield.EncodingField, 0, len(fields))
-	skipping := int32(0)
-	for index, field := range fields {
-		if skipping > 0 {
-			skipping -= 1
-			continue
-		}
-		if field.ValueType == dfield.DataTypeFileJSON {
-			startIndex := int32(index) + 1
-			endIndex := startIndex + field.NumAllChildren
-			skipping += field.NumAllChildren
-			embeddedFileFields := fields[startIndex:endIndex]
-
-			decodedFile, err := CreateDecodedFile(embeddedFileFields)
-			if err != nil {
-				return nil, err
-			}
-			embeddedFileBytes := EncodeStruct(*decodedFile)
-			embeddedFileBytes = append(
-				embeddedFileBytes,
-				lbytes.EncodeValueInt(len(embeddedFileBytes))...,
-			)
-
-			resultField := dfield.EncodingField{
-				Index:             field.Index,
-				Key:               field.Key,
-				ValueType:         dfield.DataTypeFileDecoded,
-				Value:             *decodedFile,
-				Bytes:             embeddedFileBytes,
-				PaddedBytesCount:  0,
-				IsObject:          false,
-				ParentIndex:       field.ParentIndex,
-				Meta1ParentIndex:  field.Meta1ParentIndex,
-				Meta1EntryIndex:   field.Meta1EntryIndex,
-				Meta2Offset:       field.Meta2Offset,
-				NumDirectChildren: 0,
-				NumAllChildren:    0,
-				HierarchyPath:     field.HierarchyPath,
-			}
-			resultFields = append(resultFields, resultField)
-		} else {
-			resultFields = append(resultFields, field)
-		}
-	}
-	return resultFields, nil
-}
-
-func EncodeDSON(jsonBytes []byte) ([]byte, error) {
-	lhm := orderedmap.New()
-	err := json.Unmarshal(jsonBytes, &lhm)
-	if err != nil {
-		return nil, err
-	}
-
-	fields, err := FromLinkedHashMap(*lhm)
-	if err != nil {
-		return nil, err
-	}
-	fieldsBytes, err := json.MarshalIndent(fields, "", "  ")
-	if err != nil {
-		return nil, err
-	}
-	// print(ds.DumpJSON(fields))
-
-	return fieldsBytes, nil
 }
 
 func PickBytesHeader(fileBytes []byte) []byte {
@@ -182,20 +61,4 @@ func EncodeStruct(file Struct) []byte {
 	bs = append(bs, meta2Bytes...)
 	bs = append(bs, dataFieldsBytes...)
 	return bs
-}
-
-func CreateDecodedFile(fields []dfield.EncodingField) (*Struct, error) {
-	header, err := dfield.CreateHeader(fields)
-	if err != nil {
-		return nil, err
-	}
-	meta1Block := dfield.CreateMeta1Block(fields[1:])
-	meta2Block := dfield.CreateMeta2Block(fields[1:])
-	dataFields := dfield.CreateDataFields(fields[1:])
-	return &Struct{
-		Header:     *header,
-		Meta1Block: meta1Block,
-		Meta2Block: meta2Block,
-		Fields:     dataFields,
-	}, nil
 }
