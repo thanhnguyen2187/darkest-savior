@@ -1,5 +1,9 @@
 package dfield
 
+import (
+	"fmt"
+)
+
 type (
 	DataField struct {
 		Name       string     `json:"name"`
@@ -19,6 +23,21 @@ type (
 		Data              any      `json:"data"`
 	}
 	DataType string
+
+	ErrRevisionNotFound struct {
+		Caller          string
+		ActualFieldName string
+	}
+	ErrInvalidDataLength struct {
+		Caller   string
+		Expected int
+		Actual   int
+	}
+	ErrInvalidDataLengthCustom struct {
+		Caller   string
+		Expected string
+		Actual   int
+	}
 )
 
 const (
@@ -44,3 +63,27 @@ const (
 
 	FieldNameRevision = "__revision_dont_touch"
 )
+
+func (r ErrRevisionNotFound) Error() string {
+	msg := fmt.Sprintf(
+		`%s: expected "%s" as the first field; got "%s"`,
+		r.Caller, FieldNameRevision, r.ActualFieldName,
+	)
+	return msg
+}
+
+func (r ErrInvalidDataLength) Error() string {
+	msg := fmt.Sprintf(
+		`%s: expected field length "%d"; got "%d"`,
+		r.Caller, r.Expected, r.Actual,
+	)
+	return msg
+}
+
+func (r ErrInvalidDataLengthCustom) Error() string {
+	msg := fmt.Sprintf(
+		`%s: expected field length "%s"; got "%d"`,
+		r.Caller, r.Expected, r.Actual,
+	)
+	return msg
+}

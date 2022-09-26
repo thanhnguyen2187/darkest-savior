@@ -7,21 +7,11 @@ import (
 	"github.com/pkg/errors"
 )
 
-type (
-	Instruction struct {
-		Key          string
-		ReadFunction ReadFunction
-	}
-	ReadFunction func() (any, error)
-)
-
 // ExecuteInstructions create the final value t with type T by
 //
-// - Reading the instruction into a map, then
-//
-// - Create JSON bytes from the map, and finally
-//
-// - Read the JSON bytes into t
+//   - Reading the instruction into a map, then
+//   - Create JSON bytes from the map, and finally
+//   - Read the JSON bytes into t
 //
 // In order to lessen the burden of manual mapping.
 func ExecuteInstructions[T any](instructions []Instruction) (*T, error) {

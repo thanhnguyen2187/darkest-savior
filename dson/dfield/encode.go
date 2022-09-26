@@ -10,20 +10,6 @@ import (
 	"github.com/samber/lo"
 )
 
-type (
-	RevisionNotFoundError struct {
-		ActualFieldName string
-	}
-)
-
-func (r RevisionNotFoundError) Error() string {
-	msg := fmt.Sprintf(
-		`expected "%s" as the first field; got "%s"`,
-		FieldNameRevision, r.ActualFieldName,
-	)
-	return msg
-}
-
 func EncodeValueBool(value any) []byte {
 	valueBool := value.(bool)
 	if valueBool {

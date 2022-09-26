@@ -5,10 +5,6 @@ import (
 	"encoding/binary"
 )
 
-type Reader struct {
-	bytes.Reader
-}
-
 func NewBytesReader(bs []byte) *Reader {
 	return &Reader{
 		Reader: *bytes.NewReader(bs),

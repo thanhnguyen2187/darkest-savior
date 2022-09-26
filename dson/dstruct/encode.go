@@ -1,4 +1,4 @@
-package dson
+package dstruct
 
 import (
 	"darkest-savior/ds"
@@ -12,72 +12,19 @@ import (
 	"github.com/samber/lo"
 )
 
-func LHMToDataFields(parentHierarchyPath []string, lhm orderedmap.OrderedMap) ([]dfield.DataField, error) {
-	dataFields := make([]dfield.DataField, 0, len(lhm.Keys()))
-	for _, key := range lhm.Keys() {
-		if key == dfield.FieldNameRevision {
-			continue
-		}
-		value, _ := lhm.Get(key)
-		fieldName := key
-		hierarchyPath := ds.ShallowCopy(parentHierarchyPath)
-		hierarchyPath = append(hierarchyPath, fieldName)
-		field := dfield.DataField{}
-
-		field.Name = fieldName
-		field.Inferences.HierarchyPath = hierarchyPath
-		dataType := dfield.ImplyDataType(key, hierarchyPath[1:], value)
-		switch dataType {
-		case dfield.DataTypeObject:
-			valueLhm := value.(orderedmap.OrderedMap)
-			childFields, err := LHMToDataFields(hierarchyPath, valueLhm)
-			if err != nil {
-				return nil, err
-			}
-			field.Inferences.IsObject = true
-			field.Inferences.Data = nil
-			field.Inferences.RawDataStripped = make([]byte, 0)
-			dataFields = append(dataFields, field)
-			dataFields = append(dataFields, childFields...)
-		case dfield.DataTypeFileJSON:
-			valueLhm := value.(orderedmap.OrderedMap)
-			embeddedStruct, err := FromLinkedHashMapV2(valueLhm)
-			if err != nil {
-				return nil, err
-			}
-			embeddedStructBytes := EncodeStruct(*embeddedStruct)
-			field.Inferences.RawDataStripped = append(
-				lbytes.EncodeValueInt(len(embeddedStructBytes)),
-				embeddedStructBytes...,
-			)
-			field.Inferences.Data = *embeddedStruct
-			field.Inferences.DataType = dfield.DataTypeFileDecoded
-			dataFields = append(dataFields, field)
-		default:
-			rawDataStripped, err := dfield.EncodeValue(key, dataType, value)
-			if err != nil {
-				return nil, err
-			}
-			field.Inferences.Data = value
-			field.Inferences.RawDataStripped = rawDataStripped
-			dataFields = append(dataFields, field)
-		}
-	}
-	return dataFields, nil
-}
-
-func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
+func FromLinkedHashMap(lhm orderedmap.OrderedMap) (*Struct, error) {
 	lhm = ds.Deref(&lhm)
 	revisionKey := lhm.Keys()[0]
 	if revisionKey != dfield.FieldNameRevision {
-		return nil, dfield.RevisionNotFoundError{
+		return nil, dfield.ErrRevisionNotFound{
+			Caller:          "FromLinkedHashMap",
 			ActualFieldName: revisionKey,
 		}
 	}
 	revisionAny, _ := lhm.Get(revisionKey)
 	revision := int32(revisionAny.(float64))
 
-	dataFields, err := LHMToDataFields([]string{}, lhm)
+	dataFields, err := ToDataFields([]string{}, lhm)
 	if err != nil {
 		return nil, err
 	}
@@ -215,4 +162,78 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 		Fields:     dataFields,
 	}
 	return &decodedFile, nil
+}
+
+func ToDataFields(parentHierarchyPath []string, lhm orderedmap.OrderedMap) ([]dfield.DataField, error) {
+	dataFields := make([]dfield.DataField, 0, len(lhm.Keys()))
+	for _, key := range lhm.Keys() {
+		if key == dfield.FieldNameRevision {
+			continue
+		}
+		value, _ := lhm.Get(key)
+		fieldName := key
+		hierarchyPath := ds.ShallowCopy(parentHierarchyPath)
+		hierarchyPath = append(hierarchyPath, fieldName)
+		field := dfield.DataField{}
+
+		field.Name = fieldName
+		field.Inferences.HierarchyPath = hierarchyPath
+		dataType := dfield.ImplyDataType(key, hierarchyPath[1:], value)
+		switch dataType {
+		case dfield.DataTypeObject:
+			valueLhm := value.(orderedmap.OrderedMap)
+			childFields, err := ToDataFields(hierarchyPath, valueLhm)
+			if err != nil {
+				return nil, err
+			}
+			field.Inferences.IsObject = true
+			field.Inferences.Data = nil
+			field.Inferences.RawDataStripped = make([]byte, 0)
+			dataFields = append(dataFields, field)
+			dataFields = append(dataFields, childFields...)
+		case dfield.DataTypeFileJSON:
+			valueLhm := value.(orderedmap.OrderedMap)
+			embeddedStruct, err := FromLinkedHashMap(valueLhm)
+			if err != nil {
+				return nil, err
+			}
+			embeddedStructBytes := EncodeStruct(*embeddedStruct)
+			field.Inferences.RawDataStripped = append(
+				lbytes.EncodeValueInt(len(embeddedStructBytes)),
+				embeddedStructBytes...,
+			)
+			field.Inferences.Data = *embeddedStruct
+			field.Inferences.DataType = dfield.DataTypeFileDecoded
+			dataFields = append(dataFields, field)
+		default:
+			rawDataStripped, err := dfield.EncodeValue(key, dataType, value)
+			if err != nil {
+				return nil, err
+			}
+			field.Inferences.Data = value
+			field.Inferences.RawDataStripped = rawDataStripped
+			dataFields = append(dataFields, field)
+		}
+	}
+	return dataFields, nil
+}
+
+func EncodeStruct(file Struct) []byte {
+	headerSize := dheader.DefaultHeaderSize
+	meta1Size := int(file.Header.Meta1Size)
+	meta2Size := dmeta2.CalculateBlockSize(int(file.Header.NumMeta2Entries))
+	dataSize := int(file.Header.DataLength)
+	totalSize := headerSize + meta1Size + meta2Size + dataSize
+
+	headerBytes := dheader.Encode(file.Header)
+	meta1Bytes := dmeta1.EncodeBlock(file.Meta1Block)
+	meta2Bytes := dmeta2.EncodeBlock(file.Meta2Block)
+	dataFieldsBytes := dfield.EncodeDataFields(file.Fields)
+
+	bs := make([]byte, 0, totalSize)
+	bs = append(bs, headerBytes...)
+	bs = append(bs, meta1Bytes...)
+	bs = append(bs, meta2Bytes...)
+	bs = append(bs, dataFieldsBytes...)
+	return bs
 }

@@ -11,6 +11,7 @@ import (
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/match"
+	"github.com/hashicorp/go-multierror"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 )
@@ -220,22 +221,41 @@ func InferDataBool(rawDataStripped []byte) (bool, error) {
 }
 
 func InferDataChar(rawDataStripped []byte) (string, error) {
-	// TODO: check bytes length of all functions
+	lengthExpected := 1
+	lengthActual := len(rawDataStripped)
+	if lengthExpected != lengthActual {
+		return "", ErrInvalidDataLength{
+			Caller:   "InferDataBool",
+			Expected: lengthExpected,
+			Actual:   lengthActual,
+		}
+	}
 	return string(rawDataStripped), nil
 }
 
 func InferDataInt(rawDataStripped []byte) (int32, error) {
-	if len(rawDataStripped) != 4 {
-		err := fmt.Errorf(
-			`InferDataInt got invalid input bytes length: expected 4; got "%v" with length %d`,
-			rawDataStripped, len(rawDataStripped),
-		)
-		return 0, err
+	lengthExpected := 4
+	lengthActual := len(rawDataStripped)
+	if lengthExpected != lengthActual {
+		return 0, ErrInvalidDataLength{
+			Caller:   "InferDataInt",
+			Expected: lengthExpected,
+			Actual:   lengthActual,
+		}
 	}
 	return int32(binary.LittleEndian.Uint32(rawDataStripped)), nil
 }
 
 func InferDataFloat(rawDataStripped []byte) (float32, error) {
+	lengthExpected := 4
+	lengthActual := len(rawDataStripped)
+	if lengthExpected != lengthActual {
+		return 0, ErrInvalidDataLength{
+			Caller:   "InferDataFloat",
+			Expected: lengthExpected,
+			Actual:   lengthActual,
+		}
+	}
 	return math.Float32frombits(
 		binary.LittleEndian.Uint32(rawDataStripped),
 	), nil
@@ -243,20 +263,21 @@ func InferDataFloat(rawDataStripped []byte) (float32, error) {
 
 func InferDataString(rawDataStripped []byte) (string, error) {
 	rawLen := len(rawDataStripped)
-	if len(rawDataStripped) < 4 {
-		err := fmt.Errorf(
-			`InferDataString got invalid input bytes length: expected value >= 4; got "%s" with length %d`,
-			string(rawDataStripped), rawLen,
-		)
+	if rawLen < 4 {
+		err := ErrInvalidDataLengthCustom{
+			Caller:   "InferDataString",
+			Expected: ">= 4",
+			Actual:   len(rawDataStripped),
+		}
 		return "", err
 	}
 
 	strLen, err := InferDataInt(rawDataStripped[:4])
 	if err != nil {
-		err := errors.Wrapf(
-			err, `InferDataString unreachable code with input bytes "%v"`,
-			rawDataStripped,
-		)
+		errUC := ds.ErrUnreachableCode{
+			Caller: "InferDataString",
+		}
+		err := multierror.Append(err, errUC)
 		return "", err
 	}
 
@@ -264,10 +285,11 @@ func InferDataString(rawDataStripped []byte) (string, error) {
 	trueLen := len(str)
 	str = str[:len(str)-1]
 	if trueLen != int(strLen) {
-		err := fmt.Errorf(
-			`InferDataString found unexpected string length for value "%s": expected %d; got %d`,
-			str, strLen, trueLen,
-		)
+		err := ErrInvalidDataLength{
+			Caller:   "InferDataString",
+			Expected: trueLen,
+			Actual:   int(strLen),
+		}
 		return "", err
 	}
 
@@ -276,30 +298,31 @@ func InferDataString(rawDataStripped []byte) (string, error) {
 
 func InferDataIntVector(rawDataStripped []byte) ([]int32, error) {
 	rawLen := len(rawDataStripped)
-	if rawLen < 4 &&
-		rawLen%4 != 0 {
-		err := fmt.Errorf(
-			`InferDataIntVector got invalid input bytes length: expected value >= 4 and divisible by 4; got "%v" with length %d`,
-			rawDataStripped, rawLen,
-		)
+	if rawLen < 4 && rawLen%4 != 0 {
+		err := ErrInvalidDataLengthCustom{
+			Caller:   "InferDataIntVector",
+			Expected: "divisible by 4",
+			Actual:   rawLen,
+		}
 		return nil, err
 	}
 
 	intVectorLen, err := InferDataInt(rawDataStripped[:4])
 	if err != nil {
-		err := errors.Wrapf(
-			err, `InferDataIntVector unreachable code with input bytes "%v"`,
-			rawDataStripped,
-		)
+		errUC := ds.ErrUnreachableCode{
+			Caller: "InferDataIntVector",
+		}
+		err := multierror.Append(err, errUC)
 		return nil, err
 	}
 
 	intVectorByteChunks := ds.MakeChunks(rawDataStripped[4:], 4)
 	if len(intVectorByteChunks) != int(intVectorLen) {
-		err := fmt.Errorf(
-			`InferDataIntVector got invalid input bytes length: expected %d; got "%v" with length %d`,
-			intVectorLen, rawDataStripped, rawLen,
-		)
+		err := ErrInvalidDataLength{
+			Caller:   "InferDataIntVector",
+			Expected: int(intVectorLen),
+			Actual:   len(intVectorByteChunks),
+		}
 		return nil, err
 	}
 
@@ -323,28 +346,30 @@ func InferDataFloatVector(rawDataStripped []byte) ([]float32, error) {
 	rawLen := len(rawDataStripped)
 	if rawLen < 4 &&
 		rawLen%4 != 0 {
-		err := fmt.Errorf(
-			`InferDataFloatVector got invalid input bytes length: expected value >= 4 and divisible by 4; got "%v" with length %d`,
-			rawDataStripped, rawLen,
-		)
+		err := ErrInvalidDataLengthCustom{
+			Caller:   "InferDataFloatVector",
+			Expected: "divisible by 4",
+			Actual:   rawLen,
+		}
 		return nil, err
 	}
 
 	floatVectorLen, err := InferDataInt(rawDataStripped[:4])
 	if err != nil {
-		err := errors.Wrapf(
-			err, `InferDataFloatVector unreachable code with input bytes "%v"`,
-			rawDataStripped,
-		)
+		errUC := ds.ErrUnreachableCode{
+			Caller: "InferDataFloatVector",
+		}
+		err := multierror.Append(err, errUC)
 		return nil, err
 	}
 
 	floatVectorByteChunks := ds.MakeChunks(rawDataStripped[4:], 4)
 	if len(floatVectorByteChunks) != int(floatVectorLen) {
-		err := fmt.Errorf(
-			`InferDataFloatVector got invalid input bytes length: expected %d; got "%v" with length %d`,
-			floatVectorLen, rawDataStripped, rawLen,
-		)
+		err := ErrInvalidDataLength{
+			Caller:   "InferDataFloatVector",
+			Expected: int(floatVectorLen),
+			Actual:   len(floatVectorByteChunks),
+		}
 		return nil, err
 	}
 
@@ -352,10 +377,10 @@ func InferDataFloatVector(rawDataStripped []byte) ([]float32, error) {
 	for _, byteChunk := range floatVectorByteChunks {
 		value, err := InferDataFloat(byteChunk)
 		if err != nil {
-			err := fmt.Errorf(
-				`InferDataFloatVector unreachable code with input bytes "%v"`,
-				rawDataStripped,
-			)
+			errUC := ds.ErrUnreachableCode{
+				Caller: "InferDataIntVector",
+			}
+			err := multierror.Append(err, errUC)
 			return nil, err
 		}
 		floatVector = append(floatVector, value)
@@ -365,22 +390,23 @@ func InferDataFloatVector(rawDataStripped []byte) ([]float32, error) {
 }
 
 func InferDataStringVector(rawDataStripped []byte) ([]string, error) {
+	caller := "InferDataStringVector"
 	rawLen := len(rawDataStripped)
-	if rawLen < 4 &&
-		rawLen%4 != 0 {
-		err := fmt.Errorf(
-			`InferDataStringVector got invalid input bytes length: expected value >= 4 and divisible by 4; got "%v" with length %d`,
-			rawDataStripped, rawLen,
-		)
+	if rawLen < 4 && rawLen%4 != 0 {
+		err := ErrInvalidDataLengthCustom{
+			Caller:   caller,
+			Expected: "divisible by 4",
+			Actual:   rawLen,
+		}
 		return nil, err
 	}
 
 	stringVectorLen, err := InferDataInt(rawDataStripped[:4])
 	if err != nil {
-		err := fmt.Errorf(
-			`InferDataStringVector unreachable code with input bytes "%v"`,
-			rawDataStripped,
-		)
+		errUC := ds.ErrUnreachableCode{
+			Caller: caller,
+		}
+		err := multierror.Append(err, errUC)
 		return nil, err
 	}
 
@@ -395,10 +421,10 @@ func InferDataStringVector(rawDataStripped []byte) ([]string, error) {
 	for i := 0; i < int(stringVectorLen); i++ {
 		str, err := InferDataString(rawDataStripped[cursor:])
 		if err != nil {
-			err := fmt.Errorf(
-				`InferDataStringVector unreachable code with input bytes "%v"`,
-				rawDataStripped,
-			)
+			errUC := ds.ErrUnreachableCode{
+				Caller: caller,
+			}
+			err := multierror.Append(err, errUC)
 			return nil, err
 		}
 		cursor += 4 + len(str) + 1
@@ -409,6 +435,7 @@ func InferDataStringVector(rawDataStripped []byte) ([]string, error) {
 }
 
 func InferDataTwoInt(rawDataStripped []byte) ([]int32, error) {
+	// TODO: improve error handling in every functions
 	rawLen := len(rawDataStripped)
 	if rawLen != 8 {
 		err := fmt.Errorf(

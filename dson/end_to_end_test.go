@@ -8,6 +8,7 @@ import (
 	"darkest-savior/dson/dfield"
 	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
+	"darkest-savior/dson/dstruct"
 	"github.com/iancoleman/orderedmap"
 	"github.com/samber/lo"
 	"github.com/stretchr/testify/require"
@@ -17,9 +18,9 @@ import (
 type EndToEndTestSuite2 struct {
 	FilePaths            []string
 	FileByteSlices       [][]byte
-	DecodedStructs       []Struct
+	DecodedStructs       []dstruct.Struct
 	DecodedJSONsFromFile []orderedmap.OrderedMap
-	EncodingStructs      []Struct
+	EncodingStructs      []dstruct.Struct
 	R                    *require.Assertions
 	suite.Suite
 }
@@ -54,8 +55,8 @@ func (suite *EndToEndTestSuite2) SetupSuite() {
 	)
 	suite.DecodedStructs = lo.Map(
 		suite.FileByteSlices,
-		func(bs []byte, _ int) Struct {
-			decodedFile, err := ToStructuredFile(bs)
+		func(bs []byte, _ int) dstruct.Struct {
+			decodedFile, err := dstruct.ToStructuredFile(bs)
 			suite.R.NoError(err)
 			return *decodedFile
 		},
@@ -81,8 +82,8 @@ func (suite *EndToEndTestSuite2) SetupSuite() {
 	)
 	suite.EncodingStructs = lo.Map(
 		suite.DecodedJSONsFromFile,
-		func(lhm orderedmap.OrderedMap, _ int) Struct {
-			encodingStruct, err := FromLinkedHashMapV2(lhm)
+		func(lhm orderedmap.OrderedMap, _ int) dstruct.Struct {
+			encodingStruct, err := dstruct.FromLinkedHashMap(lhm)
 			suite.R.NoError(err)
 			return *encodingStruct
 		},
@@ -136,7 +137,7 @@ func (suite *EndToEndTestSuite2) TestEmbeddedDataFields(filePath string, expecte
 func (suite *EndToEndTestSuite2) TestEncodeDecode_DataFields() {
 	lo.ForEach(
 		lo.Zip3(suite.FilePaths, suite.DecodedStructs, suite.EncodingStructs),
-		func(tuple lo.Tuple3[string, Struct, Struct], _ int) {
+		func(tuple lo.Tuple3[string, dstruct.Struct, dstruct.Struct], _ int) {
 			filePath := tuple.A
 			decodedStruct := tuple.B
 			encodingStruct := tuple.C
@@ -146,8 +147,8 @@ func (suite *EndToEndTestSuite2) TestEncodeDecode_DataFields() {
 				func(tuple lo.Tuple2[dfield.DataField, dfield.DataField], _ int) {
 					fieldExpected := tuple.A
 					fieldActual := tuple.B
-					embeddedStructExpected, ok1 := fieldExpected.Inferences.Data.(Struct)
-					embeddedStructActual, ok2 := fieldActual.Inferences.Data.(Struct)
+					embeddedStructExpected, ok1 := fieldExpected.Inferences.Data.(dstruct.Struct)
+					embeddedStructActual, ok2 := fieldActual.Inferences.Data.(dstruct.Struct)
 					if ok1 && ok2 {
 						suite.R.Equalf(embeddedStructExpected.Header, embeddedStructActual.Header, filePath)
 						suite.R.Equalf(embeddedStructExpected.Meta1Block, embeddedStructActual.Meta1Block, filePath)
@@ -170,7 +171,7 @@ func (suite *EndToEndTestSuite2) TestEncodeDecode_DataFields() {
 func (suite *EndToEndTestSuite2) TestEncodeDecode_Meta2Block() {
 	lo.ForEach(
 		lo.Zip3(suite.FilePaths, suite.DecodedStructs, suite.EncodingStructs),
-		func(tuple lo.Tuple3[string, Struct, Struct], _ int) {
+		func(tuple lo.Tuple3[string, dstruct.Struct, dstruct.Struct], _ int) {
 			filePath := tuple.A
 			decodedStruct := tuple.B
 			encodingStruct := tuple.C
@@ -186,7 +187,7 @@ func (suite *EndToEndTestSuite2) TestEncodeDecode_Meta2Block() {
 func (suite *EndToEndTestSuite2) TestEncodeDecode_Meta1Block() {
 	lo.ForEach(
 		lo.Zip3(suite.FilePaths, suite.DecodedStructs, suite.EncodingStructs),
-		func(tuple lo.Tuple3[string, Struct, Struct], _ int) {
+		func(tuple lo.Tuple3[string, dstruct.Struct, dstruct.Struct], _ int) {
 			filePath := tuple.A
 			decodedStruct := tuple.B
 			encodingStruct := tuple.C
@@ -206,7 +207,7 @@ func (suite *EndToEndTestSuite2) TestEncodeDecode_Meta1Block() {
 func (suite *EndToEndTestSuite2) TestEncodeDecode_Header() {
 	lo.ForEach(
 		lo.Zip3(suite.FilePaths, suite.DecodedStructs, suite.EncodingStructs),
-		func(tuple lo.Tuple3[string, Struct, Struct], _ int) {
+		func(tuple lo.Tuple3[string, dstruct.Struct, dstruct.Struct], _ int) {
 			filePath := tuple.A
 			decodedStruct := tuple.B
 			encodingStruct := tuple.C
@@ -218,11 +219,11 @@ func (suite *EndToEndTestSuite2) TestEncodeDecode_Header() {
 func (suite *EndToEndTestSuite2) TestEncodeDecode_Struct() {
 	lo.ForEach(
 		lo.Zip3(suite.FilePaths, suite.FileByteSlices, suite.DecodedStructs),
-		func(tuple lo.Tuple3[string, []byte, Struct], _ int) {
+		func(tuple lo.Tuple3[string, []byte, dstruct.Struct], _ int) {
 			filePath := tuple.A
 			fileBytes := tuple.B
 			decodedStruct := tuple.C
-			decodedStructBytes := EncodeStruct(decodedStruct)
+			decodedStructBytes := dstruct.EncodeStruct(decodedStruct)
 
 			suite.R.Equalf(len(fileBytes), len(decodedStructBytes), filePath)
 			suite.R.Equalf(fileBytes, decodedStructBytes, filePath)
