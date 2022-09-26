@@ -94,26 +94,3 @@ func DecodeFields(reader *lbytes.Reader, meta2Blocks []dmeta2.Entry) ([]DataFiel
 
 	return fields, nil
 }
-
-func RemoveDuplications(fields []DataField) []DataField {
-	existedFieldsByIndex := map[int32]map[string]struct{}{
-		-1: {},
-		// -1 is initialized for the "super" root object
-	}
-	toBeRemoved := map[int32]struct{}{}
-	uniqueFields := make([]DataField, 0, len(fields))
-	for index, field := range fields {
-		_, ok := existedFieldsByIndex[field.Inferences.ParentIndex][field.Name]
-		_, ok2 := toBeRemoved[field.Inferences.ParentIndex]
-		if !ok && !ok2 {
-			existedFieldsByIndex[field.Inferences.ParentIndex][field.Name] = struct{}{}
-			uniqueFields = append(uniqueFields, field)
-		} else {
-			toBeRemoved[int32(index)] = struct{}{}
-		}
-		if field.Inferences.IsObject {
-			existedFieldsByIndex[int32(index)] = map[string]struct{}{}
-		}
-	}
-	return uniqueFields
-}

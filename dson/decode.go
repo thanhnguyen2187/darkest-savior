@@ -9,7 +9,6 @@ import (
 	"darkest-savior/dson/dmeta2"
 	"darkest-savior/dson/lbytes"
 	"github.com/iancoleman/orderedmap"
-	"github.com/samber/lo"
 )
 
 type (
@@ -20,6 +19,10 @@ type (
 		Fields     []dfield.DataField `json:"fields"`
 	}
 )
+
+func IsDSONFile(bs []byte) bool {
+	return dheader.IsValidMagicNumber(bs[:4])
+}
 
 func ToStructuredFile(bs []byte) (*Struct, error) {
 	reader := lbytes.NewBytesReader(bs)
@@ -85,14 +88,14 @@ func DecodeDSON(bytes []byte, debug bool) ([]byte, error) {
 
 func ToLinkedHashMap(file Struct) *orderedmap.OrderedMap {
 	// TODO: use an interface for orderedMap
-	lhmByIndex := make(map[int32]*orderedmap.OrderedMap)
+	lhmByIndex := make(map[int]*orderedmap.OrderedMap)
 	lhmByIndex[-1] = orderedmap.New()
 	lhmByIndex[-1].Set(dfield.FieldNameRevision, file.Header.Revision)
 	for index, field := range file.Fields {
 		parentIndex := field.Inferences.ParentIndex
 		if field.Inferences.IsObject {
 			lhm := orderedmap.New()
-			lhmByIndex[int32(index)] = lhm
+			lhmByIndex[index] = lhm
 			lhmByIndex[parentIndex].Set(field.Name, lhm)
 		} else if field.Inferences.DataType == dfield.DataTypeFileDecoded {
 			lhm := ToLinkedHashMap(field.Inferences.Data.(Struct))
@@ -103,24 +106,4 @@ func ToLinkedHashMap(file Struct) *orderedmap.OrderedMap {
 	}
 
 	return lhmByIndex[-1]
-}
-
-func ExpandEmbeddedFiles(fields []dfield.DataField) ([]dfield.DataField, error) {
-	mappedFields := make([][]dfield.DataField, 0)
-	for _, field := range fields {
-		mappedFields = append(mappedFields, []dfield.DataField{field})
-		if field.Inferences.DataType == dfield.DataTypeFileDecoded {
-			decodedFileBytes, err := json.Marshal(field.Inferences.Data)
-			if err != nil {
-				return nil, err
-			}
-			decodedFile := Struct{}
-			err = json.Unmarshal(decodedFileBytes, &decodedFile)
-			if err != nil {
-				return nil, err
-			}
-			mappedFields = append(mappedFields, decodedFile.Fields)
-		}
-	}
-	return lo.Flatten(mappedFields), nil
 }

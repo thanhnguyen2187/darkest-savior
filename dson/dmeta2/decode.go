@@ -40,7 +40,7 @@ func DecodeBlock(reader *lbytes.Reader, header dheader.Header, meta1Blocks []dme
 	}
 
 	meta2Entries = InferIndex(meta2Entries)
-	meta2Entries, err := InferRawDataLengths(meta2Entries, header.DataLength)
+	meta2Entries, err := InferRawDataLengths(meta2Entries, int(header.DataLength))
 	if err != nil {
 		err := errors.Wrap(err, "dmeta2.DecodeBlock error")
 		return nil, err

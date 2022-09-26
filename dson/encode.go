@@ -1,12 +1,14 @@
 package dson
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"darkest-savior/dson/dfield"
 	"darkest-savior/dson/dheader"
 	"darkest-savior/dson/dmeta1"
 	"darkest-savior/dson/dmeta2"
+	"github.com/iancoleman/orderedmap"
 )
 
 type (
@@ -41,4 +43,18 @@ func EncodeStruct(file Struct) []byte {
 	bs = append(bs, meta2Bytes...)
 	bs = append(bs, dataFieldsBytes...)
 	return bs
+}
+
+func EncodeJSON(fileBytes []byte) ([]byte, error) {
+	lhm := orderedmap.New()
+	err := json.Unmarshal(fileBytes, lhm)
+	if err != nil {
+		return nil, err
+	}
+	dsonStruct, err := FromLinkedHashMapV2(*lhm)
+	if err != nil {
+		return nil, err
+	}
+	resultBytes := EncodeStruct(*dsonStruct)
+	return resultBytes, nil
 }

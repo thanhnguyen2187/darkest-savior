@@ -22,14 +22,14 @@ type (
 		Inferences Inferences `json:"inferences"`
 	}
 	Inferences struct {
-		Index             int32 `json:"index"`
-		IsObject          bool  `json:"is_object"`
-		ParentIndex       int32 `json:"parent_index"`
-		FieldNameLength   int32 `json:"field_name_length"`
-		Meta1EntryIndex   int32 `json:"meta_1_entry_index"`
-		NumDirectChildren int32 `json:"num_direct_children"`
-		NumAllChildren    int32 `json:"num_all_children"`
-		RawDataLength     int32 `json:"raw_data_length"`
+		Index             int  `json:"index"`
+		IsObject          bool `json:"is_object"`
+		ParentIndex       int  `json:"parent_index"`
+		FieldNameLength   int  `json:"field_name_length"`
+		Meta1EntryIndex   int  `json:"meta_1_entry_index"`
+		NumDirectChildren int  `json:"num_direct_children"`
+		NumAllChildren    int  `json:"num_all_children"`
+		RawDataLength     int  `json:"raw_data_length"`
 	}
 )
 

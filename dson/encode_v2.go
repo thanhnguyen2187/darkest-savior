@@ -114,7 +114,7 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 
 	dataFields = lo.Map(
 		lo.Zip3(dataFields, parentIndexes, paddedBytesCounts),
-		func(tuple lo.Tuple3[dfield.DataField, int32, int], _ int) dfield.DataField {
+		func(tuple lo.Tuple3[dfield.DataField, int, int], _ int) dfield.DataField {
 			field := tuple.A
 			parentIndex := tuple.B
 			paddedBytesCount := tuple.C
@@ -129,7 +129,7 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 
 	fieldInfoSlice := lo.Map(
 		lo.Zip3(fieldNameLengths, isObjectSlice, meta1EntryIndexes),
-		func(tuple lo.Tuple3[int, bool, int32], _ int) int32 {
+		func(tuple lo.Tuple3[int, bool, int], _ int) int32 {
 			fieldNameLength := tuple.A
 			isObject := tuple.B
 			meta1EntryIndex := tuple.C
@@ -140,13 +140,13 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 
 	meta2Block := lo.Map(
 		lo.Zip3(dataFields, meta2OffsetsDropped, fieldInfoSlice),
-		func(tuple lo.Tuple3[dfield.DataField, int32, int32], _ int) dmeta2.Entry {
+		func(tuple lo.Tuple3[dfield.DataField, int, int32], _ int) dmeta2.Entry {
 			field := tuple.A
 			meta2Offset := tuple.B
 			fieldInfo := tuple.C
 			entry := dmeta2.Entry{
 				NameHash:  dhash.HashString(field.Name),
-				Offset:    meta2Offset,
+				Offset:    int32(meta2Offset),
 				FieldInfo: fieldInfo,
 			}
 			return entry
@@ -155,7 +155,7 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 
 	meta1Block := lo.FilterMap(
 		lo.Zip3(numsDirectChildren, numsAllChildren, isObjectSlice),
-		func(tuple lo.Tuple3[int32, int32, bool], index int) (dmeta1.Entry, bool) {
+		func(tuple lo.Tuple3[int, int, bool], index int) (dmeta1.Entry, bool) {
 			numDirectChildren := tuple.A
 			numAllChildren := tuple.B
 			isObject := tuple.C
@@ -165,7 +165,7 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 			}
 
 			parentIndex := parentIndexes[index]
-			meta1ParentIndex := int32(0)
+			meta1ParentIndex := 0
 			if parentIndex != -1 {
 				meta1ParentIndex = meta1EntryIndexes[parentIndex]
 			} else {
@@ -173,10 +173,10 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 			}
 			meta2EntryIndex := index
 			return dmeta1.Entry{
-				ParentIndex:       meta1ParentIndex,
+				ParentIndex:       int32(meta1ParentIndex),
 				Meta2EntryIndex:   int32(meta2EntryIndex),
-				NumDirectChildren: numDirectChildren,
-				NumAllChildren:    numAllChildren,
+				NumDirectChildren: int32(numDirectChildren),
+				NumAllChildren:    int32(numAllChildren),
 			}, true
 		},
 	)
@@ -189,7 +189,8 @@ func FromLinkedHashMapV2(lhm orderedmap.OrderedMap) (*Struct, error) {
 	meta2FirstOffset := meta1FirstOffset + meta1Size
 	meta2Size := numMeta2Entries * dmeta2.DefaultEntrySize
 	dataOffset := headerLength + meta1Size + meta2Size
-	dataLength, _ := lo.Last(meta2Offsets)
+	dataLengthInt, _ := lo.Last(meta2Offsets)
+	dataLength := int32(dataLengthInt)
 	header := dheader.Header{
 		MagicNumber:     dheader.MagicNumberBytes,
 		Revision:        revision,

@@ -28,13 +28,13 @@ func CalculateBlockSize(numEntries int) int {
 func CalculateFieldInfo(
 	fieldNameLength int,
 	isObject bool,
-	meta1EntryIndex int32,
+	meta1EntryIndex int,
 ) int32 {
 	fieldInfo := int32(0)
 	if isObject {
 		fieldInfo ^= int32(1)
 	}
 	fieldInfo ^= int32(fieldNameLength << 2)
-	fieldInfo ^= meta1EntryIndex << 11
+	fieldInfo ^= int32(meta1EntryIndex << 11)
 	return fieldInfo
 }

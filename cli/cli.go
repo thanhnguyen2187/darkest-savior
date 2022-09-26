@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"darkest-savior/dson"
-	"darkest-savior/dson/dheader"
 	"github.com/alexflint/go-arg"
 	"github.com/pkg/errors"
 )
@@ -70,26 +69,23 @@ func StartConverting(args ConvertCmd) {
 		return
 	}
 
-	if dheader.IsValidMagicNumber(fileBytes[:4]) {
-		// TODO: Improve the interfaces by letting `cli` knows nothing about what is `Struct`.
-		//       Let the data exchange format between `cli` and `dson` be `[]byte`
-		bs, err := dson.DecodeDSON(fileBytes, args.Debug)
+	if dson.IsDSONFile(fileBytes[:4]) {
+		resultBytes, err := dson.DecodeDSON(fileBytes, args.Debug)
 		if err != nil {
 			println("Error happened decoding DSON to JSON")
 			return
 		}
-		if err := ioutil.WriteFile(args.To, bs, 0644); err != nil {
+		if err := ioutil.WriteFile(args.To, resultBytes, 0644); err != nil {
 			println("Error happened writing to file at: " + args.To)
 			return
 		}
 	} else {
-		bs, err := ioutil.ReadFile(args.From)
-		rbs, err := dson.EncodeDSON(bs)
+		resultBytes, err := dson.EncodeJSON(fileBytes)
 		if err != nil {
 			println("Error happened encoding JSON to DSON")
 			return
 		}
-		err = ioutil.WriteFile(args.To, rbs, 0644)
+		err = ioutil.WriteFile(args.To, resultBytes, 0644)
 		if err != nil {
 			println("Error happened writing output to: " + args.To)
 			return

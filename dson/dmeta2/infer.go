@@ -14,7 +14,7 @@ func InferIndex(meta2Entries []Entry) []Entry {
 	copy(meta2EntriesCopy, meta2Entries)
 
 	for i := range meta2EntriesCopy {
-		meta2EntriesCopy[i].Inferences.Index = int32(i)
+		meta2EntriesCopy[i].Inferences.Index = i
 	}
 	return meta2EntriesCopy
 }
@@ -22,14 +22,14 @@ func InferIndex(meta2Entries []Entry) []Entry {
 func InferUsingFieldInfo(fieldInfo int32) Inferences {
 	inferences := Inferences{
 		IsObject:        (fieldInfo & 0b1) == 1,
-		FieldNameLength: (fieldInfo & 0b11111111100) >> 2,
-		Meta1EntryIndex: (fieldInfo & 0b1111111111111111111100000000000) >> 11,
+		FieldNameLength: int((fieldInfo & 0b11111111100) >> 2),
+		Meta1EntryIndex: int((fieldInfo & 0b1111111111111111111100000000000) >> 11),
 	}
 
 	return inferences
 }
 
-func InferRawDataLength(secondOffset int32, firstOffset int32, firstFieldNameLength int32) int32 {
+func InferRawDataLength(secondOffset int, firstOffset int, firstFieldNameLength int) int {
 	return secondOffset - (firstOffset + firstFieldNameLength)
 }
 
@@ -103,21 +103,21 @@ func InferNumDirectChildren(meta1Entries []dmeta1.Entry, meta2Entries []Entry) (
 			err := fmt.Errorf("InferParentIndex metaBlock2 %d is not an object", meta2EntryIndex)
 			return nil, err
 		}
-		if meta1EntryIndex != int32(i) {
+		if meta1EntryIndex != i {
 			err := fmt.Errorf(
 				"InferParentIndex invalid meta1EntryIndex of meta2Block %d: expected %d; got %d",
 				meta2EntryIndex, i, meta1EntryIndex,
 			)
 			return nil, err
 		}
-		meta2Block.Inferences.NumDirectChildren = meta1Entry.NumDirectChildren
-		meta2Block.Inferences.NumAllChildren = meta1Entry.NumAllChildren
+		meta2Block.Inferences.NumDirectChildren = int(meta1Entry.NumDirectChildren)
+		meta2Block.Inferences.NumAllChildren = int(meta1Entry.NumAllChildren)
 	}
 
 	return meta2EntriesCopy, nil
 }
 
-func InferRawDataLengths(meta2Entries []Entry, headerDataLength int32) ([]Entry, error) {
+func InferRawDataLengths(meta2Entries []Entry, headerDataLength int) ([]Entry, error) {
 	n := len(meta2Entries)
 	// RawDataLength of each meta2Entry is inferred by the difference between
 	//
@@ -133,8 +133,8 @@ func InferRawDataLengths(meta2Entries []Entry, headerDataLength int32) ([]Entry,
 		),
 		func(t lo.Tuple2[Entry, Entry], _ int) Entry {
 			rawDataLength := InferRawDataLength(
-				t.B.Offset,
-				t.A.Offset,
+				int(t.B.Offset),
+				int(t.A.Offset),
 				t.A.Inferences.FieldNameLength,
 			)
 			t.A.Inferences.RawDataLength = rawDataLength
@@ -164,7 +164,7 @@ func InferRawDataLengths(meta2Entries []Entry, headerDataLength int32) ([]Entry,
 	}
 	lastEntry.Inferences.RawDataLength = InferRawDataLength(
 		headerDataLength,
-		lastEntry.Offset,
+		int(lastEntry.Offset),
 		lastEntry.Inferences.FieldNameLength,
 	)
 	meta2EntriesCopy = append(meta2EntriesCopy, lastEntry)

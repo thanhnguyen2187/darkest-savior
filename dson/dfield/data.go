@@ -8,12 +8,12 @@ type (
 	}
 	Inferences struct {
 		IsObject          bool     `json:"is_object"`
-		NumDirectChildren int32    `json:"num_direct_children"`
-		NumAllChildren    int32    `json:"num_all_children"`
-		ParentIndex       int32    `json:"parent_index"`
+		NumDirectChildren int      `json:"num_direct_children"`
+		NumAllChildren    int      `json:"num_all_children"`
+		ParentIndex       int      `json:"parent_index"`
 		HierarchyPath     []string `json:"hierarchy_path"`
-		RawDataOffset     int32    `json:"raw_data_offset"`
-		RawDataLength     int32    `json:"raw_data_length"`
+		RawDataOffset     int      `json:"raw_data_offset"`
+		RawDataLength     int      `json:"raw_data_length"`
 		RawDataStripped   []byte   `json:"raw_data_stripped"`
 		DataType          DataType `json:"data_type"`
 		Data              any      `json:"data"`
@@ -43,5 +43,4 @@ const (
 	DataTypeObject       = DataType("object")
 
 	FieldNameRevision = "__revision_dont_touch"
-	FieldNameRoot     = "base_root"
 )
