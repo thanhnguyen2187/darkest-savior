@@ -48,8 +48,9 @@ dsavior --convert --from path/to/result.json --to path/to/persistent.dson.json
 
 ## TODO
 
-- [x] Convert from DSON to JSON
-- [ ] Convert from JSON to DSON
+- [x] Convert from DSON to JSON: done
+- [x] Convert from JSON to DSON: rough draft was done; glue the code to the CLI part is needed
+- [ ] Reorganizing/refactoring code
 - [ ] Easier distribution for end user
 - [ ] Interactive Mode
 - [ ] GUI client

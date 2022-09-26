@@ -121,7 +121,7 @@ state on_disk {
   dson_bytes: DSON Bytes
 
   dson_file --> dson_bytes: 1.1
-  dson_bytes --> dson_file: 2.6
+  dson_bytes --> dson_file: 2.5
 }
 
 state in_mem {
@@ -143,7 +143,7 @@ state in_mem {
   json_file --> json_bytes: 2.1
   json_bytes --> linked_hash_map: 2.2
   linked_hash_map --> dson_struct: 2.3
-  dson_struct --> dson_bytes: 2.5
+  dson_struct --> dson_bytes: 2.4
 }
 
 state on_disk_2 {
@@ -151,16 +151,20 @@ state on_disk_2 {
 }
 ```
 
-There is not a lot to say about `1.1`, `2.6`, `1.5`, and `2.1`, since bytes reading and writing are built into Golang.
-Interesting stories of other processes are to be told, however.
+There is not a lot to say about `1.1`, `2.5`, `1.5`, and `2.1`, since bytes reading and writing are built-in features of
+Golang. Interesting stories of other processes are to be told, however.
+
+### Convert from DSON Bytes to DSON Struct (`1.2`)
 
 `1.2` seems straight forward, but actually is not that simple, when it comes to `DataFields`. The reason is a
 `DataField` consists of two parts:
 
 - `FieldName`: its length are took from the corresponding `Meta2Entry`.
 - `RawData`: it is zeroes-padded at the start, depends on its offset on disk. The rule is: if the actual raw data has
-  its length less than 4, then nothing is padded. Equal or more than four means it is 4-bytes padded by the offset, and
-  the field name's length.
+  its length less than 4, then nothing is padded. Equal or more than four means it is 4-bytes padded by the sum of the
+  offset and the field name's length.
+
+### Convert from DSON Struct to JSON File (`1.3` and `1.4`)
 
 Being unable to figure out the step `1.3`, and the `LinkedHashMap` usage, is the reason why I scraped my first
 implementation with Janet. Finding a "good" `LinkedHashMap` also was interesting. At first, I used `emirpasic/gods`'s
@@ -191,17 +195,108 @@ Is going to become this in memory:
 
 Since `"one"` is the first key of the whole object, even if it appears after `"three"` within `"two"`.
 
-TODO: write the rest
+### Convert from Linked Hash Map to DSON Struct (`2.3`)
 
-With decoding, nothing too fancy is implemented. `Decode` functions expect a `BytesReader`, which is a wrapper around
-`bytes.Reader` with some additional utilities like converting the read bytes to integer, or to a string.
+`2.3` is one step that costed me a lot of time. The reason was that at first, I tried to use an intermediate struct
+called `EncodingField`, or turn the `LinkedHashMap` into `EncodingField`s, and then turn the `EncodingField`s into a
+`DSONStruct` at last, as I want to separate my code into a clear sequence:
 
-As the manual mapping from `BytesReader` to raw data structures contains too much boilerplate code, an attempt of using
-`ReadingInstruction` and `ExecuteInstructions` is used.
+- Read the bytes
+- Guess the data types
+- Create the raw bytes
+- Create a DSON struct
 
-The decoding process seems straight forward with `Header`, `Meta1Block`, and `Meta2Block`, but becomes more nuance with
-`Field`, as there is no concrete rule on the fields' data types. Also, a special data type named "linked hash map", or
-"map/dictionary with insertion order" is needed, since that is what the second process (encoding) needs.
+It ended up creating some unsolvable/effort-costing problems.
 
-The encoding process also seems straight forward, but a lot of time and efforts were spent on fighting between the
-program's own `DataType` definitions and Golang's type system from JSON deserializing process.
+```mermaid
+stateDiagram-v2
+direction LR
+
+dson_struct: DSON Struct
+dson_struct: - Header
+dson_struct: - Meta 1 Block
+dson_struct: - Meta 2 Block
+dson_struct: - Data Fields
+linked_hash_map: Linked Hash Map
+encoding_fields: Encoding Fields
+json_file: JSON File
+
+dson_struct --> linked_hash_map: 1.3
+linked_hash_map --> json_file: 1.4 + 1.5
+json_file --> linked_hash_map: 2.1 + 2.2
+linked_hash_map --> encoding_fields: 2.3.1
+encoding_fields --> dson_struct: 2.3.2
+```
+
+The major issue with this approach is that: in the JSON File, `Header.Revision` of `DSONStruct` is represented as
+`__revision_dont_touch`, or a normal JSON key value pair. For a DSON file that does not have another DSON file embedded
+within, the conversion to `DSONStruct` works fine. For a DSON file that does have another DSON file embedded within,
+another problem arose: I needed to compact the relevant `EncodingFields` into a DSON file itself, before I can mark it
+as complete. Offsets to calculate the padded bytes also need to be considered.
+
+> The rule is: if the actual raw data has its length less than 4, then nothing is padded. Equal or more than four means
+> it is 4-bytes padded by the sum of the offset and the field name's length.
+
+Having `__revision_dont_touch` here means I had to have some rule to account for it in the embedded DSON, which was too
+much of a headache.
+
+In the end, I took the "seemingly" more convoluted approach: merge `2.3.1` and `2.3.2` together and it worked.
+
+```mermaid
+stateDiagram-v2
+direction LR
+
+dson_struct: DSON Struct
+dson_struct: - Header
+dson_struct: - Meta 1 Block
+dson_struct: - Meta 2 Block
+dson_struct: - Data Fields
+linked_hash_map: Linked Hash Map
+json_file: JSON File
+
+dson_struct --> linked_hash_map: 1.3
+linked_hash_map --> json_file: 1.4 + 1.5
+json_file --> linked_hash_map: 2.1 + 2.2
+linked_hash_map --> dson_struct: 2.3
+```
+
+A few other interesting points are:
+
+- Duplicated `DataField`s (duplicated key in a JSON file)
+
+This is not a valid JSON presentation, but a valid DSON presentation:
+
+```json
+{
+  "one": 1,
+  "one": 1,
+  "two": 2,
+  "three": 3
+}
+```
+
+In the full flow, there are two `DSONStruct`s:
+
+```mermaid
+stateDiagram-v2
+direction LR
+
+dson_file: DSON File
+dson_struct: DSON Struct
+json_file: JSON File
+
+dson_file --> dson_struct: 1.1 + 1.2 Decoded Struct
+json_file --> dson_struct: 2.1 + 2.2 + 2.3 Encoding Struct
+dson_struct --> dson_file: 2.4 + 2.5 Encoding Struct
+```
+
+1. `DecodedStruct`: one that comes from an actual DSON file
+2. `EncodingStruct`: one that comes from a JSON, and is going to be turned into a DSON file
+
+A `DecodedStruct` can have duplicated keys while `EncodingStruct` cannot. Testing in this case is complicated, and my
+solution is to... treat the duplicated keys as non-existence. In my `EndToEndTestSuite`, I also skip the file with
+duplicated keys.
+
+- First bit of `Meta2Entry.FieldInfo`: TODO write this part
+- Embedded DSON file: TODO write this part
+  
