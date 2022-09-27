@@ -1,0 +1,1527 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 1,
+    "raid_entry_log": {
+      "0": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/cove_explore",
+        "count": 1
+      },
+      "1": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_06",
+        "count": 1
+      },
+      "2": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_01",
+        "count": 1
+      },
+      "3": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_05",
+        "count": 1
+      },
+      "4": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_01",
+        "count": 1
+      },
+      "5": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_04",
+        "count": 1
+      },
+      "6": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_03",
+        "count": 1
+      },
+      "7": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_02",
+        "count": 1
+      },
+      "8": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_03",
+        "count": 1
+      },
+      "9": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_04",
+        "count": 1
+      },
+      "10": {
+        "entry_type": "obstacle",
+        "audio_event_type": "/vo/bad/obstacle_cove",
+        "count": 1
+      },
+      "11": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_02",
+        "count": 1
+      },
+      "12": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_05",
+        "count": 1
+      },
+      "13": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_02",
+        "count": 1
+      },
+      "14": {
+        "entry_type": "buff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_buffed_02",
+        "count": 1
+      },
+      "15": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_01",
+        "count": 1
+      },
+      "16": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "",
+        "count": 3
+      },
+      "17": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_07",
+        "count": 1
+      },
+      "18": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_05",
+        "count": 1
+      },
+      "19": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_07",
+        "count": 1
+      },
+      "20": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_04",
+        "count": 1
+      },
+      "21": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_02",
+        "count": 1
+      },
+      "22": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_03",
+        "count": 1
+      },
+      "23": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_02",
+        "count": 1
+      },
+      "24": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_04",
+        "count": 1
+      },
+      "25": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_05",
+        "count": 1
+      },
+      "26": {
+        "entry_type": "heal",
+        "audio_event_type": "/vo/crimson_court/shared/heal_03",
+        "count": 2
+      },
+      "27": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_05",
+        "count": 1
+      },
+      "28": {
+        "entry_type": "camp",
+        "audio_event_type": "/vo/good/camp_02",
+        "count": 1
+      },
+      "29": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/shieldbreaker/flashback_01",
+        "count": 1
+      },
+      "30": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_01",
+        "count": 1
+      },
+      "31": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_04",
+        "count": 1
+      },
+      "32": {
+        "entry_type": "buff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_buffed_03",
+        "count": 1
+      },
+      "33": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_big_01",
+        "count": 1
+      },
+      "34": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_03",
+        "count": 1
+      },
+      "35": {
+        "entry_type": "buff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_buffed_01",
+        "count": 1
+      },
+      "36": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_03",
+        "count": 1
+      },
+      "37": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_03",
+        "count": 1
+      },
+      "38": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_weak_03",
+        "count": 1
+      },
+      "39": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_09",
+        "count": 1
+      },
+      "40": {
+        "entry_type": "torchlight_out",
+        "audio_event_type": "/vo/bad/torchlight_02",
+        "count": 1
+      }
+    },
+    "town_visit_entry_log": {
+      "0": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/cove_success_explore_02",
+        "count": 1
+      },
+      "1": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/idle_resolve_level_grave_robber",
+        "count": 1
+      },
+      "2": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_stagecoach_01",
+        "count": 1
+      },
+      "3": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_08",
+        "count": 1
+      },
+      "4": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/town/backstory_14",
+        "count": 1
+      }
+    },
+    "campaign_entry_log": {
+      "0": {
+        "entry_type": "enter_hallway",
+        "audio_event_type": "/vo/tutorial/first_dungeon",
+        "count": 1
+      },
+      "1": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/tutorial/first_battle",
+        "count": 1
+      },
+      "2": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_03",
+        "count": 25
+      },
+      "3": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/tutorial/second_battle",
+        "count": 1
+      },
+      "4": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_big_03",
+        "count": 4
+      },
+      "5": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_01",
+        "count": 19
+      },
+      "6": {
+        "entry_type": "torchlight_out",
+        "audio_event_type": "/vo/bad/torchlight_02",
+        "count": 4
+      },
+      "7": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/tutorial/first_town",
+        "count": 1
+      },
+      "8": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_stagecoach",
+        "count": 1
+      },
+      "9": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "",
+        "count": 6
+      },
+      "10": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_stagecoach_03",
+        "count": 2
+      },
+      "11": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/town/backstory_14",
+        "count": 4
+      },
+      "12": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_nomad",
+        "count": 1
+      },
+      "13": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_graveyard",
+        "count": 1
+      },
+      "14": {
+        "entry_type": "enter_quest_select",
+        "audio_event_type": "/vo/tutorial/first_quest_select",
+        "count": 1
+      },
+      "15": {
+        "entry_type": "enter_provision_select",
+        "audio_event_type": "/vo/tutorial/first_provision",
+        "count": 1
+      },
+      "16": {
+        "entry_type": "heal",
+        "audio_event_type": "/vo/crimson_court/shared/heal_02",
+        "count": 12
+      },
+      "17": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_04",
+        "count": 25
+      },
+      "18": {
+        "entry_type": "obstacle",
+        "audio_event_type": "/vo/bad/obstacle_crypts",
+        "count": 5
+      },
+      "19": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_weak_03",
+        "count": 12
+      },
+      "20": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_05",
+        "count": 24
+      },
+      "21": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "",
+        "count": 98
+      },
+      "22": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_01",
+        "count": 24
+      },
+      "23": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_06",
+        "count": 9
+      },
+      "24": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/kill_first_02",
+        "count": 23
+      },
+      "25": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_01",
+        "count": 15
+      },
+      "26": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_07",
+        "count": 13
+      },
+      "27": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_03",
+        "count": 2
+      },
+      "28": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_02",
+        "count": 8
+      },
+      "29": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_05",
+        "count": 6
+      },
+      "30": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_02",
+        "count": 19
+      },
+      "31": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_09",
+        "count": 13
+      },
+      "32": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/pit/town_event_arena_appear",
+        "count": 1
+      },
+      "33": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_abbey",
+        "count": 1
+      },
+      "34": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_tavern",
+        "count": 1
+      },
+      "35": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/pit/arrive_first",
+        "count": 1
+      },
+      "36": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/pit/first_party",
+        "count": 1
+      },
+      "37": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/pit/first_match_queue_01",
+        "count": 1
+      },
+      "38": {
+        "entry_type": "loading_screen_start",
+        "audio_event_type": "/vo/pit/loading",
+        "count": 3
+      },
+      "39": {
+        "entry_type": "coin_flip",
+        "audio_event_type": "/vo/pit/coin_flip_lose",
+        "count": 3
+      },
+      "40": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/pit/battle_start_01",
+        "count": 2
+      },
+      "41": {
+        "entry_type": "timer_burn",
+        "audio_event_type": "/vo/pit/timer_start_player_01",
+        "count": 3
+      },
+      "42": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_06",
+        "count": 10
+      },
+      "43": {
+        "entry_type": "deaths_door",
+        "audio_event_type": "/vo/bad/deaths_door_01",
+        "count": 5
+      },
+      "44": {
+        "entry_type": "timer_burn",
+        "audio_event_type": "/vo/pit/timer_start_player_02",
+        "count": 3
+      },
+      "45": {
+        "entry_type": "deaths_door",
+        "audio_event_type": "/vo/bad/deaths_door_03",
+        "count": 2
+      },
+      "46": {
+        "entry_type": "deaths_door",
+        "audio_event_type": "/vo/bad/deaths_door_02",
+        "count": 4
+      },
+      "47": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_03",
+        "count": 15
+      },
+      "48": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_09",
+        "count": 6
+      },
+      "49": {
+        "entry_type": "afflicted",
+        "audio_event_type": "/vo/bad/afflicted_abusive",
+        "count": 2
+      },
+      "50": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_01",
+        "count": 10
+      },
+      "51": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_07",
+        "count": 6
+      },
+      "52": {
+        "entry_type": "timer_burn",
+        "audio_event_type": "",
+        "count": 8
+      },
+      "53": {
+        "entry_type": "deaths_door",
+        "audio_event_type": "/vo/bad/deaths_door_04",
+        "count": 5
+      },
+      "54": {
+        "entry_type": "kill_hero",
+        "audio_event_type": "/vo/bad/death_02",
+        "count": 1
+      },
+      "55": {
+        "entry_type": "turn_start",
+        "audio_event_type": "/vo/pit/turn_start_disadvantage",
+        "count": 5
+      },
+      "56": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_03",
+        "count": 3
+      },
+      "57": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_08",
+        "count": 5
+      },
+      "58": {
+        "entry_type": "deaths_door",
+        "audio_event_type": "/vo/bad/deaths_door_05",
+        "count": 5
+      },
+      "59": {
+        "entry_type": "afflicted",
+        "audio_event_type": "/vo/bad/afflicted_irrational",
+        "count": 4
+      },
+      "60": {
+        "entry_type": "turn_start",
+        "audio_event_type": "",
+        "count": 3
+      },
+      "61": {
+        "entry_type": "battle_retreat",
+        "audio_event_type": "/vo/pit/surrender_player",
+        "count": 2
+      },
+      "62": {
+        "entry_type": "quest_end_not_completed",
+        "audio_event_type": "/vo/pit/results_defeat",
+        "count": 2
+      },
+      "63": {
+        "entry_type": "quest_end_not_completed",
+        "audio_event_type": "/vo/pit/results_prestige_01",
+        "count": 1
+      },
+      "64": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/pit/match_queue",
+        "count": 3
+      },
+      "65": {
+        "entry_type": "coin_flip",
+        "audio_event_type": "/vo/pit/coin_flip_win",
+        "count": 1
+      },
+      "66": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/pit/battle_start_02",
+        "count": 1
+      },
+      "67": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_04",
+        "count": 6
+      },
+      "68": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_05",
+        "count": 3
+      },
+      "69": {
+        "entry_type": "timer_burn",
+        "audio_event_type": "/vo/pit/timer_start_enemy_03",
+        "count": 2
+      },
+      "70": {
+        "entry_type": "buff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_buffed_02",
+        "count": 9
+      },
+      "71": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_06",
+        "count": 5
+      },
+      "72": {
+        "entry_type": "half_health_half_stress",
+        "audio_event_type": "/vo/bad/half_health_half_stress_01",
+        "count": 2
+      },
+      "73": {
+        "entry_type": "kill_hero",
+        "audio_event_type": "/vo/bad/death_01",
+        "count": 1
+      },
+      "74": {
+        "entry_type": "afflicted",
+        "audio_event_type": "/vo/bad/afflicted_paranoid",
+        "count": 2
+      },
+      "75": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_01",
+        "count": 4
+      },
+      "76": {
+        "entry_type": "afflicted",
+        "audio_event_type": "/vo/bad/afflicted_depressed",
+        "count": 2
+      },
+      "77": {
+        "entry_type": "kill_hero",
+        "audio_event_type": "/vo/bad/death_04",
+        "count": 2
+      },
+      "78": {
+        "entry_type": "last_hero",
+        "audio_event_type": "/vo/pit/last_hero_enemy",
+        "count": 2
+      },
+      "79": {
+        "entry_type": "last_hero",
+        "audio_event_type": "/vo/pit/last_hero_both",
+        "count": 1
+      },
+      "80": {
+        "entry_type": "kill_hero",
+        "audio_event_type": "/vo/bad/death_03",
+        "count": 2
+      },
+      "81": {
+        "entry_type": "loading_screen_start",
+        "audio_event_type": "",
+        "count": 1
+      },
+      "82": {
+        "entry_type": "combat_start",
+        "audio_event_type": "",
+        "count": 1
+      },
+      "83": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_04",
+        "count": 9
+      },
+      "84": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_05",
+        "count": 11
+      },
+      "85": {
+        "entry_type": "debuff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_debuffed_03",
+        "count": 1
+      },
+      "86": {
+        "entry_type": "debuff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_debuffed_04",
+        "count": 3
+      },
+      "87": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_09",
+        "count": 13
+      },
+      "88": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/pit/results_victory",
+        "count": 1
+      },
+      "89": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "",
+        "count": 1
+      },
+      "90": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_11",
+        "count": 2
+      },
+      "91": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_stagecoach_02",
+        "count": 2
+      },
+      "92": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/crypts_explore",
+        "count": 4
+      },
+      "93": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_03",
+        "count": 12
+      },
+      "94": {
+        "entry_type": "heal",
+        "audio_event_type": "/vo/crimson_court/shared/heal_04",
+        "count": 14
+      },
+      "95": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_weak_04",
+        "count": 8
+      },
+      "96": {
+        "entry_type": "heal",
+        "audio_event_type": "/vo/crimson_court/shared/heal_03",
+        "count": 13
+      },
+      "97": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_03",
+        "count": 17
+      },
+      "98": {
+        "entry_type": "camp",
+        "audio_event_type": "/vo/good/camp_01",
+        "count": 4
+      },
+      "99": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_04",
+        "count": 14
+      },
+      "100": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_02",
+        "count": 6
+      },
+      "101": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_05",
+        "count": 13
+      },
+      "102": {
+        "entry_type": "virtue",
+        "audio_event_type": "/vo/good/virtue_powerful",
+        "count": 1
+      },
+      "103": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_05",
+        "count": 7
+      },
+      "104": {
+        "entry_type": "buff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_buffed_04",
+        "count": 7
+      },
+      "105": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_DOT_04",
+        "count": 16
+      },
+      "106": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_04",
+        "count": 11
+      },
+      "107": {
+        "entry_type": "heal",
+        "audio_event_type": "/vo/crimson_court/shared/heal_01",
+        "count": 19
+      },
+      "108": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_02",
+        "count": 13
+      },
+      "109": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_06",
+        "count": 6
+      },
+      "110": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/crypts_success_explore_02",
+        "count": 3
+      },
+      "111": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/shieldbreaker/town_shieldbreaker",
+        "count": 1
+      },
+      "112": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_guild",
+        "count": 1
+      },
+      "113": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_blacksmith",
+        "count": 1
+      },
+      "114": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/shieldbreaker/recruit_shieldbreaker",
+        "count": 1
+      },
+      "115": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_jester",
+        "count": 1
+      },
+      "116": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_02",
+        "count": 10
+      },
+      "117": {
+        "entry_type": "buff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_buffed_01",
+        "count": 5
+      },
+      "118": {
+        "entry_type": "buff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_buffed_03",
+        "count": 7
+      },
+      "119": {
+        "entry_type": "torchlight_full",
+        "audio_event_type": "/vo/good/torchlight_02",
+        "count": 10
+      },
+      "120": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_weak_02",
+        "count": 9
+      },
+      "121": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_04",
+        "count": 5
+      },
+      "122": {
+        "entry_type": "stress_dot_applied",
+        "audio_event_type": "/vo/crimson_court/shared/hero_horror_dot_04",
+        "count": 3
+      },
+      "123": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_03",
+        "count": 8
+      },
+      "124": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_03",
+        "count": 2
+      },
+      "125": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_06",
+        "count": 7
+      },
+      "126": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_weak_05",
+        "count": 7
+      },
+      "127": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_02",
+        "count": 3
+      },
+      "128": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_13",
+        "count": 1
+      },
+      "129": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/tutorial/first_survivalist",
+        "count": 1
+      },
+      "130": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_houndmaster",
+        "count": 1
+      },
+      "131": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_hellion",
+        "count": 1
+      },
+      "132": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_blacksmith_02",
+        "count": 3
+      },
+      "133": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/crypts_activate",
+        "count": 1
+      },
+      "134": {
+        "entry_type": "camp",
+        "audio_event_type": "/vo/good/camp_04",
+        "count": 4
+      },
+      "135": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/shieldbreaker/flashback_04",
+        "count": 1
+      },
+      "136": {
+        "entry_type": "afflicted",
+        "audio_event_type": "/vo/bad/afflicted_masochistic",
+        "count": 2
+      },
+      "137": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_05",
+        "count": 3
+      },
+      "138": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_weak_01",
+        "count": 10
+      },
+      "139": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_01",
+        "count": 7
+      },
+      "140": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_08",
+        "count": 11
+      },
+      "141": {
+        "entry_type": "inventory_full",
+        "audio_event_type": "/vo/crimson_court/shared/inventory_full_04",
+        "count": 1
+      },
+      "142": {
+        "entry_type": "hunger_starve",
+        "audio_event_type": "/vo/bad/starve_05",
+        "count": 1
+      },
+      "143": {
+        "entry_type": "hunger_starve",
+        "audio_event_type": "/vo/bad/starve_03",
+        "count": 1
+      },
+      "144": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/crypts_success_activate_02",
+        "count": 1
+      },
+      "145": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/embark_party_buff_crypts_buff",
+        "count": 1
+      },
+      "146": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_sanitarium_01",
+        "count": 1
+      },
+      "147": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_blacksmith_01",
+        "count": 1
+      },
+      "148": {
+        "entry_type": "loading_screen_start",
+        "audio_event_type": "/vo/load/crypts_01",
+        "count": 1
+      },
+      "149": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/quest_start_01",
+        "count": 1
+      },
+      "150": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_04",
+        "count": 6
+      },
+      "151": {
+        "entry_type": "camp",
+        "audio_event_type": "/vo/good/camp_03",
+        "count": 3
+      },
+      "152": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_03",
+        "count": 6
+      },
+      "153": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_01",
+        "count": 7
+      },
+      "154": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_01",
+        "count": 3
+      },
+      "155": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/bad/boss_01",
+        "count": 1
+      },
+      "156": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_strong_01",
+        "count": 4
+      },
+      "157": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/crypts_success_boss_02",
+        "count": 1
+      },
+      "158": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/crimson_court/town_flagellant",
+        "count": 1
+      },
+      "159": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_occultist",
+        "count": 1
+      },
+      "160": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_14",
+        "count": 4
+      },
+      "161": {
+        "entry_type": "enter_building",
+        "audio_event_type": "/vo/pit/arrive_after",
+        "count": 2
+      },
+      "162": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_man_at_arms",
+        "count": 2
+      },
+      "163": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/weald_cleanse",
+        "count": 3
+      },
+      "164": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/crimson_court/shared/collector_spawn_01",
+        "count": 1
+      },
+      "165": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/crimson_court/shared/collector_kill_01",
+        "count": 1
+      },
+      "166": {
+        "entry_type": "obstacle",
+        "audio_event_type": "/vo/bad/obstacle_weald",
+        "count": 2
+      },
+      "167": {
+        "entry_type": "kill_hero",
+        "audio_event_type": "/vo/bad/death_05",
+        "count": 1
+      },
+      "168": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_07",
+        "count": 5
+      },
+      "169": {
+        "entry_type": "quest_end_not_completed",
+        "audio_event_type": "/vo/bad/general_quest_fail_04",
+        "count": 1
+      },
+      "170": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_22",
+        "count": 1
+      },
+      "171": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/crimson_court/town_recruit_flagellant",
+        "count": 1
+      },
+      "172": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/warrens_cleanse",
+        "count": 1
+      },
+      "173": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_02",
+        "count": 3
+      },
+      "174": {
+        "entry_type": "loot",
+        "audio_event_type": "/vo/good/loot_first_07",
+        "count": 6
+      },
+      "175": {
+        "entry_type": "obstacle",
+        "audio_event_type": "/vo/bad/obstacle_warrens",
+        "count": 3
+      },
+      "176": {
+        "entry_type": "crit_hero",
+        "audio_event_type": "/vo/bad/general_crit_hero_10",
+        "count": 2
+      },
+      "177": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/warrens_success_cleanse_02",
+        "count": 1
+      },
+      "178": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_04",
+        "count": 3
+      },
+      "179": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/cove_cleanse",
+        "count": 3
+      },
+      "180": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/cove_success_cleanse_02",
+        "count": 1
+      },
+      "181": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/idle_resolve_level_highwayman",
+        "count": 1
+      },
+      "182": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_crusader",
+        "count": 1
+      },
+      "183": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/warrens_explore",
+        "count": 2
+      },
+      "184": {
+        "entry_type": "victory",
+        "audio_event_type": "/vo/good/victory_first_05",
+        "count": 9
+      },
+      "185": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_08",
+        "count": 2
+      },
+      "186": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/warrens_success_explore_02",
+        "count": 1
+      },
+      "187": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_17",
+        "count": 1
+      },
+      "188": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_camping_trainer_03",
+        "count": 1
+      },
+      "189": {
+        "entry_type": "camp",
+        "audio_event_type": "/vo/good/camp_02",
+        "count": 3
+      },
+      "190": {
+        "entry_type": "crit_monster",
+        "audio_event_type": "/vo/good/general_crit_monster_08",
+        "count": 6
+      },
+      "191": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/cove_success_cleanse_01",
+        "count": 2
+      },
+      "192": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_01",
+        "count": 2
+      },
+      "193": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_plague_doctor",
+        "count": 2
+      },
+      "194": {
+        "entry_type": "debuff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_debuffed_02",
+        "count": 1
+      },
+      "195": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/shieldbreaker/flashback_03",
+        "count": 1
+      },
+      "196": {
+        "entry_type": "afflicted",
+        "audio_event_type": "/vo/bad/afflicted_fearful",
+        "count": 1
+      },
+      "197": {
+        "entry_type": "torchlight_out",
+        "audio_event_type": "/vo/bad/torchlight_04",
+        "count": 2
+      },
+      "198": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_big_01",
+        "count": 2
+      },
+      "199": {
+        "entry_type": "afflicted",
+        "audio_event_type": "/vo/bad/afflicted_08",
+        "count": 1
+      },
+      "200": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_big_04",
+        "count": 1
+      },
+      "201": {
+        "entry_type": "virtue",
+        "audio_event_type": "/vo/good/virtue_focused",
+        "count": 1
+      },
+      "202": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/crypts_success_explore_01",
+        "count": 1
+      },
+      "203": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/idle_stress_heal_buff",
+        "count": 1
+      },
+      "204": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_guild_01",
+        "count": 1
+      },
+      "205": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_leper",
+        "count": 1
+      },
+      "206": {
+        "entry_type": "loading_screen_start",
+        "audio_event_type": "/vo/load/crypts_04",
+        "count": 3
+      },
+      "207": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/crypts_kill_alt",
+        "count": 3
+      },
+      "208": {
+        "entry_type": "virtue",
+        "audio_event_type": "/vo/good/virtue_stalwart",
+        "count": 1
+      },
+      "209": {
+        "entry_type": "quest_end_not_completed",
+        "audio_event_type": "/vo/bad/general_quest_fail_05",
+        "count": 1
+      },
+      "210": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_08",
+        "count": 2
+      },
+      "211": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_grave_robber",
+        "count": 1
+      },
+      "212": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_20",
+        "count": 2
+      },
+      "213": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_19",
+        "count": 1
+      },
+      "214": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/bad/crypts_boss_alt",
+        "count": 2
+      },
+      "215": {
+        "entry_type": "battle_retreat",
+        "audio_event_type": "/vo/good/retreat_success_02",
+        "count": 1
+      },
+      "216": {
+        "entry_type": "quest_end_not_completed",
+        "audio_event_type": "/vo/bad/general_quest_fail_11",
+        "count": 1
+      },
+      "217": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_21",
+        "count": 1
+      },
+      "218": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/crypts_success_boss_alt_01",
+        "count": 1
+      },
+      "219": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/tutorial/first_stagecoach",
+        "count": 1
+      },
+      "220": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/crypts_cleanse",
+        "count": 1
+      },
+      "221": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/crimson_court/shared/collector_kill_02",
+        "count": 1
+      },
+      "222": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/crypts_success_cleanse_01",
+        "count": 1
+      },
+      "223": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_15",
+        "count": 1
+      },
+      "224": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/warrens_success_explore_01",
+        "count": 1
+      },
+      "225": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/upgrade_tag_free_weapon",
+        "count": 1
+      },
+      "226": {
+        "entry_type": "obstacle",
+        "audio_event_type": "/vo/bad/obstacle_cove",
+        "count": 2
+      },
+      "227": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/general_kill_big_02",
+        "count": 1
+      },
+      "228": {
+        "entry_type": "recruit_hero",
+        "audio_event_type": "/vo/town/recruit_arbalest",
+        "count": 1
+      },
+      "229": {
+        "entry_type": "loading_screen_start",
+        "audio_event_type": "/vo/load/cove_04",
+        "count": 1
+      },
+      "230": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/cove_kill_alt",
+        "count": 1
+      },
+      "231": {
+        "entry_type": "debuff",
+        "audio_event_type": "/vo/crimson_court/shared/hero_debuffed_01",
+        "count": 2
+      },
+      "232": {
+        "entry_type": "heal",
+        "audio_event_type": "/vo/crimson_court/shared/heal_crit_02",
+        "count": 1
+      },
+      "233": {
+        "entry_type": "inventory_full",
+        "audio_event_type": "/vo/crimson_court/shared/inventory_full_03",
+        "count": 1
+      },
+      "234": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_04",
+        "count": 1
+      },
+      "235": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/bad/cove_boss_alt",
+        "count": 1
+      },
+      "236": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/cove_success_boss_alt_01",
+        "count": 1
+      },
+      "237": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/bonus_recruit_bounty_hunter",
+        "count": 1
+      },
+      "238": {
+        "entry_type": "loading_screen_start",
+        "audio_event_type": "/vo/load/warrens_01",
+        "count": 2
+      },
+      "239": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/warrens_kill",
+        "count": 2
+      },
+      "240": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/bad/warrens_boss",
+        "count": 1
+      },
+      "241": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/good/warrens_success_boss_02",
+        "count": 1
+      },
+      "242": {
+        "entry_type": "camp",
+        "audio_event_type": "/vo/good/camp_05",
+        "count": 1
+      },
+      "243": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/weald_success_cleanse_01",
+        "count": 1
+      },
+      "244": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/nomad_wagon_trinket_discount",
+        "count": 1
+      },
+      "245": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_18",
+        "count": 1
+      },
+      "246": {
+        "entry_type": "trap",
+        "audio_event_type": "/vo/bad/trap_07",
+        "count": 1
+      },
+      "247": {
+        "entry_type": "stress_dot_applied",
+        "audio_event_type": "/vo/crimson_court/shared/hero_horror_dot_01",
+        "count": 1
+      },
+      "248": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/crimson_court/shared/shambler_spawn_02",
+        "count": 1
+      },
+      "249": {
+        "entry_type": "kill_monster",
+        "audio_event_type": "/vo/crimson_court/shared/shambler_kill_02",
+        "count": 1
+      },
+      "250": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/crimson_court/town_flagellant_first",
+        "count": 1
+      },
+      "251": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town/backstory_02",
+        "count": 1
+      },
+      "252": {
+        "entry_type": "quest_start",
+        "audio_event_type": "/vo/neutral/cove_explore",
+        "count": 1
+      },
+      "253": {
+        "entry_type": "combat_start",
+        "audio_event_type": "/vo/shieldbreaker/flashback_01",
+        "count": 1
+      },
+      "254": {
+        "entry_type": "quest_end_completed",
+        "audio_event_type": "/vo/good/cove_success_explore_02",
+        "count": 1
+      },
+      "255": {
+        "entry_type": "town_visit_start",
+        "audio_event_type": "/vo/town_event/idle_resolve_level_grave_robber",
+        "count": 1
+      },
+      "256": {
+        "entry_type": "upgrade_building",
+        "audio_event_type": "/vo/town/upgrade_stagecoach_01",
+        "count": 1
+      }
+    }
+  }
+}

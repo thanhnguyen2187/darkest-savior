@@ -1,0 +1,200 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 34,
+    "tampering": {
+      "tampering_manager": {
+        "foundLocalTamperedFile": false,
+        "foundGlobalTamperedFile": false
+      }
+    },
+    "wallet": {
+      "0": {
+        "amount": 18275,
+        "type": "gold"
+      },
+      "1": {
+        "amount": 15,
+        "type": "bust"
+      },
+      "2": {
+        "amount": 6,
+        "type": "portrait"
+      },
+      "3": {
+        "amount": 11,
+        "type": "deed"
+      },
+      "4": {
+        "amount": 32,
+        "type": "crest"
+      },
+      "5": {
+        "amount": 1,
+        "type": "blueprint"
+      }
+    },
+    "trinkets": {
+      "items": {
+        "0": {
+          "id": "berserk_mask",
+          "type": "trinket",
+          "amount": 1
+        },
+        "1": {
+          "id": "healing_armlet",
+          "type": "trinket",
+          "amount": 1
+        },
+        "2": {
+          "id": "defenders_seal",
+          "type": "trinket",
+          "amount": 1
+        },
+        "3": {
+          "id": "knights_crest",
+          "type": "trinket",
+          "amount": 1
+        },
+        "4": {
+          "id": "swordsmans_crest",
+          "type": "trinket",
+          "amount": 1
+        },
+        "5": {
+          "id": "padlock_2",
+          "type": "trinket",
+          "amount": 1
+        },
+        "6": {
+          "id": "flag_2",
+          "type": "trinket",
+          "amount": 1
+        },
+        "7": {
+          "id": "flag_5",
+          "type": "trinket",
+          "amount": 1
+        },
+        "8": {
+          "id": "longevity_eyepatch",
+          "type": "trinket",
+          "amount": 1
+        },
+        "9": {
+          "id": "agile_talon",
+          "type": "trinket",
+          "amount": 1
+        },
+        "10": {
+          "id": "dodgy_sheath",
+          "type": "trinket",
+          "amount": 1
+        },
+        "11": {
+          "id": "drifters_buckle",
+          "type": "trinket",
+          "amount": 1
+        },
+        "12": {
+          "id": "bloodthirst_ring",
+          "type": "trinket",
+          "amount": 1
+        },
+        "13": {
+          "id": "agility_whistle",
+          "type": "trinket",
+          "amount": 1
+        },
+        "14": {
+          "id": "lucky_dice",
+          "type": "trinket",
+          "amount": 1
+        },
+        "15": {
+          "id": "blasphemous_vial",
+          "type": "trinket",
+          "amount": 1
+        },
+        "16": {
+          "id": "bloody_herb",
+          "type": "trinket",
+          "amount": 1
+        },
+        "17": {
+          "id": "witchs_vial",
+          "type": "trinket",
+          "amount": 1
+        },
+        "18": {
+          "id": "wrathful_bandana",
+          "type": "trinket",
+          "amount": 1
+        },
+        "19": {
+          "id": "medics_greaves",
+          "type": "trinket",
+          "amount": 1
+        },
+        "20": {
+          "id": "sturdy_greaves",
+          "type": "trinket",
+          "amount": 1
+        },
+        "21": {
+          "id": "collector_3",
+          "type": "trinket",
+          "amount": 1
+        },
+        "22": {
+          "id": "sun_cloak",
+          "type": "trinket",
+          "amount": 1
+        },
+        "23": {
+          "id": "book_of_holiness",
+          "type": "trinket",
+          "amount": 1
+        },
+        "24": {
+          "id": "move_amulet",
+          "type": "trinket",
+          "amount": 1
+        },
+        "25": {
+          "id": "snake_oil",
+          "type": "trinket",
+          "amount": 1
+        },
+        "26": {
+          "id": "survival_guide",
+          "type": "trinket",
+          "amount": 1
+        },
+        "27": {
+          "id": "sb_3",
+          "type": "trinket",
+          "amount": 1
+        },
+        "28": {
+          "id": "sb_2",
+          "type": "trinket",
+          "amount": 1
+        }
+      }
+    },
+    "darkest_dungeon_trinket_unlocks": {},
+    "performed_blueprint_correction_check": true,
+    "endless_wave_highscore": 0,
+    "was_endless_wave_highscore_tampered": false,
+    "estate_items": {
+      "items": {
+        "0": {
+          "id": "snake_scale",
+          "type": "estate",
+          "amount": 3
+        }
+      }
+    }
+  }
+}

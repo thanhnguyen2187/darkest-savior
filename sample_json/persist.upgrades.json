@@ -1,0 +1,2462 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 1,
+    "purchases": {
+      "0": {
+        "instance_number": 0,
+        "tree_id": "###sanitarium.cost",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "1": {
+        "instance_number": 1,
+        "tree_id": "###crusader.stand_tall",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "2": {
+        "instance_number": 96,
+        "tree_id": "###crusader.stand_tall",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "3": {
+        "instance_number": 25,
+        "tree_id": "###jester.dirk_stab",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "4": {
+        "instance_number": 25,
+        "tree_id": "###jester.dirk_stab",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "5": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "6": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.armour",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "7": {
+        "instance_number": 33,
+        "tree_id": "###hellion.breakthru",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "8": {
+        "instance_number": 33,
+        "tree_id": "###hellion.breakthru",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "9": {
+        "instance_number": 104,
+        "tree_id": "###abomination.manacles",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "10": {
+        "instance_number": 266,
+        "tree_id": "###abomination.manacles",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "11": {
+        "instance_number": 104,
+        "tree_id": "###abomination.manacles",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "12": {
+        "instance_number": 1,
+        "tree_id": "###crusader.smite",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "13": {
+        "instance_number": 96,
+        "tree_id": "###crusader.smite",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "14": {
+        "instance_number": 1,
+        "tree_id": "###crusader.smite",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "15": {
+        "instance_number": 96,
+        "tree_id": "###crusader.smite",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "16": {
+        "instance_number": 96,
+        "tree_id": "###crusader.smite",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "17": {
+        "instance_number": 0,
+        "tree_id": "###camping_trainer.cost",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "18": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "19": {
+        "instance_number": 104,
+        "tree_id": "###abomination.the_quickening",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "20": {
+        "instance_number": 8,
+        "tree_id": "###vestal.judgement",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "21": {
+        "instance_number": 161,
+        "tree_id": "###vestal.judgement",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "22": {
+        "instance_number": 8,
+        "tree_id": "###vestal.judgement",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "23": {
+        "instance_number": 161,
+        "tree_id": "###vestal.judgement",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "24": {
+        "instance_number": 161,
+        "tree_id": "###vestal.judgement",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "25": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.poison_dart",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "26": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.poison_dart",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "27": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.poison_dart",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "28": {
+        "instance_number": 25,
+        "tree_id": "###jester.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "29": {
+        "instance_number": 55,
+        "tree_id": "###occultist.daemons_pull",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "30": {
+        "instance_number": 55,
+        "tree_id": "###occultist.daemons_pull",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "31": {
+        "instance_number": 55,
+        "tree_id": "###occultist.daemons_pull",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "32": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.break_guard",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "33": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.break_guard",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "34": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.break_guard",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "35": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.single_out",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "36": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.single_out",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "37": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.single_out",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "38": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.battlefield_medicine",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "39": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.battlefield_medicine",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "40": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.battlefield_medicine",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "41": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.battlefield_medicine",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "42": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.battlefield_medicine",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "43": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.battlefield_medicine",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "44": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.pep_talk",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "45": {
+        "instance_number": 25,
+        "tree_id": "###jester.pep_talk",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "46": {
+        "instance_number": 25,
+        "tree_id": "###jester.battle_ballad",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "47": {
+        "instance_number": 267,
+        "tree_id": "###jester.battle_ballad",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "48": {
+        "instance_number": 25,
+        "tree_id": "###jester.battle_ballad",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "49": {
+        "instance_number": 33,
+        "tree_id": "###hellion.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "50": {
+        "instance_number": 1,
+        "tree_id": "###crusader.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "51": {
+        "instance_number": 96,
+        "tree_id": "###crusader.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "52": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "53": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.weapon",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "54": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.duelist_advance",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "55": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.duelist_advance",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "56": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.hounds_rush",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "57": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.hounds_rush",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "58": {
+        "instance_number": 33,
+        "tree_id": "###hellion.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "59": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.punish",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "60": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.punish",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "61": {
+        "instance_number": 25,
+        "tree_id": "###jester.inspiring_tune",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "62": {
+        "instance_number": 267,
+        "tree_id": "###jester.inspiring_tune",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "63": {
+        "instance_number": 25,
+        "tree_id": "###jester.inspiring_tune",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "64": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.guard_dog",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "65": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.guard_dog",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "66": {
+        "instance_number": 126,
+        "tree_id": "###leper.intimidate",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "67": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.rain_of_sorrows",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "68": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.rain_of_sorrows",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "69": {
+        "instance_number": 0,
+        "tree_id": "###stage_coach.rostersize",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "70": {
+        "instance_number": 0,
+        "tree_id": "###stage_coach.rostersize",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "71": {
+        "instance_number": 0,
+        "tree_id": "###stage_coach.rostersize",
+        "requirement_code": "c",
+        "is_purchased": true
+      },
+      "72": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.flashing_daggers",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "73": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.flashing_daggers",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "74": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.weapons_practice",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "75": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.way_of_serpent",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "76": {
+        "instance_number": 25,
+        "tree_id": "###jester.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "77": {
+        "instance_number": 1,
+        "tree_id": "###crusader.holy_lance",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "78": {
+        "instance_number": 1,
+        "tree_id": "###crusader.holy_lance",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "79": {
+        "instance_number": 104,
+        "tree_id": "###abomination.transform",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "80": {
+        "instance_number": 266,
+        "tree_id": "###abomination.transform",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "81": {
+        "instance_number": 104,
+        "tree_id": "###abomination.transform",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "82": {
+        "instance_number": 96,
+        "tree_id": "###crusader.zealous_vigil",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "83": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.gallows_humor",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "84": {
+        "instance_number": 33,
+        "tree_id": "###hellion.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "85": {
+        "instance_number": 33,
+        "tree_id": "###hellion.weapon",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "86": {
+        "instance_number": 1,
+        "tree_id": "###crusader.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "87": {
+        "instance_number": 96,
+        "tree_id": "###crusader.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "88": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.flare",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "89": {
+        "instance_number": 265,
+        "tree_id": "###arbalest.flare",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "90": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "91": {
+        "instance_number": 8,
+        "tree_id": "###vestal.gods_hand",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "92": {
+        "instance_number": 55,
+        "tree_id": "###occultist.weakening_curse",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "93": {
+        "instance_number": 55,
+        "tree_id": "###occultist.weakening_curse",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "94": {
+        "instance_number": 55,
+        "tree_id": "###occultist.weakening_curse",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "95": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.thrown_dagger",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "96": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.thrown_dagger",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "97": {
+        "instance_number": 126,
+        "tree_id": "###leper.solemnity",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "98": {
+        "instance_number": 126,
+        "tree_id": "###leper.solemnity",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "99": {
+        "instance_number": 126,
+        "tree_id": "###leper.solemnity",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "100": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.preventative_medicine",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "101": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.preventative_medicine",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "102": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.toxin_trickery",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "103": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.toxin_trickery",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "104": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.toxin_trickery",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "105": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.wicked_slice",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "106": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.wicked_slice",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "107": {
+        "instance_number": 55,
+        "tree_id": "###occultist.hands_from_abyss",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "108": {
+        "instance_number": 55,
+        "tree_id": "###occultist.hands_from_abyss",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "109": {
+        "instance_number": 55,
+        "tree_id": "###occultist.hands_from_abyss",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "110": {
+        "instance_number": 1,
+        "tree_id": "###crusader.inspiring_cry",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "111": {
+        "instance_number": 96,
+        "tree_id": "###crusader.inspiring_cry",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "112": {
+        "instance_number": 1,
+        "tree_id": "###crusader.inspiring_cry",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "113": {
+        "instance_number": 96,
+        "tree_id": "###crusader.inspiring_cry",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "114": {
+        "instance_number": 96,
+        "tree_id": "###crusader.inspiring_cry",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "115": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.opened_vein",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "116": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.redeem",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "117": {
+        "instance_number": 267,
+        "tree_id": "###jester.tigers_eye",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "118": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.blackjack",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "119": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.blackjack",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "120": {
+        "instance_number": 161,
+        "tree_id": "###vestal.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "121": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.spearing",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "122": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.spearing",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "123": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "124": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.armour",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "125": {
+        "instance_number": 104,
+        "tree_id": "###abomination.vomit",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "126": {
+        "instance_number": 266,
+        "tree_id": "###abomination.vomit",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "127": {
+        "instance_number": 104,
+        "tree_id": "###abomination.vomit",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "128": {
+        "instance_number": 55,
+        "tree_id": "###occultist.dark_strength",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "129": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.bolster",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "130": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.bolster",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "131": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.bolster",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "132": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.bolster",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "133": {
+        "instance_number": 8,
+        "tree_id": "###vestal.divine_grace",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "134": {
+        "instance_number": 161,
+        "tree_id": "###vestal.divine_grace",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "135": {
+        "instance_number": 8,
+        "tree_id": "###vestal.divine_grace",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "136": {
+        "instance_number": 161,
+        "tree_id": "###vestal.divine_grace",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "137": {
+        "instance_number": 161,
+        "tree_id": "###vestal.divine_grace",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "138": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.retribution",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "139": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.retribution",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "140": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.retribution",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "141": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.retribution",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "142": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.lunge",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "143": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.lunge",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "144": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.lunge",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "145": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.exsanguinate",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "146": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.exsanguinate",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "147": {
+        "instance_number": 8,
+        "tree_id": "###vestal.gods_comfort",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "148": {
+        "instance_number": 161,
+        "tree_id": "###vestal.gods_comfort",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "149": {
+        "instance_number": 8,
+        "tree_id": "###vestal.gods_comfort",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "150": {
+        "instance_number": 161,
+        "tree_id": "###vestal.gods_comfort",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "151": {
+        "instance_number": 161,
+        "tree_id": "###vestal.gods_comfort",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "152": {
+        "instance_number": 104,
+        "tree_id": "###abomination.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "153": {
+        "instance_number": 266,
+        "tree_id": "###abomination.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "154": {
+        "instance_number": 96,
+        "tree_id": "###crusader.battle_heal",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "155": {
+        "instance_number": 96,
+        "tree_id": "###crusader.battle_heal",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "156": {
+        "instance_number": 96,
+        "tree_id": "###crusader.battle_heal",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "157": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.noxious_blast",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "158": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.noxious_blast",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "159": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.noxious_blast",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "160": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.noxious_blast",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "161": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.noxious_blast",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "162": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.noxious_blast",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "163": {
+        "instance_number": 8,
+        "tree_id": "###vestal.bless",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "164": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.blinding_gas",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "165": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.blinding_gas",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "166": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.blinding_gas",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "167": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.blinding_gas",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "168": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.blinding_gas",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "169": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.blinding_gas",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "170": {
+        "instance_number": 264,
+        "tree_id": "###arbalest.marching_plan",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "171": {
+        "instance_number": 265,
+        "tree_id": "###arbalest.marching_plan",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "172": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.field_dressing",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "173": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "174": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.way_of_sway",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "175": {
+        "instance_number": 8,
+        "tree_id": "###vestal.mace_bash",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "176": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.pep_talk",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "177": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "178": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "179": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.lash_solace",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "180": {
+        "instance_number": 0,
+        "tree_id": "###sanitarium.slots",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "181": {
+        "instance_number": 0,
+        "tree_id": "###sanitarium.slots",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "182": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.suffer",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "183": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.disorienting_blast",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "184": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.disorienting_blast",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "185": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.disorienting_blast",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "186": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.disorienting_blast",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "187": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.disorienting_blast",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "188": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.disorienting_blast",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "189": {
+        "instance_number": 33,
+        "tree_id": "###hellion.wicked_hack",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "190": {
+        "instance_number": 33,
+        "tree_id": "###hellion.wicked_hack",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "191": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.leeches",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "192": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.leeches",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "193": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.plague_grenade",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "194": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.plague_grenade",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "195": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.plague_grenade",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "196": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.pick",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "197": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.pick",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "198": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "199": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.weapon",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "200": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.self_medicate",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "201": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.self_medicate",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "202": {
+        "instance_number": 126,
+        "tree_id": "###leper.chop",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "203": {
+        "instance_number": 126,
+        "tree_id": "###leper.chop",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "204": {
+        "instance_number": 126,
+        "tree_id": "###leper.chop",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "205": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.sniper_mark",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "206": {
+        "instance_number": 264,
+        "tree_id": "###arbalest.sniper_mark",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "207": {
+        "instance_number": 265,
+        "tree_id": "###arbalest.sniper_mark",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "208": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.sniper_mark",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "209": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.sniper_shot",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "210": {
+        "instance_number": 264,
+        "tree_id": "###arbalest.sniper_shot",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "211": {
+        "instance_number": 265,
+        "tree_id": "###arbalest.sniper_shot",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "212": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.sniper_shot",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "213": {
+        "instance_number": 55,
+        "tree_id": "###occultist.wyrd_reconstruction",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "214": {
+        "instance_number": 55,
+        "tree_id": "###occultist.wyrd_reconstruction",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "215": {
+        "instance_number": 55,
+        "tree_id": "###occultist.wyrd_reconstruction",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "216": {
+        "instance_number": 33,
+        "tree_id": "###hellion.reject_the_gods",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "217": {
+        "instance_number": 8,
+        "tree_id": "###vestal.dazzling_light",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "218": {
+        "instance_number": 161,
+        "tree_id": "###vestal.dazzling_light",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "219": {
+        "instance_number": 8,
+        "tree_id": "###vestal.dazzling_light",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "220": {
+        "instance_number": 161,
+        "tree_id": "###vestal.dazzling_light",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "221": {
+        "instance_number": 161,
+        "tree_id": "###vestal.dazzling_light",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "222": {
+        "instance_number": 25,
+        "tree_id": "###jester.turn_back_time",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "223": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.incision",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "224": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.incision",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "225": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.incision",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "226": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.incision",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "227": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.incision",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "228": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.forage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "229": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.defender",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "230": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.defender",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "231": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.defender",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "232": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.defender",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "233": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.bellow",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "234": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.bellow",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "235": {
+        "instance_number": 126,
+        "tree_id": "###leper.hew",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "236": {
+        "instance_number": 126,
+        "tree_id": "###leper.hew",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "237": {
+        "instance_number": 126,
+        "tree_id": "###leper.hew",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "238": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.whistle",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "239": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.whistle",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "240": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.command",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "241": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.command",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "242": {
+        "instance_number": 126,
+        "tree_id": "###leper.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "243": {
+        "instance_number": 104,
+        "tree_id": "###abomination.psych_up",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "244": {
+        "instance_number": 266,
+        "tree_id": "###abomination.psych_up",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "245": {
+        "instance_number": 104,
+        "tree_id": "###abomination.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "246": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.point_blank_shot",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "247": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.point_blank_shot",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "248": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.crush",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "249": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.crush",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "250": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.crush",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "251": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.crush",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "252": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "253": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "254": {
+        "instance_number": 267,
+        "tree_id": "###jester.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "255": {
+        "instance_number": 8,
+        "tree_id": "###vestal.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "256": {
+        "instance_number": 55,
+        "tree_id": "###occultist.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "257": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.rampart",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "258": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.rampart",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "259": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.rampart",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "260": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.rampart",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "261": {
+        "instance_number": 1,
+        "tree_id": "###crusader.bulwark_of_faith",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "262": {
+        "instance_number": 33,
+        "tree_id": "###hellion.adrenaline_rush",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "263": {
+        "instance_number": 33,
+        "tree_id": "###hellion.adrenaline_rush",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "264": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "265": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.lick_wounds",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "266": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.lick_wounds",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "267": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.triage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "268": {
+        "instance_number": 264,
+        "tree_id": "###arbalest.triage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "269": {
+        "instance_number": 265,
+        "tree_id": "###arbalest.triage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "270": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.pep_talk",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "271": {
+        "instance_number": 104,
+        "tree_id": "###abomination.absolution",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "272": {
+        "instance_number": 266,
+        "tree_id": "###abomination.absolution",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "273": {
+        "instance_number": 104,
+        "tree_id": "###abomination.absolution",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "274": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.take_aim",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "275": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "276": {
+        "instance_number": 0,
+        "tree_id": "###sanitarium.disease_quirk_cost",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "277": {
+        "instance_number": 33,
+        "tree_id": "###hellion.iron_swan",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "278": {
+        "instance_number": 33,
+        "tree_id": "###hellion.iron_swan",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "279": {
+        "instance_number": 126,
+        "tree_id": "###leper.bloody_shroud",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "280": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "281": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.blindfire",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "282": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.blindfire",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "283": {
+        "instance_number": 8,
+        "tree_id": "###vestal.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "284": {
+        "instance_number": 161,
+        "tree_id": "###vestal.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "285": {
+        "instance_number": 161,
+        "tree_id": "###vestal.armour",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "286": {
+        "instance_number": 126,
+        "tree_id": "###leper.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "287": {
+        "instance_number": 104,
+        "tree_id": "###abomination.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "288": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "289": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "290": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "291": {
+        "instance_number": 266,
+        "tree_id": "###abomination.anger_management",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "292": {
+        "instance_number": 55,
+        "tree_id": "###occultist.disruptive_curse",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "293": {
+        "instance_number": 55,
+        "tree_id": "###occultist.disruptive_curse",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "294": {
+        "instance_number": 55,
+        "tree_id": "###occultist.disruptive_curse",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "295": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.reclaim",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "296": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.reclaim",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "297": {
+        "instance_number": 55,
+        "tree_id": "###occultist.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "298": {
+        "instance_number": 0,
+        "tree_id": "###blacksmith.armour",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "299": {
+        "instance_number": 0,
+        "tree_id": "###blacksmith.armour",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "300": {
+        "instance_number": 126,
+        "tree_id": "###leper.withstand",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "301": {
+        "instance_number": 126,
+        "tree_id": "###leper.withstand",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "302": {
+        "instance_number": 126,
+        "tree_id": "###leper.withstand",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "303": {
+        "instance_number": 1,
+        "tree_id": "###crusader.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "304": {
+        "instance_number": 96,
+        "tree_id": "###crusader.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "305": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "306": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "307": {
+        "instance_number": 161,
+        "tree_id": "###vestal.pray",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "308": {
+        "instance_number": 0,
+        "tree_id": "###guild.cost",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "309": {
+        "instance_number": 0,
+        "tree_id": "###guild.cost",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "310": {
+        "instance_number": 0,
+        "tree_id": "###guild.cost",
+        "requirement_code": "c",
+        "is_purchased": true
+      },
+      "311": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.hounds_watch",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "312": {
+        "instance_number": 55,
+        "tree_id": "###occultist.dark_ritual",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "313": {
+        "instance_number": 265,
+        "tree_id": "###arbalest.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "314": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "315": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.armour",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "316": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.bandits_sense",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "317": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "318": {
+        "instance_number": 0,
+        "tree_id": "###blacksmith.cost",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "319": {
+        "instance_number": 0,
+        "tree_id": "###blacksmith.cost",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "320": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.bola",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "321": {
+        "instance_number": 264,
+        "tree_id": "###arbalest.bola",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "322": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.bola",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "323": {
+        "instance_number": 25,
+        "tree_id": "###jester.harvest",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "324": {
+        "instance_number": 267,
+        "tree_id": "###jester.harvest",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "325": {
+        "instance_number": 25,
+        "tree_id": "###jester.harvest",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "326": {
+        "instance_number": 8,
+        "tree_id": "###vestal.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "327": {
+        "instance_number": 161,
+        "tree_id": "###vestal.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "328": {
+        "instance_number": 161,
+        "tree_id": "###vestal.weapon",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "329": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.experimental_vapours",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "330": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.experimental_vapours",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "331": {
+        "instance_number": 264,
+        "tree_id": "###arbalest.suppressing_fire",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "332": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "333": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "334": {
+        "instance_number": 181,
+        "tree_id": "###plague_doctor.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "335": {
+        "instance_number": 33,
+        "tree_id": "###hellion.barbaric_yawp",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "336": {
+        "instance_number": 1,
+        "tree_id": "###crusader.zealous_accusation",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "337": {
+        "instance_number": 96,
+        "tree_id": "###crusader.zealous_accusation",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "338": {
+        "instance_number": 0,
+        "tree_id": "###stage_coach.upgraded_recruits",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "339": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.instruction",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "340": {
+        "instance_number": 74,
+        "tree_id": "###man_at_arms.instruction",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "341": {
+        "instance_number": 25,
+        "tree_id": "###jester.slice_off",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "342": {
+        "instance_number": 267,
+        "tree_id": "###jester.slice_off",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "343": {
+        "instance_number": 25,
+        "tree_id": "###jester.slice_off",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "344": {
+        "instance_number": 25,
+        "tree_id": "###jester.heroic_end",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "345": {
+        "instance_number": 25,
+        "tree_id": "###jester.heroic_end",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "346": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.pierce",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "347": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.pierce",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "348": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.pierce",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "349": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.adders_kiss",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "350": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.adders_kiss",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "351": {
+        "instance_number": 22,
+        "tree_id": "###shieldbreaker.adders_kiss",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "352": {
+        "instance_number": 161,
+        "tree_id": "###vestal.gods_illumination",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "353": {
+        "instance_number": 0,
+        "tree_id": "###blacksmith.weapon",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "354": {
+        "instance_number": 0,
+        "tree_id": "###blacksmith.weapon",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "355": {
+        "instance_number": 126,
+        "tree_id": "###leper.reflection",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "356": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "357": {
+        "instance_number": 8,
+        "tree_id": "###vestal.sanctuary",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "358": {
+        "instance_number": 161,
+        "tree_id": "###vestal.sanctuary",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "359": {
+        "instance_number": 76,
+        "tree_id": "###flagellant.lash_anger",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "360": {
+        "instance_number": 126,
+        "tree_id": "###leper.encourage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "361": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.weapon",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "362": {
+        "instance_number": 104,
+        "tree_id": "###abomination.rage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "363": {
+        "instance_number": 266,
+        "tree_id": "###abomination.rage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "364": {
+        "instance_number": 104,
+        "tree_id": "###abomination.rake",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "365": {
+        "instance_number": 266,
+        "tree_id": "###abomination.rake",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "366": {
+        "instance_number": 104,
+        "tree_id": "###abomination.slam",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "367": {
+        "instance_number": 266,
+        "tree_id": "###abomination.slam",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "368": {
+        "instance_number": 7,
+        "tree_id": "###plague_doctor.pep_talk",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "369": {
+        "instance_number": 118,
+        "tree_id": "###plague_doctor.pep_talk",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "370": {
+        "instance_number": 56,
+        "tree_id": "###man_at_arms.tactics",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "371": {
+        "instance_number": 1,
+        "tree_id": "###crusader.zealous_speech",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "372": {
+        "instance_number": 96,
+        "tree_id": "###crusader.zealous_speech",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "373": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.howl",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "374": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.howl",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "375": {
+        "instance_number": 33,
+        "tree_id": "###hellion.if_it_bleeds",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "376": {
+        "instance_number": 33,
+        "tree_id": "###hellion.if_it_bleeds",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "377": {
+        "instance_number": 33,
+        "tree_id": "###hellion.battle_trance",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "378": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.grape_shot_blast",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "379": {
+        "instance_number": 1,
+        "tree_id": "###crusader.stunning_blow",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "380": {
+        "instance_number": 96,
+        "tree_id": "###crusader.stunning_blow",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "381": {
+        "instance_number": 1,
+        "tree_id": "###crusader.stunning_blow",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "382": {
+        "instance_number": 96,
+        "tree_id": "###crusader.stunning_blow",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "383": {
+        "instance_number": 96,
+        "tree_id": "###crusader.stunning_blow",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "384": {
+        "instance_number": 25,
+        "tree_id": "###jester.mockery",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "385": {
+        "instance_number": 267,
+        "tree_id": "###jester.mockery",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "386": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.battlefield_bandage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "387": {
+        "instance_number": 265,
+        "tree_id": "###arbalest.battlefield_bandage",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "388": {
+        "instance_number": 200,
+        "tree_id": "###arbalest.battlefield_bandage",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "389": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.shadow_fade",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "390": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.shadow_fade",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "391": {
+        "instance_number": 138,
+        "tree_id": "###grave_robber.shadow_fade",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "392": {
+        "instance_number": 264,
+        "tree_id": "###arbalest.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "393": {
+        "instance_number": 0,
+        "tree_id": "###stage_coach.numrecruits",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "394": {
+        "instance_number": 0,
+        "tree_id": "###stage_coach.numrecruits",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "395": {
+        "instance_number": 0,
+        "tree_id": "###guild.skill_levels",
+        "requirement_code": "a",
+        "is_purchased": true
+      },
+      "396": {
+        "instance_number": 0,
+        "tree_id": "###guild.skill_levels",
+        "requirement_code": "b",
+        "is_purchased": true
+      },
+      "397": {
+        "instance_number": 0,
+        "tree_id": "###guild.skill_levels",
+        "requirement_code": "c",
+        "is_purchased": true
+      },
+      "398": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.pistol_shot",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "399": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.pistol_shot",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "400": {
+        "instance_number": 31,
+        "tree_id": "###houndmaster.therapy_dog",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "401": {
+        "instance_number": 55,
+        "tree_id": "###occultist.bloodlet",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "402": {
+        "instance_number": 55,
+        "tree_id": "###occultist.bloodlet",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "403": {
+        "instance_number": 55,
+        "tree_id": "###occultist.bloodlet",
+        "requirement_code": "2",
+        "is_purchased": true
+      },
+      "404": {
+        "instance_number": 2,
+        "tree_id": "###highwayman.clean_guns",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "405": {
+        "instance_number": 55,
+        "tree_id": "###occultist.first_aid",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "406": {
+        "instance_number": 55,
+        "tree_id": "###occultist.abyssal_artillery",
+        "requirement_code": "0",
+        "is_purchased": true
+      },
+      "407": {
+        "instance_number": 55,
+        "tree_id": "###occultist.abyssal_artillery",
+        "requirement_code": "1",
+        "is_purchased": true
+      },
+      "408": {
+        "instance_number": 55,
+        "tree_id": "###occultist.abyssal_artillery",
+        "requirement_code": "2",
+        "is_purchased": true
+      }
+    }
+  }
+}

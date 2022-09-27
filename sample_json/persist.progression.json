@@ -1,0 +1,974 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 2,
+    "dungeon": {
+      "cove": {
+        "xp": 11
+      },
+      "weald": {
+        "xp": 2
+      },
+      "warrens": {
+        "xp": 7
+      },
+      "crypts": {
+        "xp": 22
+      }
+    },
+    "completed_plot_quests_data": {
+      "0": {
+        "plot_quest_id": "###plot_tutorial_crypts",
+        "heroes": {
+          "0": {
+            "guid": 1,
+            "survived": true,
+            "last_blow": false
+          },
+          "1": {
+            "guid": 2,
+            "survived": true,
+            "last_blow": false
+          },
+          "2": {
+            "guid": 8,
+            "survived": true,
+            "last_blow": false
+          },
+          "3": {
+            "guid": 7,
+            "survived": true,
+            "last_blow": false
+          }
+        }
+      },
+      "1": {
+        "plot_quest_id": "###plot_kill_necromancer_1",
+        "heroes": {
+          "0": {
+            "guid": 1,
+            "survived": true,
+            "last_blow": false
+          },
+          "1": {
+            "guid": 2,
+            "survived": true,
+            "last_blow": true
+          },
+          "2": {
+            "guid": 25,
+            "survived": true,
+            "last_blow": false
+          },
+          "3": {
+            "guid": 8,
+            "survived": true,
+            "last_blow": false
+          }
+        }
+      },
+      "2": {
+        "plot_quest_id": "###plot_kill_prophet_1",
+        "heroes": {
+          "0": {
+            "guid": 33,
+            "survived": true,
+            "last_blow": true
+          },
+          "1": {
+            "guid": 74,
+            "survived": true,
+            "last_blow": false
+          },
+          "2": {
+            "guid": 138,
+            "survived": true,
+            "last_blow": false
+          },
+          "3": {
+            "guid": 55,
+            "survived": true,
+            "last_blow": false
+          }
+        }
+      },
+      "3": {
+        "plot_quest_id": "###plot_kill_siren_1",
+        "heroes": {
+          "0": {
+            "guid": 126,
+            "survived": true,
+            "last_blow": false
+          },
+          "1": {
+            "guid": 118,
+            "survived": true,
+            "last_blow": true
+          },
+          "2": {
+            "guid": 104,
+            "survived": true,
+            "last_blow": false
+          },
+          "3": {
+            "guid": 161,
+            "survived": true,
+            "last_blow": false
+          }
+        }
+      },
+      "4": {
+        "plot_quest_id": "###plot_kill_swine_prince_1",
+        "heroes": {
+          "0": {
+            "guid": 76,
+            "survived": true,
+            "last_blow": true
+          },
+          "1": {
+            "guid": 31,
+            "survived": true,
+            "last_blow": false
+          },
+          "2": {
+            "guid": 181,
+            "survived": true,
+            "last_blow": false
+          },
+          "3": {
+            "guid": 200,
+            "survived": true,
+            "last_blow": false
+          }
+        }
+      }
+    },
+    "total_recruited_stage_coach_heroes": 17,
+    "total_quests_finished": 23,
+    "total_successful_quests_finished": 20,
+    "last_quest_played_successfully": false,
+    "last_quest_played_id": 0,
+    "last_quest_played_xp": 0,
+    "last_raid_success": true,
+    "last_raid_was_a_plot_quest": false,
+    "last_raid_quest_id": -1545023528,
+    "achievements": {
+      "plot_tutorial_crypts": {
+        "rtti": 196099018,
+        "id": "plot_tutorial_crypts",
+        "completed": true,
+        "awarded": false
+      },
+      "plot_kill_necromancer_1": {
+        "rtti": 196099018,
+        "id": "plot_kill_necromancer_1",
+        "completed": true,
+        "awarded": false
+      },
+      "plot_kill_prophet_1": {
+        "rtti": 196099018,
+        "id": "plot_kill_prophet_1",
+        "completed": true,
+        "awarded": false
+      },
+      "plot_kill_swine_prince_1": {
+        "rtti": 196099018,
+        "id": "plot_kill_swine_prince_1",
+        "completed": true,
+        "awarded": false
+      },
+      "plot_kill_siren_1": {
+        "rtti": 196099018,
+        "id": "plot_kill_siren_1",
+        "completed": true,
+        "awarded": false
+      },
+      "has_dlc_445700": {
+        "rtti": -723492805,
+        "id": "has_dlc_445700",
+        "completed": true,
+        "awarded": false
+      },
+      "has_dlc_580100": {
+        "rtti": -723492805,
+        "id": "has_dlc_580100",
+        "completed": true,
+        "awarded": false
+      },
+      "has_dlc_702540": {
+        "rtti": -723492805,
+        "id": "has_dlc_702540",
+        "completed": true,
+        "awarded": false
+      },
+      "has_dlc_735730": {
+        "rtti": -723492805,
+        "id": "has_dlc_735730",
+        "completed": true,
+        "awarded": false
+      }
+    },
+    "real_achievements": {
+      "welcome_home": {
+        "rtti": 186376892,
+        "id": "welcome_home",
+        "completed": true,
+        "awarded": false
+      },
+      "first_victory": {
+        "rtti": 186376892,
+        "id": "first_victory",
+        "completed": true,
+        "awarded": false
+      },
+      "ten_victories": {
+        "rtti": 186376892,
+        "id": "ten_victories",
+        "completed": true,
+        "awarded": false
+      },
+      "twenty_five_victories": {
+        "rtti": 186376892,
+        "id": "twenty_five_victories",
+        "completed": true,
+        "awarded": false
+      },
+      "abandon_quest": {
+        "rtti": 186376892,
+        "id": "abandon_quest",
+        "completed": true,
+        "awarded": false
+      },
+      "first_boss": {
+        "rtti": 186376892,
+        "id": "first_boss",
+        "completed": true,
+        "awarded": false
+      },
+      "medium_quest": {
+        "rtti": 186376892,
+        "id": "medium_quest",
+        "completed": true,
+        "awarded": false
+      },
+      "long_quest": {
+        "rtti": 186376892,
+        "id": "long_quest",
+        "completed": true,
+        "awarded": false
+      },
+      "start_quest_heroes_level_6": {
+        "rtti": -1177397251,
+        "id": "start_quest_heroes_level_6",
+        "completed": false,
+        "awarded": false
+      },
+      "start_dd_heroes_level_0": {
+        "rtti": -1177397251,
+        "id": "start_dd_heroes_level_0",
+        "completed": false,
+        "awarded": false
+      },
+      "all_regions": {
+        "rtti": 186376892,
+        "id": "all_regions",
+        "completed": true,
+        "awarded": false
+      },
+      "four_afflicted": {
+        "rtti": 186376892,
+        "id": "four_afflicted",
+        "completed": false,
+        "awarded": false
+      },
+      "single_combat_skill": {
+        "rtti": -1858427467,
+        "id": "single_combat_skill",
+        "completed": true,
+        "awarded": false
+      },
+      "single_camping_skill": {
+        "rtti": -1858427467,
+        "id": "single_camping_skill",
+        "completed": true,
+        "awarded": false
+      },
+      "tavern_treatment": {
+        "rtti": -1283926094,
+        "id": "tavern_treatment",
+        "completed": true,
+        "awarded": false
+      },
+      "abbey_treatment": {
+        "rtti": -1283926094,
+        "id": "abbey_treatment",
+        "completed": true,
+        "awarded": false
+      },
+      "hero_dismissed": {
+        "rtti": 1216605900,
+        "id": "hero_dismissed",
+        "completed": true,
+        "awarded": false
+      },
+      "one_of_each_hero": {
+        "rtti": 1830069032,
+        "id": "one_of_each_hero",
+        "completed": false,
+        "awarded": false
+      },
+      "quirk_treatment": {
+        "rtti": -1283926094,
+        "id": "quirk_treatment",
+        "completed": true,
+        "awarded": false
+      },
+      "quirk_lock": {
+        "rtti": -1283926094,
+        "id": "quirk_lock",
+        "completed": true,
+        "awarded": false
+      },
+      "blacksmith_upgraded": {
+        "rtti": -1858427467,
+        "id": "blacksmith_upgraded",
+        "completed": false,
+        "awarded": false
+      },
+      "guild_upgraded": {
+        "rtti": -1858427467,
+        "id": "guild_upgraded",
+        "completed": false,
+        "awarded": false
+      },
+      "tavern_upgraded": {
+        "rtti": -1858427467,
+        "id": "tavern_upgraded",
+        "completed": false,
+        "awarded": false
+      },
+      "abbey_upgraded": {
+        "rtti": -1858427467,
+        "id": "abbey_upgraded",
+        "completed": false,
+        "awarded": false
+      },
+      "weapon_and_armour_upgraded": {
+        "rtti": -1858427467,
+        "id": "weapon_and_armour_upgraded",
+        "completed": false,
+        "awarded": false
+      },
+      "hero_4_skill_upgrade": {
+        "rtti": -1858427467,
+        "id": "hero_4_skill_upgrade",
+        "completed": false,
+        "awarded": false
+      },
+      "town_fully_upgraded": {
+        "rtti": -1858427467,
+        "id": "town_fully_upgraded",
+        "completed": false,
+        "awarded": false
+      },
+      "visit_graveyard": {
+        "rtti": 162787250,
+        "id": "visit_graveyard",
+        "completed": true,
+        "awarded": false
+      },
+      "one_hero_level_6": {
+        "rtti": -1248262911,
+        "id": "one_hero_level_6",
+        "completed": false,
+        "awarded": false
+      },
+      "four_hero_level_6": {
+        "rtti": -1248262911,
+        "id": "four_hero_level_6",
+        "completed": false,
+        "awarded": false
+      },
+      "eldritch_100": {
+        "rtti": 1935132924,
+        "id": "eldritch_100",
+        "completed": true,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "unholy_100": {
+        "rtti": 1935132924,
+        "id": "unholy_100",
+        "completed": true,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "beast_100": {
+        "rtti": 1935132924,
+        "id": "beast_100",
+        "completed": true,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "human_100": {
+        "rtti": 1935132924,
+        "id": "human_100",
+        "completed": true,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "total_enemies": {
+        "rtti": 1935132924,
+        "id": "total_enemies",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 587
+          }
+        }
+      },
+      "week_52": {
+        "rtti": 1666457512,
+        "id": "week_52",
+        "completed": false,
+        "awarded": false
+      },
+      "week_104": {
+        "rtti": 1666457512,
+        "id": "week_104",
+        "completed": false,
+        "awarded": false
+      },
+      "quest_20k_gold": {
+        "rtti": -978241076,
+        "id": "quest_20k_gold",
+        "completed": true,
+        "awarded": false
+      },
+      "quest_30_heirloom": {
+        "rtti": -978241076,
+        "id": "quest_30_heirloom",
+        "completed": true,
+        "awarded": false
+      },
+      "kill_50": {
+        "rtti": -667574475,
+        "id": "kill_50",
+        "completed": true,
+        "awarded": false
+      },
+      "walk_500": {
+        "rtti": -667574475,
+        "id": "walk_500",
+        "completed": true,
+        "awarded": false
+      },
+      "lost_first_hero": {
+        "rtti": 2130327422,
+        "id": "lost_first_hero",
+        "completed": true,
+        "awarded": false
+      },
+      "first_heart_attack_death": {
+        "rtti": 2130327422,
+        "id": "first_heart_attack_death",
+        "completed": true,
+        "awarded": false
+      },
+      "first_hunger_death": {
+        "rtti": 2130327422,
+        "id": "first_hunger_death",
+        "completed": false,
+        "awarded": false
+      },
+      "death_to_wilbur": {
+        "rtti": 2130327422,
+        "id": "death_to_wilbur",
+        "completed": false,
+        "awarded": false
+      },
+      "death_to_maggot": {
+        "rtti": 2130327422,
+        "id": "death_to_maggot",
+        "completed": false,
+        "awarded": false
+      },
+      "first_trap_death": {
+        "rtti": 2130327422,
+        "id": "first_trap_death",
+        "completed": false,
+        "awarded": false
+      },
+      "first_obstacle_death": {
+        "rtti": 2130327422,
+        "id": "first_obstacle_death",
+        "completed": false,
+        "awarded": false
+      },
+      "darkest_dungeon_party_wipe": {
+        "rtti": 977262126,
+        "boss_battle": false
+      },
+      "first_party_wipe": {
+        "rtti": 977262126,
+        "boss_battle": false
+      },
+      "lose_level_6_hero": {
+        "rtti": 2130327422,
+        "id": "lose_level_6_hero",
+        "completed": false,
+        "awarded": false
+      },
+      "deaths_door_survived_5_attacks": {
+        "rtti": 385319812,
+        "id": "deaths_door_survived_5_attacks",
+        "completed": true,
+        "awarded": false
+      },
+      "first_boss_party_wipe": {
+        "rtti": 977262126,
+        "boss_battle": false
+      },
+      "ancestors_trinkets": {
+        "rtti": 1232432132,
+        "id": "ancestors_trinkets",
+        "completed": false,
+        "awarded": false
+      },
+      "slay_a_shambler": {
+        "rtti": 1935132924,
+        "id": "slay_a_shambler",
+        "completed": true,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 1
+          }
+        }
+      },
+      "game_complete_on_default": {
+        "rtti": 659234388,
+        "id": "game_complete_on_default",
+        "completed": false,
+        "awarded": false
+      },
+      "kill_all_bosses": {
+        "rtti": 659234388,
+        "id": "kill_all_bosses",
+        "completed": false,
+        "awarded": false
+      },
+      "caretaker_goals_complete": {
+        "rtti": 659234388,
+        "id": "caretaker_goals_complete",
+        "completed": false,
+        "awarded": false
+      },
+      "game_complete": {
+        "rtti": 659234388,
+        "id": "game_complete",
+        "completed": false,
+        "awarded": false
+      },
+      "game_complete_in_75_weeks": {
+        "rtti": 659234388,
+        "id": "game_complete_in_75_weeks",
+        "completed": false,
+        "awarded": false
+      },
+      "kill_boss_with_one_hero": {
+        "rtti": 186376892,
+        "id": "kill_boss_with_one_hero",
+        "completed": false,
+        "awarded": false
+      },
+      "kill_boss_with_four_afflicted": {
+        "rtti": 186376892,
+        "id": "kill_boss_with_four_afflicted",
+        "completed": false,
+        "awarded": false
+      },
+      "game_complete_ng": {
+        "rtti": 659234388,
+        "id": "game_complete_ng",
+        "completed": false,
+        "awarded": false
+      },
+      "dismas_and_reynauld_completed": {
+        "rtti": -1177397251,
+        "id": "dismas_and_reynauld_completed",
+        "completed": false,
+        "awarded": false
+      },
+      "defeat_the_brigand_vulf": {
+        "rtti": 1935132924,
+        "id": "defeat_the_brigand_vulf",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "game_complete_radiant": {
+        "rtti": 659234388,
+        "id": "game_complete_radiant",
+        "completed": false,
+        "awarded": false
+      },
+      "slay_4_champions": {
+        "rtti": 1935132924,
+        "id": "slay_4_champions",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          },
+          "1": {
+            "enemies_killed": 0
+          },
+          "2": {
+            "enemies_killed": 0
+          },
+          "3": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "slay_a_crow": {
+        "rtti": 1935132924,
+        "id": "slay_a_crow",
+        "completed": true,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "slay_a_squiffy_with_jester": {
+        "rtti": 1935132924,
+        "id": "slay_a_squiffy_with_jester",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          },
+          "1": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "slay_the_baron": {
+        "rtti": 1935132924,
+        "id": "slay_the_baron",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "slay_the_viscount": {
+        "rtti": 1935132924,
+        "id": "slay_the_viscount",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "slay_the_countess": {
+        "rtti": 1935132924,
+        "id": "slay_the_countess",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "get_crimson_curse": {
+        "rtti": -1150347836,
+        "id": "get_crimson_curse",
+        "completed": true,
+        "awarded": false
+      },
+      "collect_trinket_set": {
+        "rtti": 19766818,
+        "id": "collect_trinket_set",
+        "completed": false,
+        "awarded": false
+      },
+      "build_a_district_building": {
+        "rtti": -538749217,
+        "id": "build_a_district_building",
+        "completed": false,
+        "awarded": false
+      },
+      "build_the_red_hook": {
+        "rtti": -538749217,
+        "id": "build_the_red_hook",
+        "completed": false,
+        "awarded": false
+      },
+      "recruit_a_flagellant": {
+        "rtti": -1508160077,
+        "id": "recruit_a_flagellant",
+        "completed": true,
+        "awarded": false
+      },
+      "collect_the_invitation": {
+        "rtti": 2100260282,
+        "id": "collect_the_invitation",
+        "completed": false,
+        "awarded": false
+      },
+      "lose_a_cursed_hero": {
+        "rtti": 2130327422,
+        "id": "lose_a_cursed_hero",
+        "completed": false,
+        "awarded": false
+      },
+      "kill_an_ally_through_curse": {
+        "rtti": 2130327422,
+        "id": "kill_an_ally_through_curse",
+        "completed": false,
+        "awarded": false
+      },
+      "get_crimson_curse_via_contagion": {
+        "rtti": -1150347836,
+        "id": "get_crimson_curse_via_contagion",
+        "completed": false,
+        "awarded": false
+      },
+      "slay_the_fanatic": {
+        "rtti": 1935132924,
+        "id": "slay_the_fanatic",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "rescue_a_prisoner": {
+        "rtti": -1616639698,
+        "id": "rescue_a_prisoner",
+        "completed": false,
+        "awarded": false
+      },
+      "entire_roster_has_curse": {
+        "rtti": -1150347836,
+        "id": "entire_roster_has_curse",
+        "completed": false,
+        "awarded": false
+      },
+      "plowshares_to_swords": {
+        "rtti": 1482567569,
+        "id": "plowshares_to_swords",
+        "completed": false,
+        "awarded": false
+      },
+      "lost_in_dust": {
+        "rtti": -1759256666,
+        "id": "lost_in_dust",
+        "completed": false,
+        "awarded": false
+      },
+      "taste_of_madness": {
+        "rtti": 186376892,
+        "id": "taste_of_madness",
+        "completed": false,
+        "awarded": false
+      },
+      "merciful_act": {
+        "rtti": 1935132924,
+        "id": "merciful_act",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "defeat_sleeper": {
+        "rtti": 1935132924,
+        "id": "defeat_sleeper",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "shards_well_spent": {
+        "rtti": -730129562,
+        "id": "shards_well_spent",
+        "completed": false,
+        "awarded": false
+      },
+      "build_windmill": {
+        "rtti": -538749217,
+        "id": "build_windmill",
+        "completed": false,
+        "awarded": false
+      },
+      "this_is_nothing": {
+        "rtti": 1935132924,
+        "id": "this_is_nothing",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "hollow_reckoning": {
+        "rtti": 1935132924,
+        "id": "hollow_reckoning",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "ashes_to_ashes": {
+        "rtti": 1935132924,
+        "id": "ashes_to_ashes",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "mouth_of_madness": {
+        "rtti": 1935132924,
+        "id": "mouth_of_madness",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "blinders_lifted": {
+        "rtti": 36236949,
+        "id": "blinders_lifted",
+        "completed": false,
+        "awarded": false
+      },
+      "rogues_gallery": {
+        "rtti": 1935132924,
+        "id": "rogues_gallery",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          },
+          "1": {
+            "enemies_killed": 0
+          },
+          "2": {
+            "enemies_killed": 0
+          },
+          "3": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "defeat_thing_from_stars": {
+        "rtti": 1935132924,
+        "id": "defeat_thing_from_stars",
+        "completed": false,
+        "awarded": false,
+        "conditions": {
+          "0": {
+            "enemies_killed": 0
+          }
+        }
+      },
+      "revenant_riposte": {
+        "rtti": -152642956,
+        "id": "revenant_riposte",
+        "completed": false,
+        "awarded": false
+      },
+      "blue_skies_ahead": {
+        "rtti": -68628877,
+        "id": "blue_skies_ahead",
+        "completed": false,
+        "awarded": false
+      },
+      "four_hero_dodge_miller": {
+        "rtti": -221196487,
+        "id": "four_hero_dodge_miller",
+        "completed": false,
+        "awarded": false
+      },
+      "lining_pocket": {
+        "rtti": -978241076,
+        "id": "lining_pocket",
+        "completed": false,
+        "awarded": false
+      },
+      "rainbows_end": {
+        "rtti": 2130327422,
+        "id": "rainbows_end",
+        "completed": false,
+        "awarded": false
+      },
+      "pipe_dream": {
+        "rtti": 2130327422,
+        "id": "pipe_dream",
+        "completed": false,
+        "awarded": false
+      }
+    },
+    "infestation": {
+      "sequence_element_id": 0,
+      "number_of_weeks_left_in_sequence_element": 0,
+      "number_of_weeks_total_in_sequence_element": 0,
+      "rng_seed": 665662610
+    },
+    "flashback_completion_counts": {
+      "shieldbreaker_0": 1,
+      "shieldbreaker_1": 1,
+      "shieldbreaker_2": 1
+    }
+  }
+}

@@ -1,0 +1,2872 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 2,
+    "chapters": {
+      "1": {
+        "chapterIndex": 1,
+        "0": {
+          "rtti": -1528351878,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            }
+          }
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Reynauld",
+          "class": "###crusader",
+          "guid": 1,
+          "level": 1
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Dismas",
+          "class": "###highwayman",
+          "guid": 2,
+          "level": 1
+        },
+        "3": {
+          "rtti": 1114009654,
+          "dungeon_id": "###crypts",
+          "level": 0
+        },
+        "4": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###stage_coach.numrecruits",
+              "level": 1
+            },
+            "1": {
+              "tree": "###stage_coach.rostersize",
+              "level": 1
+            }
+          },
+          "id": "###stage_coach",
+          "percent": 0.15384616,
+          "unlocked": false
+        },
+        "5": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "2": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            },
+            "3": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            }
+          },
+          "quest_id": "###plot_tutorial_crypts",
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 1,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "2": {
+        "chapterIndex": 2,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "2": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            },
+            "3": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            }
+          },
+          "quest_id": "###plot_tutorial_crypts",
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 1,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Montbrai",
+          "class": "###plague_doctor",
+          "guid": 7,
+          "level": 1
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Peccoth",
+          "class": "###vestal",
+          "guid": 8,
+          "level": 1
+        },
+        "3": {
+          "rtti": 1114009654,
+          "dungeon_id": "###crypts",
+          "level": 1
+        },
+        "4": {
+          "rtti": -37270005,
+          "trees": {},
+          "id": "###abbey",
+          "percent": 0,
+          "unlocked": true
+        },
+        "5": {
+          "rtti": -37270005,
+          "trees": {},
+          "id": "###tavern",
+          "percent": 0,
+          "unlocked": true
+        },
+        "6": {
+          "rtti": -37270005,
+          "trees": {},
+          "id": "###circus",
+          "percent": 0,
+          "unlocked": true
+        },
+        "7": {
+          "rtti": 844919810,
+          "town_event_result_id": "###arena_first"
+        },
+        "8": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###stage_coach.numrecruits",
+              "level": 2
+            }
+          },
+          "id": "###stage_coach",
+          "percent": 0.23076923,
+          "unlocked": false
+        },
+        "9": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "3": {
+        "chapterIndex": 3,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": 1114009654,
+          "dungeon_id": "###weald",
+          "level": 0
+        },
+        "2": {
+          "rtti": -37270005,
+          "trees": {},
+          "id": "###guild",
+          "percent": 0,
+          "unlocked": true
+        },
+        "3": {
+          "rtti": -37270005,
+          "trees": {},
+          "id": "###blacksmith",
+          "percent": 0,
+          "unlocked": true
+        },
+        "4": {
+          "rtti": 844919810,
+          "town_event_result_id": "###first_shieldbreaker"
+        },
+        "5": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 1,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "4": {
+        "chapterIndex": 4,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 1,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Rames",
+          "class": "###shieldbreaker",
+          "guid": 22,
+          "level": 1
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Dismas",
+          "class": "###highwayman",
+          "guid": 2,
+          "level": 2
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Bradwardine",
+          "class": "###jester",
+          "guid": 25,
+          "level": 1
+        },
+        "4": {
+          "rtti": 1114009654,
+          "dungeon_id": "###warrens",
+          "level": 0
+        },
+        "5": {
+          "rtti": 1114009654,
+          "dungeon_id": "###cove",
+          "level": 0
+        },
+        "6": {
+          "rtti": 1114009654,
+          "dungeon_id": "###crypts",
+          "level": 2
+        },
+        "7": {
+          "rtti": -37270005,
+          "trees": {},
+          "id": "###sanitarium",
+          "percent": 0,
+          "unlocked": true
+        },
+        "8": {
+          "rtti": -37270005,
+          "trees": {},
+          "id": "###camping_trainer",
+          "percent": 0,
+          "unlocked": true
+        },
+        "9": {
+          "rtti": -1303376741,
+          "hero_name": "Montbrai",
+          "class_id": "###plague_doctor",
+          "guid": 7,
+          "building_id": "###tavern",
+          "activity_id": "###bar",
+          "affliction_id": 1879153409,
+          "stress": 1110704128
+        },
+        "10": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###blacksmith.weapon",
+              "level": 1
+            },
+            "1": {
+              "tree": "###blacksmith.cost",
+              "level": 1
+            }
+          },
+          "id": "###blacksmith",
+          "percent": 0.15384616,
+          "unlocked": false
+        },
+        "11": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###guild.skill_levels",
+              "level": 1
+            },
+            "1": {
+              "tree": "###guild.cost",
+              "level": 1
+            }
+          },
+          "id": "###guild",
+          "percent": 0.22222222,
+          "unlocked": false
+        },
+        "12": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": 0,
+          "quest": "###inventory_activate",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "5": {
+        "chapterIndex": 5,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": 0,
+          "quest": "###inventory_activate",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Grancourt",
+          "class": "###hellion",
+          "guid": 33,
+          "level": 1
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Montbrai",
+          "class": "###plague_doctor",
+          "guid": 7,
+          "level": 2
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Peccoth",
+          "class": "###vestal",
+          "guid": 8,
+          "level": 2
+        },
+        "4": {
+          "rtti": 1114009654,
+          "dungeon_id": "###crypts",
+          "level": 3
+        },
+        "5": {
+          "rtti": 844919810,
+          "town_event_result_id": "###embark_party_buff_crypts_buff"
+        },
+        "6": {
+          "rtti": -317933210,
+          "hero_name": "Reynauld",
+          "class_id": "###crusader",
+          "guid": 1,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "kleptomaniac"
+        },
+        "7": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###sanitarium.slots",
+              "level": 1
+            },
+            "1": {
+              "tree": "###sanitarium.slots",
+              "level": 2
+            },
+            "2": {
+              "tree": "###sanitarium.cost",
+              "level": 1
+            },
+            "3": {
+              "tree": "###sanitarium.disease_quirk_cost",
+              "level": 1
+            }
+          },
+          "id": "###sanitarium",
+          "percent": 0.2857143,
+          "unlocked": false
+        },
+        "8": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###blacksmith.armour",
+              "level": 1
+            }
+          },
+          "id": "###blacksmith",
+          "percent": 0.23076923,
+          "unlocked": false
+        },
+        "9": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": "###plot_kill_necromancer_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "6": {
+        "chapterIndex": 6,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Dismas",
+              "class": "###highwayman",
+              "died": false,
+              "guid": 2
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Peccoth",
+              "class": "###vestal",
+              "died": false,
+              "guid": 8
+            }
+          },
+          "quest_id": "###plot_kill_necromancer_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Reynauld",
+          "class": "###crusader",
+          "guid": 1,
+          "level": 2
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Dismas",
+          "class": "###highwayman",
+          "guid": 2,
+          "level": 3
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Bradwardine",
+          "class": "###jester",
+          "guid": 25,
+          "level": 2
+        },
+        "4": {
+          "rtti": -579125384,
+          "name": "Peccoth",
+          "class": "###vestal",
+          "guid": 8,
+          "level": 3
+        },
+        "5": {
+          "rtti": 844919810,
+          "town_event_result_id": "###first_flagellant"
+        },
+        "6": {
+          "rtti": -317933210,
+          "hero_name": "Grancourt",
+          "class_id": "###hellion",
+          "guid": 33,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "fear_of_eldritch"
+        },
+        "7": {
+          "rtti": -317933210,
+          "hero_name": "Montbrai",
+          "class_id": "###plague_doctor",
+          "guid": 7,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "flawed_release"
+        },
+        "8": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            },
+            "1": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###weald",
+          "difficulty": 1,
+          "length": 1,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "7": {
+        "chapterIndex": 7,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            },
+            "1": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###weald",
+          "difficulty": 1,
+          "length": 1,
+          "start": false,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -1303376741,
+          "hero_name": "Grancourt",
+          "class_id": "###hellion",
+          "guid": 33,
+          "building_id": "###abbey",
+          "activity_id": "###meditation",
+          "affliction_id": -709385870,
+          "stress": 1110704128
+        },
+        "2": {
+          "rtti": -317933210,
+          "hero_name": "Rames",
+          "class_id": "###shieldbreaker",
+          "guid": 22,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "dud_hitter"
+        },
+        "3": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 1,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "8": {
+        "chapterIndex": 8,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 1,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Vatteville",
+          "class": "###flagellant",
+          "guid": 76,
+          "level": 1
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Baujot",
+          "class": "###man_at_arms",
+          "guid": 74,
+          "level": 1
+        },
+        "3": {
+          "rtti": 1114009654,
+          "dungeon_id": "###warrens",
+          "level": 1
+        },
+        "4": {
+          "rtti": -1303376741,
+          "hero_name": "Rames",
+          "class_id": "###shieldbreaker",
+          "guid": 22,
+          "building_id": "###tavern",
+          "activity_id": "###bar",
+          "affliction_id": 986676199,
+          "stress": 1110704128
+        },
+        "5": {
+          "rtti": -1303376741,
+          "hero_name": "Corbière",
+          "class_id": "###houndmaster",
+          "guid": 31,
+          "building_id": "###tavern",
+          "activity_id": "###gambling",
+          "affliction_id": 2141653686,
+          "stress": 1113325568
+        },
+        "6": {
+          "rtti": -1303376741,
+          "hero_name": "Botin",
+          "class_id": "###man_at_arms",
+          "guid": 56,
+          "building_id": "###abbey",
+          "activity_id": "###meditation",
+          "affliction_id": 1879153409,
+          "stress": 1110704128
+        },
+        "7": {
+          "rtti": -1613597978,
+          "hero_name": "Botin",
+          "class_id": "###man_at_arms",
+          "guid": 56,
+          "building_id": "###abbey",
+          "activity_id": "###meditation",
+          "quirk_name": "unquiet_mind",
+          "replaces_quirk_name": ""
+        },
+        "8": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "3": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 1,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "9": {
+        "chapterIndex": 9,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Reynauld",
+              "class": "###crusader",
+              "died": false,
+              "guid": 1
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "3": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 1,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Reynauld",
+          "class": "###crusader",
+          "guid": 1,
+          "level": 3
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Herbard",
+          "class": "###occultist",
+          "guid": 55,
+          "level": 1
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Botin",
+          "class": "###man_at_arms",
+          "guid": 56,
+          "level": 1
+        },
+        "4": {
+          "rtti": 1114009654,
+          "dungeon_id": "###cove",
+          "level": 1
+        },
+        "5": {
+          "rtti": 844919810,
+          "town_event_result_id": "###idle_resolve_level_highwayman"
+        },
+        "6": {
+          "rtti": -1303376741,
+          "hero_name": "Grancourt",
+          "class_id": "###hellion",
+          "guid": 33,
+          "building_id": "###abbey",
+          "activity_id": "###meditation",
+          "affliction_id": 1433475299,
+          "stress": 1110704128
+        },
+        "7": {
+          "rtti": -1303376741,
+          "hero_name": "Montbrai",
+          "class_id": "###plague_doctor",
+          "guid": 7,
+          "building_id": "###abbey",
+          "activity_id": "###prayer",
+          "affliction_id": 1879153409,
+          "stress": 1113325568
+        },
+        "8": {
+          "rtti": 372843624,
+          "hero_name": "Vatteville",
+          "class_id": "###flagellant",
+          "guid": 76,
+          "building_id": "###abbey",
+          "activity_id": "###flagellation",
+          "stress": 1120403456
+        },
+        "9": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "1": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 1,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "10": {
+        "chapterIndex": 10,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "1": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "2": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            },
+            "3": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 1,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Dismas",
+          "class": "###highwayman",
+          "guid": 2,
+          "level": 4
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Fecamp",
+          "class": "###crusader",
+          "guid": 96,
+          "level": 1
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Corbière",
+          "class": "###houndmaster",
+          "guid": 31,
+          "level": 1
+        },
+        "4": {
+          "rtti": 844919810,
+          "town_event_result_id": "###cc_districts_unlock"
+        },
+        "5": {
+          "rtti": -1303376741,
+          "hero_name": "Botin",
+          "class_id": "###man_at_arms",
+          "guid": 56,
+          "building_id": "###tavern",
+          "activity_id": "###gambling",
+          "affliction_id": 143678451,
+          "stress": 1113325568
+        },
+        "6": {
+          "rtti": -1303376741,
+          "hero_name": "Herbard",
+          "class_id": "###occultist",
+          "guid": 55,
+          "building_id": "###abbey",
+          "activity_id": "###meditation",
+          "affliction_id": 2141653686,
+          "stress": 1110704128
+        },
+        "7": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###stage_coach.rostersize",
+              "level": 2
+            }
+          },
+          "id": "###stage_coach",
+          "percent": 0.30769232,
+          "unlocked": false
+        },
+        "8": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###camping_trainer.cost",
+              "level": 1
+            }
+          },
+          "id": "###camping_trainer",
+          "percent": 0.2,
+          "unlocked": false
+        },
+        "9": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "1": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "2": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "3": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "11": {
+        "chapterIndex": 11,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "1": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "2": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "3": {
+              "name": "Montbrai",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 7
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Montbrai",
+          "class": "###plague_doctor",
+          "guid": 7,
+          "level": 3
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Calmette",
+          "class": "###abomination",
+          "guid": 104,
+          "level": 1
+        },
+        "3": {
+          "rtti": -317933210,
+          "hero_name": "Vatteville",
+          "class_id": "###flagellant",
+          "guid": 76,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "calm"
+        },
+        "4": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "3": {
+              "name": "Adeney",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 118
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 3,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "12": {
+        "chapterIndex": 12,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            },
+            "1": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "2": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "3": {
+              "name": "Adeney",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 118
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 3,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Rames",
+          "class": "###shieldbreaker",
+          "guid": 22,
+          "level": 2
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Herbard",
+          "class": "###occultist",
+          "guid": 55,
+          "level": 2
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Adeney",
+          "class": "###plague_doctor",
+          "guid": 118,
+          "level": 1
+        },
+        "4": {
+          "rtti": 844919810,
+          "town_event_result_id": "###idle_stress_heal_buff"
+        },
+        "5": {
+          "rtti": -317933210,
+          "hero_name": "Fecamp",
+          "class_id": "###crusader",
+          "guid": 96,
+          "building_id": "###sanitarium",
+          "activity_id": "###disease_treatment",
+          "quirk_name": "tetanus"
+        },
+        "6": {
+          "rtti": -317933210,
+          "hero_name": "Montbrai",
+          "class_id": "###plague_doctor",
+          "guid": 7,
+          "building_id": "###sanitarium",
+          "activity_id": "###disease_treatment",
+          "quirk_name": "hemophilia"
+        },
+        "7": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###guild.skill_levels",
+              "level": 2
+            },
+            "1": {
+              "tree": "###guild.cost",
+              "level": 2
+            }
+          },
+          "id": "###guild",
+          "percent": 0.44444445,
+          "unlocked": false
+        },
+        "8": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "2": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "3": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            }
+          },
+          "quest_id": "###plot_kill_prophet_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "13": {
+        "chapterIndex": 13,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "2": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "3": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            }
+          },
+          "quest_id": "###plot_kill_prophet_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -1303376741,
+          "hero_name": "Rames",
+          "class_id": "###shieldbreaker",
+          "guid": 22,
+          "building_id": "###tavern",
+          "activity_id": "###bar",
+          "affliction_id": 1682750757,
+          "stress": 1110704128
+        },
+        "2": {
+          "rtti": -159109830,
+          "hero_name": "Rames",
+          "class_id": "###shieldbreaker",
+          "guid": 22,
+          "building_id": "###tavern",
+          "activity_id": "###bar",
+          "buff_instance": 1034610145
+        },
+        "3": {
+          "rtti": -1303376741,
+          "hero_name": "Adeney",
+          "class_id": "###plague_doctor",
+          "guid": 118,
+          "building_id": "###abbey",
+          "activity_id": "###meditation",
+          "affliction_id": 986676199,
+          "stress": 1110704128
+        },
+        "4": {
+          "rtti": -1303376741,
+          "hero_name": "Botin",
+          "class_id": "###man_at_arms",
+          "guid": 56,
+          "building_id": "###abbey",
+          "activity_id": "###prayer",
+          "affliction_id": 986676199,
+          "stress": 1113325568
+        },
+        "5": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "2": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "3": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            }
+          },
+          "quest_id": "###plot_kill_prophet_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "14": {
+        "chapterIndex": 14,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "2": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "3": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            }
+          },
+          "quest_id": "###plot_kill_prophet_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            },
+            "2": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "3": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            }
+          },
+          "quest_id": "###plot_kill_prophet_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "15": {
+        "chapterIndex": 15,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            },
+            "2": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "3": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            }
+          },
+          "quest_id": "###plot_kill_prophet_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Grancourt",
+          "class": "###hellion",
+          "guid": 33,
+          "level": 2
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Laci",
+          "class": "###grave_robber",
+          "guid": 138,
+          "level": 1
+        },
+        "3": {
+          "rtti": 844919810,
+          "town_event_result_id": "###stage_coach_bonus_recruits"
+        },
+        "4": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###stage_coach.rostersize",
+              "level": 3
+            }
+          },
+          "id": "###stage_coach",
+          "percent": 0.3846154,
+          "unlocked": false
+        },
+        "5": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "2": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "3": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 3,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "16": {
+        "chapterIndex": 16,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "2": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "3": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 3,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Calmette",
+          "class": "###leper",
+          "guid": 126,
+          "level": 1
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Fecamp",
+          "class": "###crusader",
+          "guid": 96,
+          "level": 2
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Basnage",
+          "class": "###vestal",
+          "guid": 161,
+          "level": 1
+        },
+        "4": {
+          "rtti": 1114009654,
+          "dungeon_id": "###crypts",
+          "level": 4
+        },
+        "5": {
+          "rtti": -317933210,
+          "hero_name": "Baujot",
+          "class_id": "###man_at_arms",
+          "guid": 74,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "fear_of_unholy"
+        },
+        "6": {
+          "rtti": -317933210,
+          "hero_name": "Laci",
+          "class_id": "###grave_robber",
+          "guid": 138,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "dud_hitter"
+        },
+        "7": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "2": {
+              "name": "Falaise",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 181
+            },
+            "3": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "17": {
+        "chapterIndex": 17,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Grancourt",
+              "class": "###hellion",
+              "died": false,
+              "guid": 33
+            },
+            "1": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "2": {
+              "name": "Falaise",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 181
+            },
+            "3": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Falaise",
+          "class": "###plague_doctor",
+          "guid": 181,
+          "level": 1
+        },
+        "2": {
+          "rtti": 1114009654,
+          "dungeon_id": "###warrens",
+          "level": 2
+        },
+        "3": {
+          "rtti": 844919810,
+          "town_event_result_id": "###upgrade_tag_free_weapon"
+        },
+        "4": {
+          "rtti": -317933210,
+          "hero_name": "Herbard",
+          "class_id": "###occultist",
+          "guid": 55,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "flawed_release"
+        },
+        "5": {
+          "rtti": -317933210,
+          "hero_name": "Calmette",
+          "class_id": "###leper",
+          "guid": 126,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "ruins_phobe"
+        },
+        "6": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###blacksmith.weapon",
+              "level": 2
+            }
+          },
+          "id": "###blacksmith",
+          "percent": 0.30769232,
+          "unlocked": false
+        },
+        "7": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###guild.cost",
+              "level": 3
+            }
+          },
+          "id": "###guild",
+          "percent": 0.5555556,
+          "unlocked": false
+        },
+        "8": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "1": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "2": {
+              "name": "Falaise",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 181
+            },
+            "3": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "18": {
+        "chapterIndex": 18,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Fecamp",
+              "class": "###crusader",
+              "died": false,
+              "guid": 96
+            },
+            "1": {
+              "name": "Herbard",
+              "class": "###occultist",
+              "died": false,
+              "guid": 55
+            },
+            "2": {
+              "name": "Falaise",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 181
+            },
+            "3": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Herbard",
+          "class": "###occultist",
+          "guid": 55,
+          "level": 3
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Laci",
+          "class": "###grave_robber",
+          "guid": 138,
+          "level": 2
+        },
+        "3": {
+          "rtti": 1114009654,
+          "dungeon_id": "###cove",
+          "level": 2
+        },
+        "4": {
+          "rtti": -317933210,
+          "hero_name": "Grancourt",
+          "class_id": "###hellion",
+          "guid": 33,
+          "building_id": "###sanitarium",
+          "activity_id": "###disease_treatment",
+          "quirk_name": "wasting_sickness"
+        },
+        "5": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "2": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            },
+            "3": {
+              "name": "Adeney",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 118
+            }
+          },
+          "quest_id": "###plot_kill_siren_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "19": {
+        "chapterIndex": 19,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Adeney",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 118
+            },
+            "2": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "3": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            }
+          },
+          "quest_id": "###plot_kill_siren_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Calmette",
+          "class": "###leper",
+          "guid": 126,
+          "level": 2
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Calmette",
+          "class": "###abomination",
+          "guid": 104,
+          "level": 2
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Basnage",
+          "class": "###vestal",
+          "guid": 161,
+          "level": 2
+        },
+        "4": {
+          "rtti": -579125384,
+          "name": "Adeney",
+          "class": "###plague_doctor",
+          "guid": 118,
+          "level": 2
+        },
+        "5": {
+          "rtti": 844919810,
+          "town_event_result_id": "###bonus_recruit_bounty_hunter"
+        },
+        "6": {
+          "rtti": -317933210,
+          "hero_name": "Fecamp",
+          "class_id": "###crusader",
+          "guid": 96,
+          "building_id": "###sanitarium",
+          "activity_id": "###treatment",
+          "quirk_name": "dud_hitter"
+        },
+        "7": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###blacksmith.armour",
+              "level": 2
+            }
+          },
+          "id": "###blacksmith",
+          "percent": 0.3846154,
+          "unlocked": false
+        },
+        "8": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "1": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            },
+            "2": {
+              "name": "Falaise",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 181
+            },
+            "3": {
+              "name": "Bauquemare",
+              "class": "###arbalest",
+              "died": false,
+              "guid": 200
+            }
+          },
+          "quest_id": "###plot_kill_swine_prince_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "20": {
+        "chapterIndex": 20,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "1": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            },
+            "2": {
+              "name": "Falaise",
+              "class": "###plague_doctor",
+              "died": false,
+              "guid": 181
+            },
+            "3": {
+              "name": "Bauquemare",
+              "class": "###arbalest",
+              "died": false,
+              "guid": 200
+            }
+          },
+          "quest_id": "###plot_kill_swine_prince_1",
+          "quest": "###kill_boss",
+          "dungeon_type": "###warrens",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Vatteville",
+          "class": "###flagellant",
+          "guid": 76,
+          "level": 2
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Falaise",
+          "class": "###plague_doctor",
+          "guid": 181,
+          "level": 2
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Bauquemare",
+          "class": "###arbalest",
+          "guid": 200,
+          "level": 1
+        },
+        "4": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "1": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            },
+            "2": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            },
+            "3": {
+              "name": "Bauquemare",
+              "class": "###arbalest",
+              "died": false,
+              "guid": 200
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###weald",
+          "difficulty": 1,
+          "length": 1,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "21": {
+        "chapterIndex": 21,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Vatteville",
+              "class": "###flagellant",
+              "died": false,
+              "guid": 76
+            },
+            "1": {
+              "name": "Baujot",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 74
+            },
+            "2": {
+              "name": "Corbière",
+              "class": "###houndmaster",
+              "died": false,
+              "guid": 31
+            },
+            "3": {
+              "name": "Bauquemare",
+              "class": "###arbalest",
+              "died": false,
+              "guid": 200
+            }
+          },
+          "quest_id": 0,
+          "quest": "###cleanse",
+          "dungeon_type": "###weald",
+          "difficulty": 1,
+          "length": 1,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Baujot",
+          "class": "###man_at_arms",
+          "guid": 74,
+          "level": 2
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Corbière",
+          "class": "###houndmaster",
+          "guid": 31,
+          "level": 2
+        },
+        "3": {
+          "rtti": 1114009654,
+          "dungeon_id": "###weald",
+          "level": 1
+        },
+        "4": {
+          "rtti": 844919810,
+          "town_event_result_id": "###nomad_wagon_trinket_discount"
+        },
+        "5": {
+          "rtti": -1303376741,
+          "hero_name": "Grancourt",
+          "class_id": "###hellion",
+          "guid": 33,
+          "building_id": "###abbey",
+          "activity_id": "###prayer",
+          "affliction_id": -709385870,
+          "stress": 1113325568
+        },
+        "6": {
+          "rtti": -159109830,
+          "hero_name": "Grancourt",
+          "class_id": "###hellion",
+          "guid": 33,
+          "building_id": "###abbey",
+          "activity_id": "###prayer",
+          "buff_instance": -1269425745
+        },
+        "7": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Bauquemare",
+              "class": "###arbalest",
+              "died": false,
+              "guid": 200
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 3,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "22": {
+        "chapterIndex": 22,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Calmette",
+              "class": "###leper",
+              "died": false,
+              "guid": 126
+            },
+            "1": {
+              "name": "Calmette",
+              "class": "###abomination",
+              "died": false,
+              "guid": 104
+            },
+            "2": {
+              "name": "Bradwardine",
+              "class": "###jester",
+              "died": false,
+              "guid": 25
+            },
+            "3": {
+              "name": "Bauquemare",
+              "class": "###arbalest",
+              "died": false,
+              "guid": 200
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###crypts",
+          "difficulty": 1,
+          "length": 3,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Calmette",
+          "class": "###abomination",
+          "guid": 104,
+          "level": 3
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Bauquemare",
+          "class": "###arbalest",
+          "guid": 200,
+          "level": 2
+        },
+        "3": {
+          "rtti": 1114009654,
+          "dungeon_id": "###crypts",
+          "level": 5
+        },
+        "4": {
+          "rtti": 844919810,
+          "town_event_result_id": "###bonus_recruit_flagellant"
+        },
+        "5": {
+          "rtti": -317933210,
+          "hero_name": "Vatteville",
+          "class_id": "###flagellant",
+          "guid": 76,
+          "building_id": "###sanitarium",
+          "activity_id": "###disease_treatment",
+          "quirk_name": "rabies"
+        },
+        "6": {
+          "rtti": -37270005,
+          "trees": {
+            "0": {
+              "tree": "###blacksmith.cost",
+              "level": 2
+            }
+          },
+          "id": "###blacksmith",
+          "percent": 0.46153846,
+          "unlocked": false
+        },
+        "7": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "1": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            },
+            "2": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "3": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": true,
+          "success": false,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        }
+      },
+      "23": {
+        "chapterIndex": 23,
+        "0": {
+          "rtti": 2006063882,
+          "heroes": {
+            "0": {
+              "name": "Rames",
+              "class": "###shieldbreaker",
+              "died": false,
+              "guid": 22
+            },
+            "1": {
+              "name": "Botin",
+              "class": "###man_at_arms",
+              "died": false,
+              "guid": 56
+            },
+            "2": {
+              "name": "Laci",
+              "class": "###grave_robber",
+              "died": false,
+              "guid": 138
+            },
+            "3": {
+              "name": "Basnage",
+              "class": "###vestal",
+              "died": false,
+              "guid": 161
+            }
+          },
+          "quest_id": 0,
+          "quest": "###explore",
+          "dungeon_type": "###cove",
+          "difficulty": 1,
+          "length": 2,
+          "start": false,
+          "success": true,
+          "is_wave": false,
+          "endless_wave": false,
+          "score": 0,
+          "is_highscore": false
+        },
+        "1": {
+          "rtti": -579125384,
+          "name": "Botin",
+          "class": "###man_at_arms",
+          "guid": 56,
+          "level": 2
+        },
+        "2": {
+          "rtti": -579125384,
+          "name": "Rames",
+          "class": "###shieldbreaker",
+          "guid": 22,
+          "level": 3
+        },
+        "3": {
+          "rtti": -579125384,
+          "name": "Basnage",
+          "class": "###vestal",
+          "guid": 161,
+          "level": 3
+        },
+        "4": {
+          "rtti": 1114009654,
+          "dungeon_id": "###cove",
+          "level": 3
+        },
+        "5": {
+          "rtti": 844919810,
+          "town_event_result_id": "###idle_resolve_level_grave_robber"
+        },
+        "6": {
+          "rtti": -317933210,
+          "hero_name": "Bradwardine",
+          "class_id": "###jester",
+          "guid": 25,
+          "building_id": "###sanitarium",
+          "activity_id": "###disease_treatment",
+          "quirk_name": "the_fits"
+        }
+      }
+    },
+    "total_weeks": 24
+  }
+}

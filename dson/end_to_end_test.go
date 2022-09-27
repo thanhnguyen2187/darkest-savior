@@ -28,22 +28,22 @@ type EndToEndTestSuite2 struct {
 func (suite *EndToEndTestSuite2) SetupSuite() {
 	suite.R = suite.Require()
 	suite.FilePaths = []string{
-		"../sample_data/novelty_tracker.json",
-		"../sample_data/persist.campaign_log.json",
-		"../sample_data/persist.campaign_mash.json",
-		"../sample_data/persist.curio_tracker.json",
-		"../sample_data/persist.estate.json",
-		"../sample_data/persist.game.json",
-		"../sample_data/persist.game_knowledge.json",
-		"../sample_data/persist.journal.json",
-		"../sample_data/persist.narration.json",
+		"../sample_dson/novelty_tracker.json",
+		"../sample_dson/persist.campaign_log.json",
+		"../sample_dson/persist.campaign_mash.json",
+		"../sample_dson/persist.curio_tracker.json",
+		"../sample_dson/persist.estate.json",
+		"../sample_dson/persist.game.json",
+		"../sample_dson/persist.game_knowledge.json",
+		"../sample_dson/persist.journal.json",
+		"../sample_dson/persist.narration.json",
 		// "../sample_data/persist.progression.json", // has duplicated field
-		"../sample_data/persist.quest.json",
-		"../sample_data/persist.roster.json", // has embedded DSON file
-		"../sample_data/persist.town_event.json",
-		"../sample_data/persist.town.json",
-		"../sample_data/persist.tutorial.json",
-		"../sample_data/persist.upgrades.json",
+		"../sample_dson/persist.quest.json",
+		"../sample_dson/persist.roster.json", // has embedded DSON file
+		"../sample_dson/persist.town_event.json",
+		"../sample_dson/persist.town.json",
+		"../sample_dson/persist.tutorial.json",
+		"../sample_dson/persist.upgrades.json",
 	}
 	suite.FileByteSlices = lo.Map(
 		suite.FilePaths,

@@ -1,0 +1,9 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 1,
+    "additional_mash_disabled_infestation_monster_class_ids": [],
+    "roaming_dungeon_2_ids": {},
+    "roaming_id_2_dungeon": {}
+  }
+}

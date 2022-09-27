@@ -1,0 +1,164 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 1,
+    "tracked_results": {
+      "0": {
+        "prop_name_id": "###alchemy_table",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###medicinal_herbs",
+        "curio_tracker_id": "loot"
+      },
+      "1": {
+        "prop_name_id": "###heirloom_chest",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###skeleton_key",
+        "curio_tracker_id": "loot"
+      },
+      "2": {
+        "prop_name_id": "###heirloom_chest",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###antivenom",
+        "curio_tracker_id": "loot"
+      },
+      "3": {
+        "prop_name_id": "###barnacle_crusted_chest",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###shovel",
+        "curio_tracker_id": "loot"
+      },
+      "4": {
+        "prop_name_id": 693502075,
+        "item_type_hash": "###quest_item",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": ""
+      },
+      "5": {
+        "prop_name_id": "###dinner_cart",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###medicinal_herbs",
+        "curio_tracker_id": "loot"
+      },
+      "6": {
+        "prop_name_id": "###holy_fountain",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": "heal_gen"
+      },
+      "7": {
+        "prop_name_id": "###shamblers_altar",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###torch",
+        "curio_tracker_id": "summon"
+      },
+      "8": {
+        "prop_name_id": "###giant_fish_carcass",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###medicinal_herbs",
+        "curio_tracker_id": "loot"
+      },
+      "9": {
+        "prop_name_id": "###locked_strongbox",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###skeleton_key",
+        "curio_tracker_id": "loot"
+      },
+      "10": {
+        "prop_name_id": "###decorative_urn",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": "loot"
+      },
+      "11": {
+        "prop_name_id": "###brackish_tidepool",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###antivenom",
+        "curio_tracker_id": "heal_gen"
+      },
+      "12": {
+        "prop_name_id": "###makeshift_dining_table",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###medicinal_herbs",
+        "curio_tracker_id": "loot"
+      },
+      "13": {
+        "prop_name_id": "###locked_sarcophagus",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###skeleton_key",
+        "curio_tracker_id": "loot"
+      },
+      "14": {
+        "prop_name_id": "###altar_of_light",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": "buff"
+      },
+      "15": {
+        "prop_name_id": "###eldritch_altar",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": "purge_neg"
+      },
+      "16": {
+        "prop_name_id": "###fish_idol",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": "buff"
+      },
+      "17": {
+        "prop_name_id": "###moonshine_barrel",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###medicinal_herbs",
+        "curio_tracker_id": "buff"
+      },
+      "18": {
+        "prop_name_id": "###locked_display_cabinet",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###skeleton_key",
+        "curio_tracker_id": "loot"
+      },
+      "19": {
+        "prop_name_id": "###confession_booth",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": "heal_stress"
+      },
+      "20": {
+        "prop_name_id": "###eerie_coral",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###medicinal_herbs",
+        "curio_tracker_id": "purge_neg"
+      },
+      "21": {
+        "prop_name_id": "###old_tree",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###antivenom",
+        "curio_tracker_id": "loot"
+      },
+      "22": {
+        "prop_name_id": "###secret_stash",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###skeleton_key",
+        "curio_tracker_id": "loot"
+      },
+      "23": {
+        "prop_name_id": "###iron_maiden",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###medicinal_herbs",
+        "curio_tracker_id": "loot"
+      },
+      "24": {
+        "prop_name_id": "###pile_of_bones",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###holy_water",
+        "curio_tracker_id": "loot"
+      },
+      "25": {
+        "prop_name_id": "###giant_oyster",
+        "item_type_hash": "###supply",
+        "item_id_hash": "###shovel",
+        "curio_tracker_id": "loot"
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-# Darkest Savior (WIP)
+# Darkest Savior
 
 Darkest in Darkest Dungeon, and Savior in *Save Editor*, if you squint hard enough.
 
@@ -9,7 +9,21 @@ Darkest in Darkest Dungeon, and Savior in *Save Editor*, if you squint hard enou
 ## Installation
 
 ```shell
-go get ...
+go install github.com/thanhnguyen2187/darkest-savior@master
+
+darkest-savior --help
+# Ruin has come to our command line.
+# 
+# A CLI utility to convert DSON (Darkest Dungeon's own proprietary JSON format)
+# to "standard" JSON in the command line.
+# 
+# Usage: main <command> [<args>]
+# 
+# Options:
+#   --help, -h             display this help and exit
+# 
+# Commands:
+#   convert
 ```
 
 ## Usage
@@ -17,17 +31,26 @@ go get ...
 Open your command line:
 
 ```shell
-# interactive mode
-dsavior
-# or
-dsavior --interactive
+# convert from DSON to JSON
+darkest-savior convert \
+    --from sample_dson/persistent.campaign_log.json \
+    --to sample_json/persistent.campaign_log.json
 
-# convert from/to DSON to JSON and vice versa
-dsavior --convert --from path/to/persistent.dson.json --to path/to/result.json
-dsavior --convert --from path/to/result.json --to path/to/persistent.dson.json
+# for safety reason, --force is needed if the result file existed
+darkest-savior convert \
+    --force \
+    --from sample_dson/persistent.campaign_log.json \
+    --to sample_json/persistent.campaign_log.json
+
+# convert from JSON to DSON
+darkest-savior convert \
+    --from sample_json/persistent.campaign_log.json \
+    --to sample_dson/persistent.campaign_log.json
 ```
 
 ## Notes On DSON Files
+
+You can have a look at the converted files yourself in folder `sample_json`.
 
 - `novelty_tracker.json`: in-game elements that the player encountered (building, trinkets, etc.)
 - `persist.campaign_log.json`: expeditions (dungeon runs) history
@@ -49,8 +72,8 @@ dsavior --convert --from path/to/result.json --to path/to/persistent.dson.json
 ## TODO
 
 - [x] Convert from DSON to JSON: done
-- [x] Convert from JSON to DSON: rough draft was done; glue the code to the CLI part is needed
-- [ ] Reorganizing/refactoring code
-- [ ] Easier distribution for end user
-- [ ] Interactive Mode
-- [ ] GUI client
+- [x] Convert from JSON to DSON: done
+- [ ] Easier distribution for end user: using `go install ...` is not the best way to distribute the tool, so the plan
+  is to build binary files for different platforms
+- [ ] Interactive Mode: a TUI client
+- [ ] GUI Client

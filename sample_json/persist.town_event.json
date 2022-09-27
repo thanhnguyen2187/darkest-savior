@@ -1,0 +1,39 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 516,
+    "last_town_event_week": 23,
+    "rng_seed": 203775078,
+    "current_result_event_id": "###idle_resolve_level_grave_robber",
+    "has_unclaimed_interaction": false,
+    "event_cost": {},
+    "bonus_hero_entries": {},
+    "dead_hero_entries": [],
+    "free_upgrade_tags": {},
+    "non_rolled_additional_chances": {
+      "0": {
+        "event_id": "###plot_quest_crow_trinket",
+        "chance": 18
+      },
+      "1": {
+        "event_id": "###stage_coach_bonus_recruits",
+        "chance": 8
+      }
+    },
+    "result_event_history": [
+      "###arena_first",
+      "###first_shieldbreaker",
+      "###embark_party_buff_crypts_buff",
+      "###first_flagellant",
+      "###idle_resolve_level_highwayman",
+      "###cc_districts_unlock",
+      "###idle_stress_heal_buff",
+      "###stage_coach_bonus_recruits",
+      "###upgrade_tag_free_weapon",
+      "###bonus_recruit_bounty_hunter",
+      "###nomad_wagon_trinket_discount",
+      "###bonus_recruit_flagellant",
+      "###idle_resolve_level_grave_robber"
+    ]
+  }
+}

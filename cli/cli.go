@@ -12,8 +12,8 @@ import (
 
 type (
 	Args struct {
-		Interactive *InteractiveCmd `arg:"subcommand:interactive"`
-		Convert     *ConvertCmd     `arg:"subcommand:convert"`
+		// Interactive *InteractiveCmd `arg:"subcommand:interactive"`
+		Convert *ConvertCmd `arg:"subcommand:convert"`
 	}
 	InteractiveCmd struct{}
 	ConvertCmd     struct {
@@ -42,7 +42,7 @@ func (Args) Description() string {
 }
 
 func StartInteractive() {
-	print("Not implemented!")
+	println("Not implemented! Please just use  convert  for now.")
 }
 
 func CheckExistence(path string) bool {
@@ -98,10 +98,10 @@ func Start() {
 	args := Args{}
 	arg.MustParse(&args)
 
-	if (args.Interactive == nil && args.Convert == nil) ||
-		args.Interactive != nil {
-		StartInteractive()
-	} else {
+	if args.Convert != nil {
 		StartConverting(*args.Convert)
+	} else {
+		println("Convert from DSON to JSON and vice versa are available.")
+		println("Please use the functionality by retyping your command with `convert` at the end.")
 	}
 }

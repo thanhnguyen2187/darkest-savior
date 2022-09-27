@@ -1,0 +1,771 @@
+{
+  "__revision_dont_touch": 1683488768,
+  "base_root": {
+    "version": 513,
+    "buildings": {
+      "nomad_wagon": {
+        "activities": {},
+        "store": {
+          "trinket_supply": {
+            "inventory": {
+              "items": {
+                "0": {
+                  "id": "double_edged_pendant",
+                  "type": "trinket",
+                  "amount": 1
+                },
+                "1": {
+                  "id": "health_stone",
+                  "type": "trinket",
+                  "amount": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "sanitarium": {
+        "activities": {
+          "treatment": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "quirk_treatment": {
+              "0": {
+                "positive_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "negative_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "disease_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                }
+              },
+              "1": {
+                "positive_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "negative_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "disease_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                }
+              },
+              "2": {
+                "positive_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "negative_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "disease_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                }
+              }
+            }
+          },
+          "disease_treatment": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "quirk_treatment": {
+              "0": {
+                "positive_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "negative_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "disease_quirk": {
+                  "quirk_treatment": "the_fits",
+                  "quirk_treatment_action": 2
+                }
+              },
+              "1": {
+                "positive_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "negative_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "disease_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                }
+              },
+              "2": {
+                "positive_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "negative_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                },
+                "disease_quirk": {
+                  "quirk_treatment": "",
+                  "quirk_treatment_action": 0
+                }
+              }
+            }
+          }
+        },
+        "store": {}
+      },
+      "abbey": {
+        "activities": {
+          "meditation": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            }
+          },
+          "prayer": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            }
+          },
+          "flagellation": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": 0,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            }
+          }
+        },
+        "store": {}
+      },
+      "fight": {},
+      "guild": {},
+      "hamlet": {},
+      "camping_trainer": {},
+      "statue": {},
+      "tavern": {
+        "activities": {
+          "bar": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            }
+          },
+          "gambling": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            }
+          },
+          "brothel": {
+            "0": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "1": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            },
+            "2": {
+              "hero": 0,
+              "visitsRemaining": 0,
+              "resident_occupied": -1,
+              "is_side_effect_result": false
+            }
+          }
+        },
+        "store": {}
+      },
+      "rankings": {},
+      "graveyard": {},
+      "stage_coach": {
+        "activities": {},
+        "store": {
+          "hero_recruit": {
+            "generated": {
+              "264": {
+                "rescued": false,
+                "actor": {
+                  "name": "L'ile",
+                  "current_hp": 27,
+                  "stunned": 0,
+                  "combat_ready": false,
+                  "damage_source_data": 0,
+                  "damage_source_type": 0,
+                  "damage_type": 0,
+                  "colour_variation": 2,
+                  "enemy_rank_targets": 0,
+                  "friendly_rank_targets": 0,
+                  "performing_turn": 0,
+                  "controlling_actor_guid": 0,
+                  "controlling_duration": 0,
+                  "current_mode_id": 0,
+                  "rounds_in_ranks": 0,
+                  "check_round_ranks": 0,
+                  "health_damage_blocks": 0,
+                  "buff_group_next_guid": 4,
+                  "buff_group": {},
+                  "actor_dot": {}
+                },
+                "heroClass": "arbalest",
+                "resolveXp": 0,
+                "m_Stress": 0,
+                "is_death_heart_attack_completed": false,
+                "visited_deaths_door": false,
+                "deaths_door_enter_effect_round_cooldown": 0,
+                "has_had_heart_attack": false,
+                "backer_hero": false,
+                "steps_taken": 0,
+                "enemies_killed": 0,
+                "weapon_rank": 0,
+                "armour_rank": 0,
+                "dd_test_survived": 0,
+                "affliction_type_id": "",
+                "affliction_severity": 0,
+                "virtue_type_id": "",
+                "provisions_consumed": 0,
+                "quirks": {
+                  "unerring": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  },
+                  "sensitive_to_light": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  }
+                },
+                "skills": {
+                  "selected_combat_skills": {
+                    "sniper_shot": 0,
+                    "suppressing_fire": 0,
+                    "sniper_mark": 0,
+                    "bola": 0
+                  },
+                  "selected_camping_skills": {
+                    "first_aid": 0,
+                    "marching_plan": 0,
+                    "triage": 0
+                  }
+                },
+                "trinkets": {
+                  "items": {}
+                },
+                "has_item_Tracking": true,
+                "item_tracking": {
+                  "supply": {}
+                },
+                "number_of_successful_darkest_dungeon_quests": 0,
+                "is_from_town_event": false
+              },
+              "265": {
+                "rescued": false,
+                "actor": {
+                  "name": "Bernières",
+                  "current_hp": 27,
+                  "stunned": 0,
+                  "combat_ready": false,
+                  "damage_source_data": 0,
+                  "damage_source_type": 0,
+                  "damage_type": 0,
+                  "colour_variation": 2,
+                  "enemy_rank_targets": 0,
+                  "friendly_rank_targets": 0,
+                  "performing_turn": 0,
+                  "controlling_actor_guid": 0,
+                  "controlling_duration": 0,
+                  "current_mode_id": 0,
+                  "rounds_in_ranks": 0,
+                  "check_round_ranks": 0,
+                  "health_damage_blocks": 0,
+                  "buff_group_next_guid": 1,
+                  "buff_group": {},
+                  "actor_dot": {}
+                },
+                "heroClass": "arbalest",
+                "resolveXp": 0,
+                "m_Stress": 0,
+                "is_death_heart_attack_completed": false,
+                "visited_deaths_door": false,
+                "deaths_door_enter_effect_round_cooldown": 0,
+                "has_had_heart_attack": false,
+                "backer_hero": false,
+                "steps_taken": 0,
+                "enemies_killed": 0,
+                "weapon_rank": 0,
+                "armour_rank": 0,
+                "dd_test_survived": 0,
+                "affliction_type_id": "",
+                "affliction_severity": 0,
+                "virtue_type_id": "",
+                "provisions_consumed": 0,
+                "quirks": {
+                  "irrepressible": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  },
+                  "hagiomania": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  }
+                },
+                "skills": {
+                  "selected_combat_skills": {
+                    "sniper_shot": 0,
+                    "sniper_mark": 0,
+                    "battlefield_bandage": 0,
+                    "flare": 0
+                  },
+                  "selected_camping_skills": {
+                    "encourage": 0,
+                    "marching_plan": 0,
+                    "triage": 0
+                  }
+                },
+                "trinkets": {
+                  "items": {}
+                },
+                "has_item_Tracking": true,
+                "item_tracking": {
+                  "supply": {}
+                },
+                "number_of_successful_darkest_dungeon_quests": 0,
+                "is_from_town_event": false
+              },
+              "266": {
+                "rescued": false,
+                "actor": {
+                  "name": "Libourg",
+                  "current_hp": 26,
+                  "stunned": 0,
+                  "combat_ready": false,
+                  "damage_source_data": 0,
+                  "damage_source_type": 0,
+                  "damage_type": 0,
+                  "colour_variation": 0,
+                  "enemy_rank_targets": 0,
+                  "friendly_rank_targets": 0,
+                  "performing_turn": 0,
+                  "controlling_actor_guid": 0,
+                  "controlling_duration": 0,
+                  "current_mode_id": 0,
+                  "rounds_in_ranks": 0,
+                  "check_round_ranks": 0,
+                  "health_damage_blocks": 0,
+                  "buff_group_next_guid": 2,
+                  "buff_group": {},
+                  "actor_dot": {}
+                },
+                "heroClass": "abomination",
+                "resolveXp": 0,
+                "m_Stress": 0,
+                "is_death_heart_attack_completed": false,
+                "visited_deaths_door": false,
+                "deaths_door_enter_effect_round_cooldown": 0,
+                "has_had_heart_attack": false,
+                "backer_hero": false,
+                "steps_taken": 0,
+                "enemies_killed": 0,
+                "weapon_rank": 0,
+                "armour_rank": 0,
+                "dd_test_survived": 0,
+                "affliction_type_id": "",
+                "affliction_severity": 0,
+                "virtue_type_id": "",
+                "provisions_consumed": 0,
+                "quirks": {
+                  "warren_explorer": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  },
+                  "anemic": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  }
+                },
+                "skills": {
+                  "selected_combat_skills": {
+                    "transform": 0,
+                    "manacles": 0,
+                    "vomit": 0,
+                    "absolution": 0,
+                    "rake": 0,
+                    "rage": 0,
+                    "slam": 0
+                  },
+                  "selected_camping_skills": {
+                    "first_aid": 0,
+                    "anger_management": 0,
+                    "psych_up": 0
+                  }
+                },
+                "trinkets": {
+                  "items": {}
+                },
+                "has_item_Tracking": true,
+                "item_tracking": {
+                  "supply": {}
+                },
+                "number_of_successful_darkest_dungeon_quests": 0,
+                "is_from_town_event": false
+              },
+              "267": {
+                "rescued": false,
+                "actor": {
+                  "name": "Bulli",
+                  "current_hp": 19,
+                  "stunned": 0,
+                  "combat_ready": false,
+                  "damage_source_data": 0,
+                  "damage_source_type": 0,
+                  "damage_type": 0,
+                  "colour_variation": 3,
+                  "enemy_rank_targets": 0,
+                  "friendly_rank_targets": 0,
+                  "performing_turn": 0,
+                  "controlling_actor_guid": 0,
+                  "controlling_duration": 0,
+                  "current_mode_id": 0,
+                  "rounds_in_ranks": 0,
+                  "check_round_ranks": 0,
+                  "health_damage_blocks": 0,
+                  "buff_group_next_guid": 2,
+                  "buff_group": {},
+                  "actor_dot": {}
+                },
+                "heroClass": "jester",
+                "resolveXp": 0,
+                "m_Stress": 0,
+                "is_death_heart_attack_completed": false,
+                "visited_deaths_door": false,
+                "deaths_door_enter_effect_round_cooldown": 0,
+                "has_had_heart_attack": false,
+                "backer_hero": false,
+                "steps_taken": 0,
+                "enemies_killed": 0,
+                "weapon_rank": 0,
+                "armour_rank": 0,
+                "dd_test_survived": 0,
+                "affliction_type_id": "",
+                "affliction_severity": 0,
+                "virtue_type_id": "",
+                "provisions_consumed": 0,
+                "quirks": {
+                  "precision_striker": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  },
+                  "nocturnal": {
+                    "is_new": true,
+                    "is_locked": false,
+                    "mission_count": 0,
+                    "replaces_quirk": 0,
+                    "replaces_quirk_viewed": false,
+                    "evolution_duration_remaining": 0
+                  }
+                },
+                "skills": {
+                  "selected_combat_skills": {
+                    "harvest": 0,
+                    "slice_off": 0,
+                    "battle_ballad": 0,
+                    "inspiring_tune": 0
+                  },
+                  "selected_camping_skills": {
+                    "encourage": 0,
+                    "tigers_eye": 0,
+                    "mockery": 0
+                  }
+                },
+                "trinkets": {
+                  "items": {}
+                },
+                "has_item_Tracking": true,
+                "item_tracking": {
+                  "supply": {}
+                },
+                "number_of_successful_darkest_dungeon_quests": 0,
+                "is_from_town_event": false
+              }
+            },
+            "deck_history_version_0": {
+              "425622714": {
+                "count": 6
+              },
+              "434243921": {
+                "count": 6
+              },
+              "799185657": {
+                "count": 5
+              },
+              "867528600": {
+                "count": 6
+              },
+              "1164693370": {
+                "count": 6
+              },
+              "1181166609": {
+                "count": 5
+              },
+              "1333561066": {
+                "count": 6
+              },
+              "1609830614": {
+                "count": 5
+              },
+              "1994785473": {
+                "count": 6
+              },
+              "2094671029": {
+                "count": 6
+              },
+              "2193440045": {
+                "count": 4
+              },
+              "2916818447": {
+                "count": 8
+              },
+              "3147710195": {
+                "count": 5
+              },
+              "3588906526": {
+                "count": 6
+              },
+              "3708729584": {
+                "count": 6
+              },
+              "4094609168": {
+                "count": 5
+              },
+              "4097579818": {
+                "count": 4
+              }
+            }
+          }
+        }
+      },
+      "circus": {},
+      "prize_booth": {},
+      "dueling_grounds": {},
+      "blacksmith": {},
+      "banner_customization": {}
+    },
+    "districts": {
+      "buildings": {
+        "spire_of_hope": {
+          "built": false,
+          "buffs": {
+            "prestige": {}
+          }
+        },
+        "bank": {
+          "built": false,
+          "buffs": {
+            "estate": {}
+          }
+        },
+        "illuminators_guild": {
+          "built": false,
+          "buffs": {
+            "darkness": {}
+          }
+        },
+        "granary": {
+          "built": false,
+          "buffs": {
+            "hero_buff0": {},
+            "provision": {
+              "count": 0
+            }
+          }
+        },
+        "buskers_corner": {
+          "built": false,
+          "buffs": {
+            "town_visit_stress_relief": {}
+          }
+        },
+        "house_of_the_yellow_hand": {
+          "built": false,
+          "buffs": {
+            "hero_buff0": {}
+          }
+        },
+        "altar_of_light": {
+          "built": false,
+          "buffs": {
+            "hero_buff0": {}
+          }
+        },
+        "training_ring": {
+          "built": false,
+          "buffs": {
+            "hero_buff0": {}
+          }
+        },
+        "library": {
+          "built": false,
+          "buffs": {
+            "hero_buff0": {},
+            "curio_buff0": {}
+          }
+        },
+        "theater": {
+          "built": false,
+          "buffs": {
+            "hero_buff0": {}
+          }
+        },
+        "outsiders_bonfire": {
+          "built": false,
+          "buffs": {
+            "camp_buff0": {}
+          }
+        }
+      }
+    }
+  }
+}
