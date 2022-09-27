@@ -53,61 +53,42 @@ func InferParentIndex(meta2Entries []Entry) []Entry {
 	//    |     \--> 4
 	//    \--> 5
 
-	meta2EntriesCopy := ds.ShallowCopy(meta2Entries)
-	for index, entry := range meta2EntriesCopy {
-		isObject := entry.Inferences.IsObject
-		numAllChildren := entry.Inferences.NumAllChildren
-		if isObject && numAllChildren > 0 {
-			start := index + 1
-			end := start + numAllChildren
-			copy(
-				meta2EntriesCopy[start:end],
-				lo.Map(
-					meta2EntriesCopy[start:end],
-					func(childEntry Entry, _ int) Entry {
-						childEntry.Inferences.ParentIndex = index
-						return childEntry
-					},
-				),
-			)
-		}
-	}
+	// TODO: simplify the work by using NumAllChildren
+	meta2Entries = ds.BuildTree[Entry](
+		// init
+		Entry{
+			Inferences: Inferences{
+				Index:             -1,
+				IsObject:          true,
+				Meta1EntryIndex:   -1,
+				NumDirectChildren: 1,
+				RawDataLength:     0,
+			},
+		},
+		// ts
+		meta2Entries,
+		// popPredicate
+		func(entry Entry) bool {
+			return entry.Inferences.NumDirectChildren <= 0
+		},
+		// pushPredicate
+		func(entry Entry) bool {
+			return entry.Inferences.IsObject &&
+				entry.Inferences.NumDirectChildren != 0
+		},
+		// replaceFunc
+		func(entry Entry) Entry {
+			entry.Inferences.NumDirectChildren -= 1
+			return entry
+		},
+		// mappingFunc
+		func(lastEntry Entry, currentEntry Entry) Entry {
+			currentEntry.Inferences.ParentIndex = lastEntry.Inferences.Index
+			return currentEntry
+		},
+	)
 
-	// meta2Entries = ds.BuildTree[Entry](
-	// 	// init
-	// 	Entry{
-	// 		Inferences: Inferences{
-	// 			Index:             -1,
-	// 			IsObject:          true,
-	// 			Meta1EntryIndex:   -1,
-	// 			NumDirectChildren: 1,
-	// 			RawDataLength:     0,
-	// 		},
-	// 	},
-	// 	// ts
-	// 	meta2Entries,
-	// 	// popPredicate
-	// 	func(entry Entry) bool {
-	// 		return entry.Inferences.NumDirectChildren <= 0
-	// 	},
-	// 	// pushPredicate
-	// 	func(entry Entry) bool {
-	// 		return entry.Inferences.IsObject &&
-	// 			entry.Inferences.NumDirectChildren != 0
-	// 	},
-	// 	// replaceFunc
-	// 	func(entry Entry) Entry {
-	// 		entry.Inferences.NumDirectChildren -= 1
-	// 		return entry
-	// 	},
-	// 	// mappingFunc
-	// 	func(lastEntry Entry, currentEntry Entry) Entry {
-	// 		currentEntry.Inferences.ParentIndex = lastEntry.Inferences.Index
-	// 		return currentEntry
-	// 	},
-	// )
-
-	return meta2EntriesCopy
+	return meta2Entries
 }
 
 func InferNumDirectChildren(meta1Entries []dmeta1.Entry, meta2Entries []Entry) ([]Entry, error) {
