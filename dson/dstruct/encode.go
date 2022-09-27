@@ -1,15 +1,15 @@
 package dstruct
 
 import (
-	"darkest-savior/ds"
-	"darkest-savior/dson/dfield"
-	"darkest-savior/dson/dhash"
-	"darkest-savior/dson/dheader"
-	"darkest-savior/dson/dmeta1"
-	"darkest-savior/dson/dmeta2"
-	"darkest-savior/dson/lbytes"
 	"github.com/iancoleman/orderedmap"
 	"github.com/samber/lo"
+	"github.com/thanhnguyen2187/darkest-savior/ds"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dfield"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dhash"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dheader"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta1"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta2"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func FromLinkedHashMap(lhm orderedmap.OrderedMap) (*Struct, error) {

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"darkest-savior/ds"
 	"github.com/iancoleman/orderedmap"
 	"github.com/stretchr/testify/require"
+	"github.com/thanhnguyen2187/darkest-savior/ds"
 )
 
 func TestCalculateNumChildren(t *testing.T) {

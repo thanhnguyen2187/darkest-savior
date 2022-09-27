@@ -3,11 +3,11 @@ package dfield
 import (
 	"fmt"
 
-	"darkest-savior/dson/dhash"
-	"darkest-savior/dson/dmeta2"
-	"darkest-savior/dson/lbytes"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dhash"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta2"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func DecodeField(reader *lbytes.Reader, meta2Entry dmeta2.Entry) (*DataField, error) {

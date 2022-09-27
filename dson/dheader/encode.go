@@ -1,7 +1,7 @@
 package dheader
 
 import (
-	"darkest-savior/dson/lbytes"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func Encode(header Header) []byte {

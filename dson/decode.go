@@ -3,7 +3,7 @@ package dson
 import (
 	"encoding/json"
 
-	"darkest-savior/dson/dstruct"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dstruct"
 )
 
 func DecodeDSON(bytes []byte, debug bool) ([]byte, error) {

@@ -3,12 +3,12 @@ package dmeta2
 import (
 	"testing"
 
-	"darkest-savior/dson/dmeta1"
 	"github.com/samber/lo"
 	"github.com/stretchr/testify/assert"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta1"
 )
 
-func createBlockObject(index int, numDirectChildren int) Entry {
+func createEntryObject(index int, numDirectChildren int) Entry {
 	return Entry{
 		Inferences: Inferences{
 			Index:             index,
@@ -18,7 +18,7 @@ func createBlockObject(index int, numDirectChildren int) Entry {
 	}
 }
 
-func createBlockPrimitive(index int) Entry {
+func createEntryPrimitive(index int) Entry {
 	return Entry{
 		Inferences: Inferences{
 			Index:    index,
@@ -29,13 +29,13 @@ func createBlockPrimitive(index int) Entry {
 
 func TestInferParentIndex(t *testing.T) {
 	meta2Blocks := []Entry{
-		createBlockObject(0, 3),
-		createBlockPrimitive(1),
-		createBlockObject(2, 2),
-		createBlockPrimitive(3),
-		createBlockObject(4, 0),
-		// createBlockPrimitive(4),
-		createBlockPrimitive(5),
+		createEntryObject(0, 3),
+		createEntryPrimitive(1),
+		createEntryObject(2, 2),
+		createEntryPrimitive(3),
+		createEntryObject(4, 0),
+		// createEntryPrimitive(4),
+		createEntryPrimitive(5),
 	}
 	meta2Blocks = InferParentIndex(meta2Blocks)
 	parentIndexes := lo.Map(

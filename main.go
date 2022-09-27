@@ -1,7 +1,7 @@
 package main
 
 import (
-	"darkest-savior/cli"
+	"github.com/thanhnguyen2187/darkest-savior/cli"
 )
 
 func main() {

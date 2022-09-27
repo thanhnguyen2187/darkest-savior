@@ -2,7 +2,7 @@
 package dson
 
 import (
-	"darkest-savior/dson/dheader"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dheader"
 )
 
 func IsDSONFile(bs []byte) bool {

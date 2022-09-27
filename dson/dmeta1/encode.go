@@ -1,7 +1,7 @@
 package dmeta1
 
 import (
-	"darkest-savior/dson/lbytes"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func EncodeEntry(entry Entry) []byte {

@@ -7,10 +7,10 @@ import (
 	"log"
 	"os"
 
-	"darkest-savior/match"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
+	"github.com/thanhnguyen2187/darkest-savior/match"
 )
 
 const (

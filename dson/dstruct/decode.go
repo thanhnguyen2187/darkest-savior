@@ -1,12 +1,12 @@
 package dstruct
 
 import (
-	"darkest-savior/dson/dfield"
-	"darkest-savior/dson/dheader"
-	"darkest-savior/dson/dmeta1"
-	"darkest-savior/dson/dmeta2"
-	"darkest-savior/dson/lbytes"
 	"github.com/iancoleman/orderedmap"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dfield"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dheader"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta1"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta2"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func ToLinkedHashMap(file Struct) *orderedmap.OrderedMap {

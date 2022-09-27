@@ -1,8 +1,8 @@
 package dmeta1
 
 import (
-	"darkest-savior/dson/lbytes"
 	"github.com/pkg/errors"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func DecodeEntry(reader *lbytes.Reader) (*Entry, error) {

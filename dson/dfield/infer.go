@@ -6,14 +6,14 @@ import (
 	"fmt"
 	"math"
 
-	"darkest-savior/ds"
-	"darkest-savior/dson/dhash"
-	"darkest-savior/dson/dheader"
-	"darkest-savior/dson/dmeta2"
-	"darkest-savior/match"
 	"github.com/hashicorp/go-multierror"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
+	"github.com/thanhnguyen2187/darkest-savior/ds"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dhash"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dheader"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta2"
+	"github.com/thanhnguyen2187/darkest-savior/match"
 )
 
 func InferUsingMeta2Entry(rawData []byte, meta2Entry dmeta2.Entry) Inferences {

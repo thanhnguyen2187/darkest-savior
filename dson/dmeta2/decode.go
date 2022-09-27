@@ -1,10 +1,10 @@
 package dmeta2
 
 import (
-	"darkest-savior/dson/dheader"
-	"darkest-savior/dson/dmeta1"
-	"darkest-savior/dson/lbytes"
 	"github.com/pkg/errors"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dheader"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta1"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func DecodeEntry(reader *lbytes.Reader) (*Entry, error) {

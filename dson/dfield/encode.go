@@ -6,8 +6,8 @@ import (
 	"math"
 	"strings"
 
-	"darkest-savior/dson/dhash"
 	"github.com/samber/lo"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dhash"
 )
 
 func EncodeValueBool(value any) []byte {

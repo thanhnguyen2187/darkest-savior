@@ -5,14 +5,14 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"darkest-savior/dson/dfield"
-	"darkest-savior/dson/dmeta1"
-	"darkest-savior/dson/dmeta2"
-	"darkest-savior/dson/dstruct"
 	"github.com/iancoleman/orderedmap"
 	"github.com/samber/lo"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dfield"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta1"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dmeta2"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dstruct"
 )
 
 type EndToEndTestSuite2 struct {

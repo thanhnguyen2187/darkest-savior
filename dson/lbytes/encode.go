@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"strings"
 
-	"darkest-savior/dson/dhash"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dhash"
 )
 
 func EncodeValueInt(value any) []byte {

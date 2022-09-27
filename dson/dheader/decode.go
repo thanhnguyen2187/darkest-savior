@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"darkest-savior/dson/lbytes"
 	"github.com/pkg/errors"
+	"github.com/thanhnguyen2187/darkest-savior/dson/lbytes"
 )
 
 func IsValidMagicNumber(bs []byte) bool {

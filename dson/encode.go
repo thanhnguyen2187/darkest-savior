@@ -3,8 +3,8 @@ package dson
 import (
 	"encoding/json"
 
-	"darkest-savior/dson/dstruct"
 	"github.com/iancoleman/orderedmap"
+	"github.com/thanhnguyen2187/darkest-savior/dson/dstruct"
 )
 
 func EncodeJSON(fileBytes []byte) ([]byte, error) {
